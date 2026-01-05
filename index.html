@@ -233,8 +233,11 @@ button:hover {
 <header id="pageHeader">
   <img src="https://kfclistenscx.qualtrics.com/CP/Graphic.php?IM=IM_dbC1Qsmkf9X2Bmu" alt="KFC Logo">
   <h1>Generator link feedback KFC</h1>
-  <div class="nickname" id="nickname">AlexBv</div>
-  <button id="logoutBtn" style="display:none; margin-left:auto; font-size:20px; background:none; border:none; cursor:pointer;">🚪</button>
+  <div class="nickname" id="nickname">Не авторизован</div>
+  <!-- Кнопка входа -->
+  <button id="loginBtn" style="margin-left:10px;">Войти через Google</button>
+  <!-- Кнопка выхода -->
+  <button id="logoutBtn" style="display:none; margin-left:10px; font-size:20px; background:none; border:none; cursor:pointer;">🚪</button>
 </header>
 
 	
@@ -478,7 +481,7 @@ function openCroxy(link, event) {
 </script>
 </body>
 
-<script type="module">
+	<script type="module">
   // 🔹 Firebase core
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
 
@@ -529,59 +532,65 @@ function openCroxy(link, event) {
     await signOut(auth);
   };
 
-  // 🧠 Auth + Firestore logic
-  onAuthStateChanged(auth, async (user) => {
-    const protectedContent = document.getElementById("protected-content");
-    const nicknameDiv = document.getElementById("nickname");
-    const logoutBtn = document.getElementById("logoutBtn");
+  // 🔹 Элементы кнопок
+  const loginBtn = document.getElementById("loginBtn");
+  const logoutBtn = document.getElementById("logoutBtn");
+  const nicknameDiv = document.getElementById("nickname");
+  const protectedContent = document.getElementById("protected-content");
 
-    // ❌ Не авторизован
+  // Вход по кнопке
+  loginBtn.onclick = () => loginWithGoogle();
+
+  // 🧠 Обработка авторизации
+  onAuthStateChanged(auth, async (user) => {
+
     if (!user) {
+      // ❌ Не авторизован
       nicknameDiv.innerText = "Не авторизован";
       protectedContent.style.display = "none";
       logoutBtn.style.display = "none";
+      loginBtn.style.display = "inline-block"; // показываем кнопку входа
       return;
     }
 
     const userRef = doc(db, "users", user.uid);
     const snap = await getDoc(userRef);
 
-    // 🆕 Новый пользователь
     if (!snap.exists()) {
+      // 🆕 Новый пользователь
       await setDoc(userRef, {
         name: user.displayName,
         email: user.email,
         blocked: false,
         createdAt: new Date()
       });
-    } 
-    // 🚫 Проверка блокировки
-    else if (snap.data().blocked === true) {
+    } else if (snap.data().blocked === true) {
+      // 🚫 Блокировка
       alert("Доступ запрещён");
       await signOut(auth);
       protectedContent.style.display = "none";
       logoutBtn.style.display = "none";
+      loginBtn.style.display = "inline-block";
       return;
     }
 
     // ✅ Пользователь авторизован
     nicknameDiv.innerText = `Привет, ${user.displayName}`;
     protectedContent.style.display = "block";
-    logoutBtn.style.display = "block";
-
-    // 🔹 Logout через кнопку 🚪
-    logoutBtn.onclick = async () => {
-      await signOut(auth);
-      protectedContent.style.display = "none";
-      nicknameDiv.innerText = "Не авторизован";
-      logoutBtn.style.display = "none";
-    };
+    loginBtn.style.display = "none";       // скрываем кнопку входа
+    logoutBtn.style.display = "inline-block"; // показываем кнопку выхода
   });
+
+  // 🔹 Logout кнопка 🚪
+  logoutBtn.onclick = async () => {
+    await signOut(auth);
+  };
 </script>
 	
 </div>
 	
 </html>
+
 
 
 
