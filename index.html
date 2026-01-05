@@ -210,17 +210,7 @@ button:hover {
 <body>
 
 
-	
 
-	<button onclick="loginWithGoogle()">
-  Войти через Google
-</button>
-
-<button onclick="logout()">
-  Выйти
-</button>
-
-<p id="user">Не авторизован</p>
 
 
 
@@ -230,10 +220,20 @@ button:hover {
   <img src="https://kfclistenscx.qualtrics.com/CP/Graphic.php?IM=IM_dbC1Qsmkf9X2Bmu" alt="KFC Logo">
   <h1>Generator link feedback KFC</h1>
   <div class="nickname">AlexBv</div>
-	
 </header>
 
+	
+	<button onclick="loginWithGoogle()">Войти через Google</button>
+<button onclick="logout()">Выйти</button>
 
+<p id="user">Не авторизован</p>
+
+	
+
+<!-- 🔐 Защищённый контент -->
+<div id="protected-content" style="display:none;">
+
+	
 <main>
   <h2>Generează linkuri pentru feedback</h2>
 
@@ -483,33 +483,37 @@ function openCroxy(link, event) {
   const auth = getAuth(app);
   const provider = new GoogleAuthProvider();
 
-  // Вход через Google
   window.loginWithGoogle = async () => {
     try {
-      const result = await signInWithPopup(auth, provider);
-      console.log("Вошёл:", result.user);
+      await signInWithPopup(auth, provider);
     } catch (error) {
-      console.error("Ошибка входа:", error);
+      console.error(error);
     }
   };
 
-  // Выход
   window.logout = async () => {
     await signOut(auth);
   };
 
-  // Отслеживание статуса входа
+  // 🔐 ЗАЩИТА КОНТЕНТА
   onAuthStateChanged(auth, (user) => {
+    const protectedContent = document.getElementById("protected-content");
+    const userText = document.getElementById("user");
+
     if (user) {
-      document.getElementById("user").innerText =
-        `Привет, ${user.displayName}`;
+      userText.innerText = `Привет, ${user.displayName}`;
+      protectedContent.style.display = "block";
     } else {
-      document.getElementById("user").innerText = "Не авторизован";
+      userText.innerText = "Не авторизован";
+      protectedContent.style.display = "none";
     }
   });
 </script>
 	
+</div>
+	
 </html>
+
 
 
 
