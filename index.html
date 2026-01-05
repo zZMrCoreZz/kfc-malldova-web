@@ -5,6 +5,7 @@
   <title>KFC feedback</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="https://kfclistenscx.qualtrics.com/CP/Graphic.php?IM=IM_dbC1Qsmkf9X2Bmu">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
   <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 
@@ -208,16 +209,18 @@ button:hover {
 /* 🔹 Стили для кнопок-иконок вход/выход */
 #loginBtn,
 #logoutBtn {
-  all: unset; /* сброс всех стандартных стилей кнопки */
+  font-family: 'Material Symbols Outlined';
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 28;
   cursor: pointer;
+  color: var(--kfc-dark);
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin-left: 10px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Material Symbols Outlined';
-  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 28;
-  color: var(--kfc-dark);
   transition: color 0.2s;
-  margin-left: 10px; /* при необходимости */
 }
 
 #loginBtn:hover,
@@ -249,9 +252,7 @@ button:hover {
 
   <!-- Кнопка входа через Google (иконка) -->
   <button id="loginBtn" class="material-symbols-outlined">login</button>
-
-  <!-- Кнопка выхода (иконка) -->
-  <button id="logoutBtn" class="material-symbols-outlined" style="display:none;">logout</button>
+<button id="logoutBtn" class="material-symbols-outlined" style="display:none;">logout</button>
 </header>
 
 	
@@ -573,6 +574,7 @@ function openCroxy(link, event) {
 </div>
 	
 </html>
+
 
 
 
