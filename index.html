@@ -466,10 +466,27 @@ function openCroxy(link, event) {
 </body>
 
 <script type="module">
+  // 🔹 Firebase core
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
-  import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } 
-    from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
 
+  // 🔹 Firebase Auth
+  import { 
+    getAuth, 
+    signInWithPopup, 
+    GoogleAuthProvider, 
+    signOut, 
+    onAuthStateChanged 
+  } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
+
+  // 🔹 Firestore
+  import { 
+    getFirestore, 
+    doc, 
+    setDoc, 
+    getDoc 
+  } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
+
+  // 🔹 Config
   const firebaseConfig = {
     apiKey: "AIzaSyDMO3a9eUai1bjx7K7dHsBP9FWST7uPFwI",
     authDomain: "kfc-malldova-link.firebaseapp.com",
@@ -479,40 +496,68 @@ function openCroxy(link, event) {
     appId: "1:674846762418:web:a0199fed7c41af71fd30ab"
   };
 
+  // 🔹 Init
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
+  const db = getFirestore(app);
   const provider = new GoogleAuthProvider();
 
+  // 🔐 Login
   window.loginWithGoogle = async () => {
     try {
       await signInWithPopup(auth, provider);
     } catch (error) {
-      console.error(error);
+      console.error("Login error:", error);
     }
   };
 
+  // 🚪 Logout
   window.logout = async () => {
     await signOut(auth);
   };
 
-  // 🔐 ЗАЩИТА КОНТЕНТА
-  onAuthStateChanged(auth, (user) => {
+  // 🧠 Auth + Firestore logic
+  onAuthStateChanged(auth, async (user) => {
     const protectedContent = document.getElementById("protected-content");
     const userText = document.getElementById("user");
 
-    if (user) {
-      userText.innerText = `Привет, ${user.displayName}`;
-      protectedContent.style.display = "block";
-    } else {
+    // ❌ Не авторизован
+    if (!user) {
       userText.innerText = "Не авторизован";
       protectedContent.style.display = "none";
+      return;
     }
+
+    const userRef = doc(db, "users", user.uid);
+    const snap = await getDoc(userRef);
+
+    // 🆕 Новый пользователь
+    if (!snap.exists()) {
+      await setDoc(userRef, {
+        name: user.displayName,
+        email: user.email,
+        blocked: false,
+        createdAt: new Date()
+      });
+    } 
+    // 🚫 Проверка блокировки
+    else if (snap.data().blocked === true) {
+      alert("Доступ запрещён");
+      await signOut(auth);
+      protectedContent.style.display = "none";
+      return;
+    }
+
+    // ✅ Доступ разрешён
+    userText.innerText = `Привет, ${user.displayName}`;
+    protectedContent.style.display = "block";
   });
 </script>
 	
 </div>
 	
 </html>
+
 
 
 
