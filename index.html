@@ -212,14 +212,30 @@ button:hover {
     'GRAD' 0,
     'opsz' 28;
   cursor: pointer;
+
+  /* Полностью убираем фон и рамку */
   border: none;
-  background: none;
+  background: transparent;
   color: var(--kfc-dark);
+
+  /* Убираем стандартные обводки при фокусе/клике */
+  outline: none;
+  box-shadow: none;
+
+  /* Плавный переход цвета */
   transition: color 0.2s;
 }
 
 .material-symbols-outlined:hover {
   color: var(--kfc-red);
+}
+
+/* Для состояния при нажатии/фокусе */
+.material-symbols-outlined:active,
+.material-symbols-outlined:focus {
+  background: transparent;
+  outline: none;
+  box-shadow: none;
 }
 
   </style>
@@ -582,6 +598,7 @@ function openCroxy(link, event) {
 </div>
 	
 </html>
+
 
 
 
