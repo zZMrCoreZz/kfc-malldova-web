@@ -205,6 +205,20 @@ button:hover {
   color: var(--kfc-red);
 }
 
+#logoutBtn {
+  margin-left: auto;
+  font-size: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--kfc-dark);
+  transition: color 0.2s;
+}
+
+#logoutBtn:hover {
+  color: var(--kfc-red);
+}
+
   </style>
 </head>
 <body>
@@ -219,12 +233,11 @@ button:hover {
 <header id="pageHeader">
   <img src="https://kfclistenscx.qualtrics.com/CP/Graphic.php?IM=IM_dbC1Qsmkf9X2Bmu" alt="KFC Logo">
   <h1>Generator link feedback KFC</h1>
-  <div class="nickname">AlexBv</div>
+  <div class="nickname" id="nickname">AlexBv</div>
+  <button id="logoutBtn" style="display:none; margin-left:auto; font-size:20px; background:none; border:none; cursor:pointer;">🚪</button>
 </header>
 
 	
-	<button onclick="loginWithGoogle()">Войти через Google</button>
-<button onclick="logout()">Выйти</button>
 
 <p id="user">Не авторизован</p>
 
@@ -519,12 +532,14 @@ function openCroxy(link, event) {
   // 🧠 Auth + Firestore logic
   onAuthStateChanged(auth, async (user) => {
     const protectedContent = document.getElementById("protected-content");
-    const userText = document.getElementById("user");
+    const nicknameDiv = document.getElementById("nickname");
+    const logoutBtn = document.getElementById("logoutBtn");
 
     // ❌ Не авторизован
     if (!user) {
-      userText.innerText = "Не авторизован";
+      nicknameDiv.innerText = "Не авторизован";
       protectedContent.style.display = "none";
+      logoutBtn.style.display = "none";
       return;
     }
 
@@ -545,18 +560,29 @@ function openCroxy(link, event) {
       alert("Доступ запрещён");
       await signOut(auth);
       protectedContent.style.display = "none";
+      logoutBtn.style.display = "none";
       return;
     }
 
-    // ✅ Доступ разрешён
-    userText.innerText = `Привет, ${user.displayName}`;
+    // ✅ Пользователь авторизован
+    nicknameDiv.innerText = `Привет, ${user.displayName}`;
     protectedContent.style.display = "block";
+    logoutBtn.style.display = "block";
+
+    // 🔹 Logout через кнопку 🚪
+    logoutBtn.onclick = async () => {
+      await signOut(auth);
+      protectedContent.style.display = "none";
+      nicknameDiv.innerText = "Не авторизован";
+      logoutBtn.style.display = "none";
+    };
   });
 </script>
 	
 </div>
 	
 </html>
+
 
 
 
