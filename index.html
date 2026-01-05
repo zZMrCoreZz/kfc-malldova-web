@@ -205,60 +205,35 @@ button:hover {
   color: var(--kfc-red);
 }
 
-.material-symbols-outlined {
-  font-variation-settings:
-    'FILL' 0,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 28;
+/* 🔹 Стили для кнопок-иконок вход/выход */
+#loginBtn,
+#logoutBtn {
+  all: unset; /* сброс всех стандартных стилей кнопки */
   cursor: pointer;
-
-  /* Полностью убираем фон и рамку */
-  border: none;
-  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Material Symbols Outlined';
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 28;
   color: var(--kfc-dark);
-
-  /* Убираем стандартные обводки при фокусе/клике */
-  outline: none;
-  box-shadow: none;
-
-  /* Плавный переход цвета */
   transition: color 0.2s;
+  margin-left: 10px; /* при необходимости */
 }
 
-.material-symbols-outlined:hover {
+#loginBtn:hover,
+#logoutBtn:hover {
   color: var(--kfc-red);
 }
 
-/* Для состояния при нажатии/фокусе */
-.material-symbols-outlined:active,
-.material-symbols-outlined:focus {
+#loginBtn:active,
+#logoutBtn:active,
+#loginBtn:focus,
+#logoutBtn:focus {
   background: transparent;
   outline: none;
   box-shadow: none;
 }
-
-  </style>
-
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
-<style>
-.material-symbols-outlined {
-  font-variation-settings:
-    'FILL' 0,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 28;
-  cursor: pointer;
-  border: none;
-  background: none;
-  color: var(--kfc-dark);
-  margin-left: 10px;
-  transition: color 0.2s;
-}
-
-.material-symbols-outlined:hover {
-  color: var(--kfc-red);
-}
+	  
 </style>
 	
 </head>
@@ -598,6 +573,7 @@ function openCroxy(link, event) {
 </div>
 	
 </html>
+
 
 
 
