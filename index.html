@@ -209,10 +209,21 @@ button:hover {
 </head>
 <body>
 
+	<div id="login">
+  <button onclick="loginGoogle()">Login with Google</button>
+</div>
+
+<div id="content" style="display:none;">
+  <!-- ВЕСЬ ТВОЙ САЙТ -->
+</div>
+
+<!-- 🔥 Firebase код — ОДИН -->
+
 <header id="pageHeader">
   <img src="https://kfclistenscx.qualtrics.com/CP/Graphic.php?IM=IM_dbC1Qsmkf9X2Bmu" alt="KFC Logo">
   <h1>Generator link feedback KFC</h1>
   <div class="nickname">AlexBv</div>
+	
 </header>
 
 
@@ -446,30 +457,46 @@ function openCroxy(link, event) {
 
 </script>
 </body>
-	<script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+	<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+  import {
+    getAuth,
+    onAuthStateChanged,
+    signInWithPopup,
+    GoogleAuthProvider
+  } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+
   const firebaseConfig = {
     apiKey: "AIzaSyDMO3a9eUai1bjx7K7dHsBP9FWST7uPFwI",
     authDomain: "kfc-malldova-link.firebaseapp.com",
     projectId: "kfc-malldova-link",
-    storageBucket: "kfc-malldova-link.firebasestorage.app",
-    messagingSenderId: "674846762418",
-    appId: "1:674846762418:web:a0199fed7c41af71fd30ab",
-    measurementId: "G-WXGSWXZ0E5"
+    appId: "1:674846762418:web:a0199fed7c41af71fd30ab"
   };
 
-  // Initialize Firebase
   const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
+
+  window.loginGoogle = function () {
+    signInWithPopup(auth, provider)
+      .catch(err => alert(err.message));
+  };
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      document.getElementById("login").style.display = "none";
+      document.getElementById("content").style.display = "block";
+      console.log("Logged in:", user.email);
+    } else {
+      document.getElementById("login").style.display = "block";
+      document.getElementById("content").style.display = "none";
+    }
+  });
 </script>
+	
 </html>
+
 
 
 
