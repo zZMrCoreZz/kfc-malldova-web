@@ -220,25 +220,48 @@ button:hover {
 }
 
   </style>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+<style>
+.material-symbols-outlined {
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 28;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: var(--kfc-dark);
+  margin-left: 10px;
+  transition: color 0.2s;
+}
+
+.material-symbols-outlined:hover {
+  color: var(--kfc-red);
+}
+</style>
+	
 </head>
 <body>
 
 
 
 
-
-
-	
-
 <header id="pageHeader">
   <img src="https://kfclistenscx.qualtrics.com/CP/Graphic.php?IM=IM_dbC1Qsmkf9X2Bmu" alt="KFC Logo">
   <h1>Generator link feedback KFC</h1>
   <div class="nickname" id="nickname">Не авторизован</div>
-  <!-- Кнопка входа -->
-  <button id="loginBtn" style="margin-left:10px;">Войти через Google</button>
-  <!-- Кнопка выхода -->
-  <button id="logoutBtn" style="display:none; margin-left:10px; font-size:20px; background:none; border:none; cursor:pointer;">🚪</button>
+
+  <!-- Кнопка входа через Google (иконка) -->
+  <button id="loginBtn" class="material-symbols-outlined">login</button>
+
+  <!-- Кнопка выхода (иконка) -->
+  <button id="logoutBtn" class="material-symbols-outlined" style="display:none;">logout</button>
 </header>
+
+	
+
 
 	
 
@@ -481,28 +504,11 @@ function openCroxy(link, event) {
 </script>
 </body>
 
-	<script type="module">
-  // 🔹 Firebase core
+<script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
+  import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
+  import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
 
-  // 🔹 Firebase Auth
-  import { 
-    getAuth, 
-    signInWithPopup, 
-    GoogleAuthProvider, 
-    signOut, 
-    onAuthStateChanged 
-  } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
-
-  // 🔹 Firestore
-  import { 
-    getFirestore, 
-    doc, 
-    setDoc, 
-    getDoc 
-  } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
-
-  // 🔹 Config
   const firebaseConfig = {
     apiKey: "AIzaSyDMO3a9eUai1bjx7K7dHsBP9FWST7uPFwI",
     authDomain: "kfc-malldova-link.firebaseapp.com",
@@ -512,44 +518,31 @@ function openCroxy(link, event) {
     appId: "1:674846762418:web:a0199fed7c41af71fd30ab"
   };
 
-  // 🔹 Init
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const db = getFirestore(app);
   const provider = new GoogleAuthProvider();
 
-  // 🔐 Login
   window.loginWithGoogle = async () => {
-    try {
-      await signInWithPopup(auth, provider);
-    } catch (error) {
-      console.error("Login error:", error);
-    }
+    try { await signInWithPopup(auth, provider); }
+    catch (error) { console.error("Login error:", error); }
   };
 
-  // 🚪 Logout
-  window.logout = async () => {
-    await signOut(auth);
-  };
-
-  // 🔹 Элементы кнопок
   const loginBtn = document.getElementById("loginBtn");
   const logoutBtn = document.getElementById("logoutBtn");
   const nicknameDiv = document.getElementById("nickname");
   const protectedContent = document.getElementById("protected-content");
 
-  // Вход по кнопке
+  // Кнопка входа
   loginBtn.onclick = () => loginWithGoogle();
 
-  // 🧠 Обработка авторизации
+  // Отслеживаем состояние авторизации
   onAuthStateChanged(auth, async (user) => {
-
     if (!user) {
-      // ❌ Не авторизован
       nicknameDiv.innerText = "Не авторизован";
       protectedContent.style.display = "none";
       logoutBtn.style.display = "none";
-      loginBtn.style.display = "inline-block"; // показываем кнопку входа
+      loginBtn.style.display = "inline-block"; // показываем вход
       return;
     }
 
@@ -557,15 +550,8 @@ function openCroxy(link, event) {
     const snap = await getDoc(userRef);
 
     if (!snap.exists()) {
-      // 🆕 Новый пользователь
-      await setDoc(userRef, {
-        name: user.displayName,
-        email: user.email,
-        blocked: false,
-        createdAt: new Date()
-      });
+      await setDoc(userRef, { name: user.displayName, email: user.email, blocked: false, createdAt: new Date() });
     } else if (snap.data().blocked === true) {
-      // 🚫 Блокировка
       alert("Доступ запрещён");
       await signOut(auth);
       protectedContent.style.display = "none";
@@ -574,22 +560,26 @@ function openCroxy(link, event) {
       return;
     }
 
-    // ✅ Пользователь авторизован
     nicknameDiv.innerText = `Привет, ${user.displayName}`;
     protectedContent.style.display = "block";
-    loginBtn.style.display = "none";       // скрываем кнопку входа
-    logoutBtn.style.display = "inline-block"; // показываем кнопку выхода
+    loginBtn.style.display = "none";        // скрываем вход
+    logoutBtn.style.display = "inline-block"; // показываем выход
   });
 
-  // 🔹 Logout кнопка 🚪
+  // Кнопка выхода
   logoutBtn.onclick = async () => {
     await signOut(auth);
+    nicknameDiv.innerText = "Не авторизован";
+    protectedContent.style.display = "none";
+    logoutBtn.style.display = "none";
+    loginBtn.style.display = "inline-block"; // показываем вход
   };
 </script>
 	
 </div>
 	
 </html>
+
 
 
 
