@@ -209,15 +209,22 @@ button:hover {
 </head>
 <body>
 
-	<div id="login">
-  <button onclick="loginGoogle()">Login with Google</button>
-</div>
 
-<div id="content" style="display:none;">
-  <!-- ВЕСЬ ТВОЙ САЙТ -->
-</div>
+	
 
-<!-- 🔥 Firebase код — ОДИН -->
+	<button onclick="loginWithGoogle()">
+  Войти через Google
+</button>
+
+<button onclick="logout()">
+  Выйти
+</button>
+
+<p id="user">Не авторизован</p>
+
+
+
+	
 
 <header id="pageHeader">
   <img src="https://kfclistenscx.qualtrics.com/CP/Graphic.php?IM=IM_dbC1Qsmkf9X2Bmu" alt="KFC Logo">
@@ -458,19 +465,17 @@ function openCroxy(link, event) {
 </script>
 </body>
 
-	<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-  import {
-    getAuth,
-    onAuthStateChanged,
-    signInWithPopup,
-    GoogleAuthProvider
-  } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
+  import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } 
+    from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyDMO3a9eUai1bjx7K7dHsBP9FWST7uPFwI",
     authDomain: "kfc-malldova-link.firebaseapp.com",
     projectId: "kfc-malldova-link",
+    storageBucket: "kfc-malldova-link.firebasestorage.app",
+    messagingSenderId: "674846762418",
     appId: "1:674846762418:web:a0199fed7c41af71fd30ab"
   };
 
@@ -478,33 +483,34 @@ function openCroxy(link, event) {
   const auth = getAuth(app);
   const provider = new GoogleAuthProvider();
 
-  window.loginGoogle = function () {
-    signInWithPopup(auth, provider)
-      .catch(err => alert(err.message));
+  // Вход через Google
+  window.loginWithGoogle = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      console.log("Вошёл:", result.user);
+    } catch (error) {
+      console.error("Ошибка входа:", error);
+    }
   };
 
+  // Выход
+  window.logout = async () => {
+    await signOut(auth);
+  };
+
+  // Отслеживание статуса входа
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      document.getElementById("login").style.display = "none";
-      document.getElementById("content").style.display = "block";
-      console.log("Logged in:", user.email);
+      document.getElementById("user").innerText =
+        `Привет, ${user.displayName}`;
     } else {
-      document.getElementById("login").style.display = "block";
-      document.getElementById("content").style.display = "none";
+      document.getElementById("user").innerText = "Не авторизован";
     }
   });
 </script>
-
-	<script>
-const allowed = ["твой@gmail.com"];
-
-if (user && !allowed.includes(user.email)) {
-  auth.signOut();
-  alert("Access denied");
-}
-</script>
 	
 </html>
+
 
 
 
