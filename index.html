@@ -494,8 +494,18 @@ function openCroxy(link, event) {
     }
   });
 </script>
+
+	<script>
+const allowed = ["твой@gmail.com"];
+
+if (user && !allowed.includes(user.email)) {
+  auth.signOut();
+  alert("Access denied");
+}
+</script>
 	
 </html>
+
 
 
 
