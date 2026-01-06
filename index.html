@@ -30,10 +30,10 @@ header {
   padding: 14px 24px;
   display: flex;
   align-items: center;
+  justify-content: space-between; /* добавляем эту строку */
   border-bottom: 3px solid var(--kfc-red);
   box-shadow: var(--shadow);
 }
-
 header img {
   height: 48px;
   margin-right: 16px;
@@ -251,8 +251,8 @@ button:hover {
 
 
   <!-- Кнопка входа через Google (иконка) -->
-  <button id="loginBtn" class="material-symbols-outlined">login</button>
-<button id="logoutBtn" class="material-symbols-outlined" style="display:none;">logout</button>
+   <button id="loginBtn" class="material-symbols-outlined">login</button>
+   <button id="logoutBtn" class="material-symbols-outlined" style="display:none;">logout</button>
 </header>
 
 	
@@ -574,6 +574,7 @@ function openCroxy(link, event) {
 </div>
 	
 </html>
+
 
 
 
