@@ -259,6 +259,38 @@ button:hover {
 .material-symbols-outlined:hover {
   color: var(--kfc-red);
 }
+/* Контейнер справа */
+.auth-actions {
+  margin-left: auto;          /* уезжает вправо */
+  display: flex;
+  align-items: center;
+}
+
+/* Маленькая кнопка-иконка */
+.auth-actions button {
+  all: unset;                 /* убираем всё браузерное */
+  cursor: pointer;
+  font-family: 'Material Symbols Outlined';
+  font-size: 26px;            /* 👈 размер иконки */
+  line-height: 1;
+  color: var(--kfc-dark);
+  padding: 6px;               /* зона клика */
+  transition: color 0.2s;
+}
+
+/* Hover */
+.auth-actions button:hover {
+  color: var(--kfc-red);
+}
+
+/* Убираем красные квадраты навсегда */
+.auth-actions button:focus,
+.auth-actions button:active {
+  outline: none;
+  box-shadow: none;
+  background: transparent;
+}
+	
 </style>
 	
 </head>
@@ -273,10 +305,10 @@ button:hover {
 
 
   <!-- Кнопка входа через Google (иконка) -->
+<div class="auth-actions">
   <button id="loginBtn" class="material-symbols-outlined">login</button>
-
-  <!-- Кнопка выхода (иконка) -->
   <button id="logoutBtn" class="material-symbols-outlined" style="display:none;">logout</button>
+</div>
 </header>
 
 	
@@ -598,3 +630,4 @@ function openCroxy(link, event) {
 </div>
 	
 </html>
+
