@@ -5,7 +5,6 @@
   <title>KFC feedback</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="https://kfclistenscx.qualtrics.com/CP/Graphic.php?IM=IM_dbC1Qsmkf9X2Bmu">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
   <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 
@@ -30,10 +29,10 @@ header {
   padding: 14px 24px;
   display: flex;
   align-items: center;
-  justify-content: space-between; /* добавляем эту строку */
   border-bottom: 3px solid var(--kfc-red);
   box-shadow: var(--shadow);
 }
+
 header img {
   height: 48px;
   margin-right: 16px;
@@ -206,37 +205,60 @@ button:hover {
   color: var(--kfc-red);
 }
 
-/* 🔹 Стили для кнопок-иконок вход/выход */
-#loginBtn,
-#logoutBtn {
-  font-family: 'Material Symbols Outlined';
-  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 28;
+.material-symbols-outlined {
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 28;
   cursor: pointer;
-  color: var(--kfc-dark);
-  background: transparent;
+
+  /* Полностью убираем фон и рамку */
   border: none;
-  padding: 0;
-  margin-left: 10px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  background: transparent;
+  color: var(--kfc-dark);
+
+  /* Убираем стандартные обводки при фокусе/клике */
+  outline: none;
+  box-shadow: none;
+
+  /* Плавный переход цвета */
   transition: color 0.2s;
 }
 
-#loginBtn:hover,
-#logoutBtn:hover {
+.material-symbols-outlined:hover {
   color: var(--kfc-red);
 }
 
-#loginBtn:active,
-#logoutBtn:active,
-#loginBtn:focus,
-#logoutBtn:focus {
+/* Для состояния при нажатии/фокусе */
+.material-symbols-outlined:active,
+.material-symbols-outlined:focus {
   background: transparent;
   outline: none;
   box-shadow: none;
 }
-	  
+
+  </style>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+<style>
+.material-symbols-outlined {
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 28;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: var(--kfc-dark);
+  margin-left: 10px;
+  transition: color 0.2s;
+}
+
+.material-symbols-outlined:hover {
+  color: var(--kfc-red);
+}
 </style>
 	
 </head>
@@ -251,8 +273,10 @@ button:hover {
 
 
   <!-- Кнопка входа через Google (иконка) -->
-   <button id="loginBtn" class="material-symbols-outlined">login</button>
-   <button id="logoutBtn" class="material-symbols-outlined" style="display:none;">logout</button>
+  <button id="loginBtn" class="material-symbols-outlined">login</button>
+
+  <!-- Кнопка выхода (иконка) -->
+  <button id="logoutBtn" class="material-symbols-outlined" style="display:none;">logout</button>
 </header>
 
 	
@@ -574,22 +598,3 @@ function openCroxy(link, event) {
 </div>
 	
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
