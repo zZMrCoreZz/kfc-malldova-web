@@ -262,7 +262,7 @@ button:hover {
 /* Контейнер */
 .scan-row {
   display: flex;
-  align-items: center; /* 🔥 ВАЖНО */
+  align-items: center; /* 🔥 ЭТО ВЫРАВНИВАЕТ ПО ВЫСОТЕ */
   gap: 10px;
 }
 	
@@ -284,6 +284,7 @@ button:hover {
 }
 
 /* Кнопка Upload — КВАДРАТ */
+/* Кнопка Upload — идеально по центру */
 .upload-btn {
   width: 48px;
   height: 48px;
@@ -292,16 +293,17 @@ button:hover {
   cursor: pointer;
   flex-shrink: 0;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex;              /* 🔥 ВАЖНО */
+  align-items: center;        /* 🔥 ВАЖНО */
+  justify-content: center;    /* 🔥 ВАЖНО */
 
   padding: 0;
-  margin: 0;              /* 🔥 ВАЖНО */
-  line-height: 0;         /* 🔥 ВАЖНО */
-  vertical-align: middle; /* 🔥 ВАЖНО */
-}
+  margin: 0;
+  line-height: 1;
+  vertical-align: middle;
 
+  box-sizing: border-box;
+}
 .upload-btn:hover {
   background-color: #b80020;
 }
@@ -310,9 +312,11 @@ button:hover {
 .upload-btn .material-symbols-outlined {
   font-size: 26px;
   color: white;
-  display: flex;          /* 🔥 */
-  align-items: center;    /* 🔥 */
-  justify-content: center;/* 🔥 */
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   line-height: 1;
 }
 
@@ -708,6 +712,7 @@ function openCroxy(link, event) {
 </div>
 	
 </html>
+
 
 
 
