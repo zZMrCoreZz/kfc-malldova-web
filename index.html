@@ -262,34 +262,30 @@ button:hover {
 /* Контейнер */
 .scan-row {
   display: flex;
+  align-items: center; /* 🔥 ВАЖНО */
   gap: 10px;
-  margin-top: 8px;
 }
-
+	
 /* Кнопка Camera */
 .camera-btn {
   flex: 1;
-  height: 48px; /* ← ВАЖНО: фиксируем высоту */
+  height: 48px;
   background-color: var(--kfc-red);
   color: white;
   border: none;
   border-radius: 8px;
-  font-size: 16px;
-  font-weight: 600;
   cursor: pointer;
 
   display: flex;
   align-items: center;
   justify-content: center;
-}
 
-.camera-btn:hover {
-  background-color: #b80020;
+  line-height: 1; /* 🔥 фикс iOS */
 }
 
 /* Кнопка Upload — КВАДРАТ */
 .upload-btn {
-  width: 48px;      /* ← ширина = высота camera */
+  width: 48px;
   height: 48px;
   background-color: var(--kfc-red);
   border-radius: 8px;
@@ -300,7 +296,8 @@ button:hover {
   align-items: center;
   justify-content: center;
 
-  transition: background-color 0.2s;
+  padding: 0;
+  line-height: 1; /* 🔥 */
 }
 
 .upload-btn:hover {
@@ -310,6 +307,8 @@ button:hover {
 /* Иконка Upload по центру */
 .upload-btn .material-symbols-outlined {
   font-size: 26px;
+  line-height: 1;   /* 🔥 КЛЮЧЕВО */
+  display: block;   /* 🔥 убирает baseline */
   color: white;
 }
 </style>
@@ -659,6 +658,7 @@ function openCroxy(link, event) {
 </div>
 	
 </html>
+
 
 
 
