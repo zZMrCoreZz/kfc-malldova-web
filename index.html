@@ -290,6 +290,55 @@ button:hover {
   box-shadow: none;
   background: transparent;
 }
+
+	/* Контейнер для Camera + Upload */
+.scan-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+/* Левая кнопка Camera — большая */
+.camera-btn {
+  flex: 1;
+  background-color: var(--kfc-red);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.camera-btn:hover {
+  background-color: #b80020;
+}
+
+/* Правая кнопка Upload — квадрат */
+.upload-btn {
+  width: 48px;
+  height: 48px;
+  background-color: var(--kfc-dark);
+  color: white;
+  border-radius: 10px; /* круглые углы */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+
+.upload-btn:hover {
+  background-color: #000;
+}
+
+/* Иконка upload */
+.upload-btn .material-symbols-outlined {
+  font-size: 26px;
+  color: white;
+}
 	
 </style>
 	
@@ -328,8 +377,16 @@ button:hover {
   <h2>Generează linkuri pentru feedback</h2>
 
   <label>1. Scanează QR sau încarcă o imagine:</label>
-  <button onclick="startQRScanner()">📷 Cameră</button>
-  <input type="file" id="imageInput" accept="image/*">
+  <div class="scan-row">
+  <button class="camera-btn" onclick="startQRScanner()">
+    📷 Cameră
+  </button>
+
+  <label class="upload-btn">
+    <span class="material-symbols-outlined">upload</span>
+    <input type="file" id="imageInput" accept="image/*" hidden>
+  </label>
+</div>
   <div id="qr-scanner"></div>
 
   <label>2. Link din QR:</label>
@@ -630,4 +687,5 @@ function openCroxy(link, event) {
 </div>
 	
 </html>
+
 
