@@ -370,6 +370,46 @@ button:hover {
 	.upload-btn .material-symbols-outlined {
   margin-left: 1px; /* попробуй -1px / -2px / -3px */
 }
+
+	.link-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.action-row {
+  display: flex;
+  gap: 8px;
+}
+
+.action-row button {
+  flex: 1;
+  font-size: 14px;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+/* 🔥 Основные кнопки (VPN) */
+.action-row.primary button {
+  background-color: #111;
+  color: #fff;
+}
+
+/* Второстепенные */
+.action-row.secondary button {
+  background-color: #e0e0e0;
+  color: #111;
+}
+
+/* Hover */
+.action-row.primary button:hover {
+  background-color: #000;
+}
+
+.action-row.secondary button:hover {
+  background-color: #ccc;
+}
 	
 </style>
 	
@@ -587,12 +627,19 @@ function clearUsedLinks() {
 
 linksHTML += `<div class="link-box">
   <a href="${fullLink}" target="_blank">${decodeURIComponent(fullLink)}</a>
-  <div class="button-row">
-    <button onclick="copyAndMark('${fullLink}')">📋 Copiază</button>
-    <button onclick="openAndMark('${fullLink}')">🔓 Deschide</button>
-    <button onclick="openProxyium('${fullLink}', event)">🌐VPNProxyium</button>
-	<button onclick="openCroxy('${fullLink}', event)">🛡️VPNCroxyProxy</button>
+<div class="link-actions">
+
+  <div class="action-row primary">
+    <button onclick="openProxyium('${fullLink}', event)">🌐 VPN Proxy</button>
+    <button onclick="openCroxy('${fullLink}', event)">🛡️ VPN Croxy</button>
   </div>
+
+  <div class="action-row secondary">
+    <button onclick="openAndMark('${fullLink}')">🔓 Deschide</button>
+    <button onclick="copyAndMark('${fullLink}')">📋 Copie</button>
+  </div>
+
+</div>
 </div>`;
 
 
@@ -719,6 +766,7 @@ function openCroxy(link, event) {
 </div>
 	
 </html>
+
 
 
 
