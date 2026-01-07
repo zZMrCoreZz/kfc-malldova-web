@@ -297,7 +297,9 @@ button:hover {
   justify-content: center;
 
   padding: 0;
-  line-height: 1; /* 🔥 */
+  margin: 0;              /* 🔥 ВАЖНО */
+  line-height: 0;         /* 🔥 ВАЖНО */
+  vertical-align: middle; /* 🔥 ВАЖНО */
 }
 
 .upload-btn:hover {
@@ -307,9 +309,11 @@ button:hover {
 /* Иконка Upload по центру */
 .upload-btn .material-symbols-outlined {
   font-size: 26px;
-  line-height: 1;   /* 🔥 КЛЮЧЕВО */
-  display: block;   /* 🔥 убирает baseline */
   color: white;
+  display: flex;          /* 🔥 */
+  align-items: center;    /* 🔥 */
+  justify-content: center;/* 🔥 */
+  line-height: 1;
 }
 
 	.auth-actions {
@@ -670,6 +674,7 @@ function openCroxy(link, event) {
 </div>
 	
 </html>
+
 
 
 
