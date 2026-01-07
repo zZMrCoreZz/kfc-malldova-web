@@ -259,87 +259,59 @@ button:hover {
 .material-symbols-outlined:hover {
   color: var(--kfc-red);
 }
-/* Контейнер справа */
-.auth-actions {
-  margin-left: auto;          /* уезжает вправо */
-  display: flex;
-  align-items: center;
-}
-
-/* Маленькая кнопка-иконка */
-.auth-actions button {
-  all: unset;                 /* убираем всё браузерное */
-  cursor: pointer;
-  font-family: 'Material Symbols Outlined';
-  font-size: 26px;            /* 👈 размер иконки */
-  line-height: 1;
-  color: var(--kfc-dark);
-  padding: 6px;               /* зона клика */
-  transition: color 0.2s;
-}
-
-/* Hover */
-.auth-actions button:hover {
-  color: var(--kfc-red);
-}
-
-/* Убираем красные квадраты навсегда */
-.auth-actions button:focus,
-.auth-actions button:active {
-  outline: none;
-  box-shadow: none;
-  background: transparent;
-}
-
-	/* Контейнер для Camera + Upload */
+/* Контейнер */
 .scan-row {
   display: flex;
   gap: 10px;
   margin-top: 8px;
 }
 
-/* Левая кнопка Camera — большая */
+/* Кнопка Camera */
 .camera-btn {
   flex: 1;
+  height: 48px; /* ← ВАЖНО: фиксируем высоту */
   background-color: var(--kfc-red);
   color: white;
   border: none;
   border-radius: 8px;
-  padding: 12px;
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .camera-btn:hover {
   background-color: #b80020;
 }
 
-/* Правая кнопка Upload — квадрат */
+/* Кнопка Upload — КВАДРАТ */
 .upload-btn {
-  width: 48px;
+  width: 48px;      /* ← ширина = высота camera */
   height: 48px;
-  background-color: var(--kfc-dark);
-  color: white;
-  border-radius: 10px; /* круглые углы */
+  background-color: var(--kfc-red);
+  border-radius: 8px;
+  cursor: pointer;
+  flex-shrink: 0;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  flex-shrink: 0;
-  transition: background 0.2s;
+
+  transition: background-color 0.2s;
 }
 
 .upload-btn:hover {
-  background-color: #000;
+  background-color: #b80020;
 }
 
-/* Иконка upload */
+/* Иконка Upload по центру */
 .upload-btn .material-symbols-outlined {
   font-size: 26px;
   color: white;
 }
-	
 </style>
 	
 </head>
@@ -687,5 +659,6 @@ function openCroxy(link, event) {
 </div>
 	
 </html>
+
 
 
