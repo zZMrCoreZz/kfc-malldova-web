@@ -326,6 +326,39 @@ button:hover {
 #logoutBtn {
   font-size: 26px; /* было 28 */
 }
+
+	/* ===== AUTH ICON BUTTONS (LOGIN / LOGOUT) ===== */
+.auth-actions button {
+  all: unset;                 /* 💣 СНОСИТ ВСЕ СТИЛИ button */
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 32px;
+  height: 32px;
+
+  font-family: 'Material Symbols Outlined';
+  font-size: 26px;
+  line-height: 1;
+
+  color: var(--kfc-dark);
+  background: transparent;    /* 🔥 ВСЕГДА ПРОЗРАЧНЫЙ */
+}
+
+/* Hover */
+.auth-actions button:hover {
+  color: var(--kfc-red);
+}
+
+/* Active / focus — НИКАКОГО КРАСНОГО ФОНА */
+.auth-actions button:active,
+.auth-actions button:focus {
+  background: transparent;
+  outline: none;
+  box-shadow: none;
+}
 	
 </style>
 	
@@ -669,45 +702,13 @@ function openCroxy(link, event) {
     logoutBtn.style.display = "none";
     loginBtn.style.display = "inline-block"; // показываем вход
   };
-
-/* ===== AUTH ICON BUTTONS (LOGIN / LOGOUT) ===== */
-.auth-actions button {
-  all: unset;                 /* 💣 СНОСИТ ВСЕ СТИЛИ button */
-  cursor: pointer;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 32px;
-  height: 32px;
-
-  font-family: 'Material Symbols Outlined';
-  font-size: 26px;
-  line-height: 1;
-
-  color: var(--kfc-dark);
-  background: transparent;    /* 🔥 ВСЕГДА ПРОЗРАЧНЫЙ */
-}
-
-/* Hover */
-.auth-actions button:hover {
-  color: var(--kfc-red);
-}
-
-/* Active / focus — НИКАКОГО КРАСНОГО ФОНА */
-.auth-actions button:active,
-.auth-actions button:focus {
-  background: transparent;
-  outline: none;
-  box-shadow: none;
-}
 	
 </script>
 	
 </div>
 	
 </html>
+
 
 
 
