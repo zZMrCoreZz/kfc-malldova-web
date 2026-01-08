@@ -252,7 +252,6 @@ button:hover {
   border: none;
   background: none;
   color: var(--kfc-dark);
-  margin-left: 10px;
   transition: color 0.2s;
 }
 
@@ -544,10 +543,18 @@ main {
   background-color: #333;
 }
 
-/* 🔧 Pixel-fix для arrow_forward */
-.generate-btn .material-symbols-outlined {
-  margin-left: -30px;   /* ← двигаем влево */
-  margin-top: 0px;     /* ↑ чуть вниз/вверх, по желанию */
+/*
+/* 🔧 Pixel-fix ТОЛЬКО для arrow_forward */
+.icon-btn.primary .material-symbols-outlined {
+  transform: translateX(-2px);
+}
+	
+/* 🔥 RESET для Material Icons */
+.material-symbols-outlined {
+  margin: 0 !important;
+  padding: 0;
+  transform: none;
+  line-height: 1;
 }
 	
 </style>
@@ -954,6 +961,7 @@ function openCroxy(link, event) {
 </div>
 	
 </html>
+
 
 
 
