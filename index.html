@@ -534,14 +534,20 @@ function clearUsedLinks() {
 
 <script src="https://unpkg.com/html5-qrcode"></script>
 <script>
+
+let qrDetected = false;
+let dateFromLink = false;
+	
   let html5QrCode;
 
   function setDefaultDateTime() {
-    const now = new Date();
-    document.getElementById("selectedDate").valueAsDate = now;
-    document.getElementById("startTime").value = "10:00";
-    document.getElementById("endTime").value = now.toTimeString().slice(0, 5);
-  }
+  if (dateFromLink) return;
+
+  const now = new Date();
+  document.getElementById("selectedDate").valueAsDate = now;
+  document.getElementById("startTime").value = "10:00";
+  document.getElementById("endTime").value = now.toTimeString().slice(0, 5);
+}
 
   function startQRScanner() {
     const scannerDiv = document.getElementById("qr-scanner");
@@ -569,7 +575,11 @@ function clearUsedLinks() {
     qr.scanFile(file, true).then(decodedText => {
       document.getElementById("scannedResult").value = decodedText;
 	autofillDateTimeFromLink(decodedText);
-    }).catch(() => alert("QR nu a fost găsit în imagine"));
+    }).catch(() => {
+  if (!qrDetected) {
+    console.log("QR not detected");
+  }
+});
   });
 
   function parseLinkData(link) {
@@ -769,24 +779,17 @@ function autofillDateTimeFromLink(link) {
     const dParam = url.searchParams.get("D");
     if (!dParam) return;
 
-    // D = "03/01/2026 18:49"
     const decoded = decodeURIComponent(dParam);
     const [datePart, timePart] = decoded.split(" ");
-
     if (!datePart || !timePart) return;
 
     const [dd, mm, yyyy] = datePart.split("/");
-    if (!dd || !mm || !yyyy) return;
 
-    // input[type="date"] ждёт YYYY-MM-DD
-    document.getElementById("selectedDate").value =
-      `${yyyy}-${mm}-${dd}`;
-
-    // input[type="time"] ждёт HH:MM
+    document.getElementById("selectedDate").value = `${yyyy}-${mm}-${dd}`;
     document.getElementById("endTime").value = timePart;
-  } catch (e) {
-    console.warn("Nu s-a putut extrage data din link");
-  }
+
+    dateFromLink = true; // 🔥
+  } catch {}
 }
 	
 </script>
@@ -794,6 +797,7 @@ function autofillDateTimeFromLink(link) {
 </div>
 	
 </html>
+
 
 
 
