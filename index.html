@@ -698,6 +698,12 @@ label.icon-btn {
   display: block;
   line-height: 1;
 }
+
+/* === FIX: выравнивание input + icon buttons === */
+.scan-input-row > * {
+  margin-top: 0 !important;
+}
+
 	
 	
 </style>
@@ -713,7 +719,7 @@ label.icon-btn {
   <div class="header-title">
   <h1>Feedback Generator</h1>
   <span>KFC internal tool</span>
-</div>
+ </div>
 
 
   <!-- Кнопка входа через Google (иконка) -->
@@ -758,7 +764,6 @@ label.icon-btn {
   <input type="file" id="imageInput" accept="image/*" hidden>
 </label>
 
-<input type="file" id="imageInput" accept="image/*" hidden>
 </div>
 
 <div id="qr-scanner"></div>
@@ -1154,6 +1159,7 @@ function openCroxy(link, event) {
 
 
 </html>
+
 
 
 
