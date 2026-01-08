@@ -704,7 +704,53 @@ label.icon-btn {
   margin-top: 0 !important;
 }
 
+
+main {
+  overscroll-behavior: contain;
+}
+
+/* эффект резинки */
+body {
+  scroll-behavior: smooth;
+}
+
+
+
+
+
+
+.icon-btn {
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.icon-btn:active {
+  transform: scale(0.94);
+}
 	
+
+
+
+
+.nickname {
+  font-size: 13px;
+  color: #777;
+  margin-top: 4px;
+  opacity: 0.9;
+}
+
+/* подчёркиваем имя */
+.nickname strong {
+  color: #000;
+  font-weight: 600;
+}
+
+.nickname {
+  opacity: 0;
+}
+
+.nickname.visible {
+  opacity: 1;
+}
 	
 </style>
 	
@@ -1060,6 +1106,15 @@ function openCroxy(link, event) {
   } catch {}
 }
 
+
+window.addEventListener("scroll", () => {
+  const header = document.querySelector("header");
+  header.classList.toggle("scrolled", window.scrollY > 4);
+});
+
+
+	
+
 </script>
 </body>
 
@@ -1128,7 +1183,7 @@ function openCroxy(link, event) {
     if (!snap.exists()) {
       await setDoc(userRef, { name: user.displayName, email: user.email, blocked: false, createdAt: new Date() });
     } else if (snap.data().blocked === true) {
-      alert("Доступ запрещён");
+      alert("Acces interzis");
       await signOut(auth);
       protectedContent.style.display = "none";
       logoutBtn.style.display = "none";
@@ -1136,7 +1191,8 @@ function openCroxy(link, event) {
       return;
     }
 
-    nicknameDiv.innerText = `Привет, ${user.displayName}`;
+    nicknameDiv.innerHTML = `Salut, <strong>${user.displayName}</strong>`;
+	  nicknameDiv.classList.add("visible");
     protectedContent.style.display = "block";
     loginBtn.style.display = "none";        // скрываем вход
     logoutBtn.style.display = "inline-block"; // показываем выход
@@ -1145,7 +1201,7 @@ function openCroxy(link, event) {
   // Кнопка выхода
   logoutBtn.onclick = async () => {
     await signOut(auth);
-    nicknameDiv.innerText = "Не авторизован";
+    nicknameDiv.innerText = "Trebuie să te autentifici";
     protectedContent.style.display = "none";
     logoutBtn.style.display = "none";
     loginBtn.style.display = "inline-block"; // показываем вход
@@ -1159,6 +1215,7 @@ function openCroxy(link, event) {
 
 
 </html>
+
 
 
 
