@@ -508,6 +508,47 @@ main {
   font-size: 16px;
 }
 
+/* === Universal icon buttons === */
+.icon-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: var(--kfc-dark);
+}
+
+.icon-btn .material-symbols-outlined {
+  font-size: 24px;
+  color: white;
+  line-height: 1;
+}
+
+/* Красная (generate) */
+.icon-btn.primary {
+  background-color: var(--kfc-red);
+}
+
+.icon-btn.primary:hover {
+  background-color: #b80020;
+}
+
+/* Серая корзина */
+.icon-btn.danger {
+  background-color: #555;
+}
+
+.icon-btn.danger:hover {
+  background-color: #333;
+}
+
+	
 	
 </style>
 	
@@ -545,7 +586,7 @@ main {
 <main>
   <h2>Generează linkuri pentru feedback</h2>
 
-  <label>1. Scanează QR sau încarcă o imagine:</label>
+  <label></label>Scanează QR sau încarcă o imagine:</label>
   <div class="scan-row">
   <button class="camera-btn" onclick="startQRScanner()">
     📷 Cameră
@@ -558,10 +599,10 @@ main {
 </div>
   <div id="qr-scanner"></div>
 
-  <label>2. Link din QR:</label>
+  <label>Link din QR:</label>
   <input type="text" id="scannedResult" placeholder="Aici apare linkul scanat">
 
-  <label>3. Dată / ora de început / ora de sfârșit:</label>
+  <label>Dată / ora de început / ora de sfârșit:</label>
 
 <div class="datetime-row">
   <input type="date" id="selectedDate">
@@ -569,12 +610,18 @@ main {
   <input type="time" id="endTime">
 </div>
 
-  <label>4. Câte linkuri să se genereze:</label>
+  <label>Câte linkuri să se genereze:</label>
 
 <div class="generate-row">
   <input type="number" id="linkCount" value="10">
 
-  <button class="generate-btn" onclick="generateLinks()">
+  <!-- 🗑 Корзина -->
+  <button class="icon-btn danger" onclick="clearUsedLinks()" title="Curăță linkuri">
+    <span class="material-symbols-outlined">delete</span>
+  </button>
+
+  <!-- ▶ Генерация -->
+  <button class="icon-btn primary" onclick="generateLinks()">
     <span class="material-symbols-outlined">arrow_forward</span>
   </button>
 </div>
@@ -585,7 +632,7 @@ main {
     <button onclick="window.open('https://proxyium.com', '_blank')">🌐 Deschide Proxyium</button>
     <button onclick="window.open('https://www.croxyproxy.com', '_blank')">🌐 Deschide CroxyProxy</button>
   </div>
-  <button onclick="clearUsedLinks()" style="background:#555;color:#fff;width:100%;margin-top:20px;">🧹 Curăță linkuri folosite</button>
+
 
 </main>
 	
@@ -907,6 +954,7 @@ function openCroxy(link, event) {
 </div>
 	
 </html>
+
 
 
 
