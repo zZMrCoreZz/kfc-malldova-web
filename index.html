@@ -561,26 +561,32 @@ let dateFromLink = false;
   }
 
   function qrCodeSuccess(decodedText) {
-    document.getElementById("scannedResult").value = decodedText;
-	autofillDateTimeFromLink(decodedText);
-    html5QrCode.stop().then(() => {
-      document.getElementById("qr-scanner").style.display = "none";
-    });
-  }
+  qrDetected = true;
+
+  document.getElementById("scannedResult").value = decodedText;
+  autofillDateTimeFromLink(decodedText);
+
+  html5QrCode.stop().then(() => {
+    document.getElementById("qr-scanner").style.display = "none";
+  });
+}
 
   document.getElementById("imageInput").addEventListener("change", function () {
     const file = this.files[0];
     if (!file) return;
     const qr = new Html5Qrcode("qr-scanner");
+
     qr.scanFile(file, true).then(decodedText => {
-      document.getElementById("scannedResult").value = decodedText;
-	autofillDateTimeFromLink(decodedText);
+        qrDetected = true; // ✅ добавляем сюда
+        document.getElementById("scannedResult").value = decodedText;
+        autofillDateTimeFromLink(decodedText);
     }).catch(() => {
-  if (!qrDetected) {
-    console.log("QR not detected");
-  }
+        if (!qrDetected) {
+            console.log("QR not detected");
+        }
+    });
 });
-  });
+
 
   function parseLinkData(link) {
     const url = new URL(link);
@@ -699,6 +705,25 @@ function openCroxy(link, event) {
 
   setDefaultDateTime();
 
+	function autofillDateTimeFromLink(link) {
+  try {
+    const url = new URL(link);
+    const dParam = url.searchParams.get("D");
+    if (!dParam) return;
+
+    const decoded = decodeURIComponent(dParam);
+    const [datePart, timePart] = decoded.split(" ");
+    if (!datePart || !timePart) return;
+
+    const [dd, mm, yyyy] = datePart.split("/");
+
+    document.getElementById("selectedDate").value = `${yyyy}-${mm}-${dd}`;
+    document.getElementById("endTime").value = timePart;
+
+    dateFromLink = true; // 🔥
+  } catch {}
+}
+
 </script>
 </body>
 
@@ -773,30 +798,14 @@ function openCroxy(link, event) {
     loginBtn.style.display = "inline-block"; // показываем вход
   };
 
-function autofillDateTimeFromLink(link) {
-  try {
-    const url = new URL(link);
-    const dParam = url.searchParams.get("D");
-    if (!dParam) return;
 
-    const decoded = decodeURIComponent(dParam);
-    const [datePart, timePart] = decoded.split(" ");
-    if (!datePart || !timePart) return;
-
-    const [dd, mm, yyyy] = datePart.split("/");
-
-    document.getElementById("selectedDate").value = `${yyyy}-${mm}-${dd}`;
-    document.getElementById("endTime").value = timePart;
-
-    dateFromLink = true; // 🔥
-  } catch {}
-}
 	
 </script>
 	
 </div>
 	
 </html>
+
 
 
 
