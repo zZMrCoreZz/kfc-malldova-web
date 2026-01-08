@@ -669,6 +669,13 @@ main {
   color: #888;
   font-weight: 400;
 }
+
+label.icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 	
 	
 </style>
@@ -722,10 +729,10 @@ main {
   </button>
 
   <!-- Upload -->
-  <button class="icon-btn primary" type="button" title="Încarcă imagine"
-        onclick="document.getElementById('imageInput').click()">
+  <label class="icon-btn primary" title="Încarcă imagine">
   <span class="material-symbols-outlined">upload</span>
-</button>
+  <input type="file" id="imageInput" accept="image/*" hidden>
+</label>
 
 <input type="file" id="imageInput" accept="image/*" hidden>
 </div>
@@ -1123,6 +1130,7 @@ function openCroxy(link, event) {
 
 
 </html>
+
 
 
 
