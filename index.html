@@ -484,6 +484,30 @@ main {
   margin-top: 0px;     /* ↑ чуть вниз/вверх, по желанию */
 }
 	
+
+/* === Date + Time row === */
+.datetime-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+/* Date — шире */
+.datetime-row input[type="date"] {
+  flex: 2;
+}
+
+/* Time — уже */
+.datetime-row input[type="time"] {
+  flex: 1;
+}
+
+/* Общая высота */
+.datetime-row input {
+  height: 48px;
+  font-size: 16px;
+}
+
 	
 </style>
 	
@@ -537,14 +561,13 @@ main {
   <label>2. Link din QR:</label>
   <input type="text" id="scannedResult" placeholder="Aici apare linkul scanat">
 
-  <label>3. Dată (implicit astăzi):</label>
+  <label>3. Dată / ora de început / ora de sfârșit:</label>
+
+<div class="datetime-row">
   <input type="date" id="selectedDate">
-
-  <label>4. Ora de început:</label>
   <input type="time" id="startTime">
-
-  <label>5. Ora de sfârșit:</label>
   <input type="time" id="endTime">
+</div>
 
   <label>6. Câte linkuri să se genereze:</label>
 
@@ -884,6 +907,7 @@ function openCroxy(link, event) {
 </div>
 	
 </html>
+
 
 
 
