@@ -556,6 +556,69 @@ main {
   transform: none;
   line-height: 1;
 }
+
+	/* ===== Confirm modal ===== */
+#confirmDeleteModal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+}
+
+.modal-box {
+  position: relative;
+  background: white;
+  max-width: 360px;
+  margin: 20vh auto;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.modal-box p {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.modal-actions button {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+}
+
+/* Кнопки */
+.btn-secondary {
+  background: #e0e0e0;
+  color: #111;
+}
+
+.btn-secondary:hover {
+  background: #ccc;
+}
+
+.btn-danger {
+  background: var(--kfc-red);
+  color: white;
+}
+
+.btn-danger:hover {
+  background: #b80020;
+}
 	
 </style>
 	
@@ -677,10 +740,27 @@ function isLinkUsed(link) {
   return used.includes(link);
 }
 
-// Șterge toate linkurile folosite
 function clearUsedLinks() {
-  localStorage.removeItem("usedLinks");
-  alert("Linkurile folosite au fost șterse!");
+  // открываем подтверждение
+  document.getElementById("confirmDeleteModal").style.display = "block";
+}
+
+function closeDeleteModal() {
+  document.getElementById("confirmDeleteModal").style.display = "none";
+}
+
+function confirmDelete(deleteAll) {
+  if (deleteAll) {
+    // 🔥 Șterge TOT
+    localStorage.removeItem("usedLinks");
+    document.getElementById("scannedResult").value = "";
+    document.getElementById("links").innerHTML = "";
+  } else {
+    // ✅ Șterge doar linkurile generate
+    localStorage.removeItem("usedLinks");
+  }
+
+  closeDeleteModal();
   location.reload();
 }
 
@@ -883,6 +963,23 @@ function openCroxy(link, event) {
 </script>
 </body>
 
+	<!-- 🛑 Confirm delete modal -->
+<div id="confirmDeleteModal" style="display:none;">
+  <div class="modal-backdrop"></div>
+
+  <div class="modal-box">
+    <p>Doriți să ștergeți linkurile generate?</p>
+
+    <div class="modal-actions">
+      <button class="btn-secondary" onclick="confirmDelete(false)">Da</button>
+      <button class="btn-secondary" onclick="closeDeleteModal()">Nu</button>
+      <button class="btn-danger" onclick="confirmDelete(true)">Șterge tot</button>
+    </div>
+  </div>
+</div>
+
+	
+
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
   import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
@@ -961,6 +1058,7 @@ function openCroxy(link, event) {
 </div>
 	
 </html>
+
 
 
 
