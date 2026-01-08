@@ -676,6 +676,28 @@ label.icon-btn {
   justify-content: center;
 }
 
+
+.upload-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 🔥 КЛЮЧЕВОЙ ФИКС */
+.upload-label .icon-wrap {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 🔥 ИКОНКА ВНЕ TEXT FLOW */
+.upload-label .material-symbols-outlined {
+  display: block;
+  line-height: 1;
+}
 	
 	
 </style>
@@ -729,8 +751,10 @@ label.icon-btn {
   </button>
 
   <!-- Upload -->
-  <label class="icon-btn primary" title="Încarcă imagine">
-  <span class="material-symbols-outlined">upload</span>
+<label class="icon-btn primary upload-label" title="Încarcă imagine">
+  <div class="icon-wrap">
+    <span class="material-symbols-outlined">upload</span>
+  </div>
   <input type="file" id="imageInput" accept="image/*" hidden>
 </label>
 
@@ -1130,6 +1154,7 @@ function openCroxy(link, event) {
 
 
 </html>
+
 
 
 
