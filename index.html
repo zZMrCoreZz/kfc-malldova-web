@@ -544,7 +544,11 @@ main {
   background-color: #333;
 }
 
-	
+/* 🔧 Pixel-fix для arrow_forward */
+.generate-btn .material-symbols-outlined {
+  margin-left: -7px;   /* ← двигаем влево */
+  margin-top: 0px;     /* ↑ чуть вниз/вверх, по желанию */
+}
 	
 </style>
 	
@@ -950,6 +954,7 @@ function openCroxy(link, event) {
 </div>
 	
 </html>
+
 
 
 
