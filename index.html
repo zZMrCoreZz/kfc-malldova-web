@@ -619,6 +619,20 @@ main {
 .btn-danger:hover {
   background: #b80020;
 }
+
+.header-title h1 {
+  font-size: 20px;
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.header-title span {
+  font-size: 13px;
+  color: #888;
+  font-weight: 400;
+}
+	
 	
 </style>
 	
@@ -630,7 +644,10 @@ main {
 
 <header id="pageHeader">
   <img src="https://kfclistenscx.qualtrics.com/CP/Graphic.php?IM=IM_dbC1Qsmkf9X2Bmu" alt="KFC Logo">
-  <h1>KFC feedback</h1>
+  <div class="header-title">
+  <h1>Feedback Generator</h1>
+  <span>KFC internal tool</span>
+</div>
 
 
   <!-- Кнопка входа через Google (иконка) -->
@@ -1062,6 +1079,7 @@ function openCroxy(link, event) {
 </div>
 	
 </html>
+
 
 
 
