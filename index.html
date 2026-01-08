@@ -556,6 +556,7 @@ function clearUsedLinks() {
 
   function qrCodeSuccess(decodedText) {
     document.getElementById("scannedResult").value = decodedText;
+	autofillDateTimeFromLink(decodedText);
     html5QrCode.stop().then(() => {
       document.getElementById("qr-scanner").style.display = "none";
     });
@@ -567,6 +568,7 @@ function clearUsedLinks() {
     const qr = new Html5Qrcode("qr-scanner");
     qr.scanFile(file, true).then(decodedText => {
       document.getElementById("scannedResult").value = decodedText;
+	autofillDateTimeFromLink(decodedText);
     }).catch(() => alert("QR nu a fost găsit în imagine"));
   });
 
@@ -760,12 +762,39 @@ function openCroxy(link, event) {
     logoutBtn.style.display = "none";
     loginBtn.style.display = "inline-block"; // показываем вход
   };
+
+function autofillDateTimeFromLink(link) {
+  try {
+    const url = new URL(link);
+    const dParam = url.searchParams.get("D");
+    if (!dParam) return;
+
+    // D = "03/01/2026 18:49"
+    const decoded = decodeURIComponent(dParam);
+    const [datePart, timePart] = decoded.split(" ");
+
+    if (!datePart || !timePart) return;
+
+    const [dd, mm, yyyy] = datePart.split("/");
+    if (!dd || !mm || !yyyy) return;
+
+    // input[type="date"] ждёт YYYY-MM-DD
+    document.getElementById("selectedDate").value =
+      `${yyyy}-${mm}-${dd}`;
+
+    // input[type="time"] ждёт HH:MM
+    document.getElementById("endTime").value = timePart;
+  } catch (e) {
+    console.warn("Nu s-a putut extrage data din link");
+  }
+}
 	
 </script>
 	
 </div>
 	
 </html>
+
 
 
 
