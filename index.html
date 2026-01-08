@@ -865,18 +865,20 @@ body {
     });
   }
   // Salvăm linkurile folosite
-function markLinkAsUsed(link) {
-  let used = JSON.parse(localStorage.getItem("usedLinks") || "[]");
-  if (!used.includes(link)) {
-    used.push(link);
-    localStorage.setItem("usedLinks", JSON.stringify(used));
+function getUsedTI() {
+  return JSON.parse(localStorage.getItem("usedTI") || "[]");
+}
+
+function markTIUsed(ti) {
+  const used = getUsedTI();
+  if (!used.includes(ti)) {
+    used.push(ti);
+    localStorage.setItem("usedTI", JSON.stringify(used));
   }
 }
 
-// Verificăm dacă linkul a fost folosit deja
-function isLinkUsed(link) {
-  let used = JSON.parse(localStorage.getItem("usedLinks") || "[]");
-  return used.includes(link);
+function isTIUsed(ti) {
+  return getUsedTI().includes(ti);
 }
 
 function clearUsedLinks() {
@@ -891,7 +893,7 @@ function closeDeleteModal() {
 function confirmDelete(deleteAll) {
   if (deleteAll) {
     // 🔥 ȘTERGE TOT (как раньше)
-    localStorage.removeItem("usedLinks");
+    localStorage.removeItem("usedTI");
 
     document.getElementById("links").innerHTML = "";
     document.getElementById("scannedResult").value = "";
@@ -907,6 +909,31 @@ function confirmDelete(deleteAll) {
   closeDeleteModal();
 }
 
+function saveAppState() {
+  const state = {
+    link: scannedResult.value,
+    date: selectedDate.value,
+    start: startTime.value,
+    end: endTime.value,
+    count: linkCount.value
+  };
+  localStorage.setItem("appState", JSON.stringify(state));
+}
+
+function restoreAppState() {
+  const saved = localStorage.getItem("appState");
+  if (!saved) return;
+
+  const s = JSON.parse(saved);
+  scannedResult.value = s.link || "";
+  selectedDate.value = s.date || "";
+  startTime.value = s.start || "";
+  endTime.value = s.end || "";
+  linkCount.value = s.count || 10;
+}
+
+restoreAppState();
+	
 </script>
 
 
@@ -1020,7 +1047,7 @@ let dateFromLink = false;
       const encodedDateTime = encodeURIComponent(`${dd}/${mm}/${yyyy}%20${hh}:${mi}`);
       const fullLink = `${base}?S=${data.S}&D=${encodedDateTime}&TI=${ti}&Q_Language=${data.lang}`;
 
-     if (isLinkUsed(fullLink)) continue;
+
 
 linksHTML += `<div class="link-box">
   <a href="${fullLink}" target="_blank">${decodeURIComponent(fullLink)}</a>
@@ -1052,13 +1079,19 @@ linksHTML += `<div class="link-box">
 
 function copyAndMark(link) {
   copyLink(link);
-  markLinkAsUsed(link);
+
+  const ti = parseInt(new URL(link).searchParams.get("TI"));
+  markTIUsed(ti);
+
   event.target.closest('.link-box').style.opacity = 0.4;
 }
 
 function openAndMark(link) {
   window.open(decodeURIComponent(link), '_blank');
-  markLinkAsUsed(link);
+
+  const ti = parseInt(new URL(link).searchParams.get("TI"));
+  markTIUsed(ti);
+
   event.target.closest('.link-box').style.opacity = 0.4;
 }
 
@@ -1066,7 +1099,10 @@ function openAndMark(link) {
 function openProxyium(link, event) {
   const decodedLink = decodeURIComponent(link);
   navigator.clipboard.writeText(decodedLink).then(() => {
-    markLinkAsUsed(link);
+
+    const ti = parseInt(new URL(link).searchParams.get("TI"));
+    markTIUsed(ti);
+
     event.target.closest('.link-box').style.opacity = 0.4;
     window.open("https://www.proxyium.com", "_blank");
   });
@@ -1075,7 +1111,10 @@ function openProxyium(link, event) {
 function openCroxy(link, event) {
   const decodedLink = decodeURIComponent(link);
   navigator.clipboard.writeText(decodedLink).then(() => {
-    markLinkAsUsed(link);
+
+    const ti = parseInt(new URL(link).searchParams.get("TI"));
+    markTIUsed(ti);
+
     event.target.closest('.link-box').style.opacity = 0.4;
     window.open("https://www.croxyproxy.com", "_blank");
   });
@@ -1212,6 +1251,7 @@ window.addEventListener("scroll", () => {
 
 
 </html>
+
 
 
 
