@@ -270,16 +270,24 @@ button:hover {
   flex: 1;
   height: 48px;
   background-color: var(--kfc-red);
-  color: white;
-  border: none;
   border-radius: 8px;
+  border: none;
   cursor: pointer;
 
   display: flex;
   align-items: center;
   justify-content: center;
+}
 
-  line-height: 1; /* 🔥 фикс iOS */
+.camera-btn:hover {
+  background-color: #b80020;
+}
+
+/* Иконка QR */
+.camera-btn .material-symbols-outlined {
+  font-size: 26px;
+  color: white;
+  line-height: 1;
 }
 
 /* Кнопка Upload — КВАДРАТ */
@@ -675,9 +683,9 @@ main {
 
   <label></label>Scanează QR sau încarcă o imagine:</label>
   <div class="scan-row">
-  <button class="camera-btn" onclick="startQRScanner()">
-    📷 Cameră
-  </button>
+<button class="camera-btn" onclick="startQRScanner()" title="Scanează QR">
+  <span class="material-symbols-outlined">qr_code_2</span>
+</button>
 
   <label class="upload-btn">
     <span class="material-symbols-outlined">upload</span>
@@ -1079,6 +1087,7 @@ function openCroxy(link, event) {
 </div>
 	
 </html>
+
 
 
 
