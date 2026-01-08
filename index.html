@@ -410,6 +410,34 @@ button:hover {
 .action-row.secondary button:hover {
   background-color: #ccc;
 }
+
+/* === FIX html5-qrcode on mobile === */
+#qr-scanner {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+#qr-scanner video {
+  width: 100% !important;
+  height: auto !important;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+input[type="date"],
+input[type="time"] {
+  width: 100%;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+main {
+  overflow-x: hidden;
+}
+	
+	
 	
 </style>
 	
@@ -805,6 +833,7 @@ function openCroxy(link, event) {
 </div>
 	
 </html>
+
 
 
 
