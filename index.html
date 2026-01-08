@@ -751,17 +751,21 @@ function closeDeleteModal() {
 
 function confirmDelete(deleteAll) {
   if (deleteAll) {
-    // 🔥 Șterge TOT
+    // 🔥 ȘTERGE TOT (как раньше)
     localStorage.removeItem("usedLinks");
-    document.getElementById("scannedResult").value = "";
+
     document.getElementById("links").innerHTML = "";
-  } else {
-    // ✅ Șterge doar linkurile generate
-    localStorage.removeItem("usedLinks");
+    document.getElementById("scannedResult").value = "";
+
+    closeDeleteModal();
+    location.reload(); // тут reload НУЖЕН
+    return;
   }
 
+  // ✅ DOAR linkurile generate (fără reload)
+  document.getElementById("links").innerHTML = "";
+
   closeDeleteModal();
-  location.reload();
 }
 
 </script>
@@ -1058,6 +1062,7 @@ function openCroxy(link, event) {
 </div>
 	
 </html>
+
 
 
 
