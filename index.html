@@ -2,1300 +2,1613 @@
 <html lang="ro">
 <head>
   <meta charset="UTF-8">
-  <title>KFC feedback</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KFC Feedback Generator | Rebrand Edition</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link rel="icon" href="https://kfclistenscx.qualtrics.com/CP/Graphic.php?IM=IM_dbC1Qsmkf9X2Bmu">
+  
+  <!-- Fonturi care replică KFC Rebrand 2026: Kentucky Fried Serif & Sans + Material Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,800;1,9..144,900&family=Montserrat:ital,wght@0,700;0,900;1,900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,500,0,0" />
+
   <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+    :root {
+      --kfc-red: #E4002B;
+      --kfc-red-hover: #C20024;
+      --kfc-red-soft: rgba(228, 0, 43, 0.08);
+      --kfc-black: #111111;
+      --kfc-dark: #1E1E1E;
+      --kfc-cream: #F7F5F0;
+      --kfc-white: #FFFFFF;
+      --kfc-gray: #767676;
+      --kfc-border: #E6E3DD;
+      --shadow-sm: 0 4px 14px rgba(17, 17, 17, 0.05);
+      --shadow-md: 0 12px 32px rgba(17, 17, 17, 0.08);
+      --shadow-red: 0 8px 20px rgba(228, 0, 43, 0.25);
+      --radius-lg: 20px;
+      --radius-md: 12px;
+      --radius-sm: 8px;
+    }
 
-:root {
-  --kfc-red: #e4002b;
-  --kfc-dark: #1d1d1d;
-  --kfc-light: #ffffff;
-  --gray-bg: #f4f4f4;
-  --input-border: #ccc;
-  --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-body {
-  margin: 0;
-  font-family: 'Inter', sans-serif;
-  background-color: var(--gray-bg);
-  color: var(--kfc-dark);
-}
+    body {
+      margin: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--kfc-cream);
+      color: var(--kfc-black);
+      scroll-behavior: smooth;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
 
-header {
-  background-color: var(--kfc-light);
-  padding: 14px 24px;
-  display: flex;
-  align-items: center;
-  border-bottom: 3px solid var(--kfc-red);
-  box-shadow: var(--shadow);
-}
+    /* === DUNGILE EMBLEMATICE KFC SUS === */
+    .kfc-stripes {
+      height: 8px;
+      width: 100%;
+      background: repeating-linear-gradient(
+        90deg,
+        var(--kfc-red) 0px,
+        var(--kfc-red) 36px,
+        var(--kfc-white) 36px,
+        var(--kfc-white) 72px
+      );
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1001;
+    }
 
-header img {
-  height: 48px;
-  margin-right: 16px;
-}
+    /* === HEADER MODERN === */
+    header {
+      position: sticky;
+      top: 8px;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(12px);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid var(--kfc-border);
+      transition: all 0.25s ease;
+    }
 
-header h1 {
-  font-size: 22px;
-  color: var(--kfc-red);
-  margin: 0;
-  font-weight: 600;
-}
+    header.scrolled {
+      box-shadow: var(--shadow-sm);
+      border-bottom-color: var(--kfc-red);
+    }
 
-main {
-  max-width: 700px;
-  margin: 30px auto;
-  padding: 24px;
-  background: var(--kfc-light);
-  border-radius: 12px;
-  box-shadow: var(--shadow);
-}
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
 
-h2 {
-  text-align: center;
-  margin-bottom: 24px;
-  color: var(--kfc-dark);
-  font-size: 20px;
-  font-weight: 600;
-}
+    .kfc-logo-badge {
+      background: var(--kfc-red);
+      color: var(--kfc-white);
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 900;
+      font-size: 26px;
+      letter-spacing: -1px;
+      padding: 4px 12px 4px 10px;
+      border-radius: 10px;
+      line-height: 1;
+      user-select: none;
+      box-shadow: 0 4px 10px rgba(228, 0, 43, 0.25);
+    }
 
-label {
-  display: block;
-  margin-top: 18px;
-  font-weight: 600;
-  font-size: 15px;
-}
+    .header-title h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-style: italic;
+      font-weight: 900;
+      font-size: 19px;
+      text-transform: uppercase;
+      letter-spacing: -0.5px;
+      margin: 0;
+      color: var(--kfc-black);
+      line-height: 1.1;
+    }
 
-input[type="text"],
-input[type="date"],
-input[type="time"],
-input[type="number"],
-button {
-  width: 100%;
-  padding: 12px;
-  font-size: 16px;
-  margin-top: 8px;
-  border: 1px solid var(--input-border);
-  border-radius: 6px;
-  box-sizing: border-box;
-  transition: 0.2s;
-}
+    .header-title h1 span {
+      color: var(--kfc-red);
+    }
 
-input:focus {
-  outline: none;
-  border-color: var(--kfc-red);
-  box-shadow: 0 0 0 3px rgba(228, 0, 43, 0.1);
-}
+    .header-title p {
+      margin: 2px 0 0 0;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--kfc-gray);
+    }
 
-button {
-  background-color: var(--kfc-red);
-  color: white;
-  border: none;
-  cursor: pointer;
-  font-weight: 600;
-  transition: background 0.2s;
-}
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
 
-button:hover {
-  background-color: #b80020;
-}
+    .user-pill {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      background: var(--kfc-cream);
+      border: 1px solid var(--kfc-border);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--kfc-black);
+    }
 
-.link-container {
-  margin-top: 30px;
-}
+    .user-pill.visible {
+      display: inline-flex;
+    }
 
-.link-box {
-  background: #ffffff;
-  padding: 16px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  margin-bottom: 18px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s;
-}
+    .user-pill .dot {
+      width: 8px;
+      height: 8px;
+      background: #16a34a;
+      border-radius: 50%;
+    }
 
-.link-box:hover {
-  transform: scale(1.01);
-}
+    .auth-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      border: 1.5px solid var(--kfc-border);
+      background: var(--kfc-white);
+      color: var(--kfc-black);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
 
-.link-box a {
-  color: #111;
-  font-weight: 500;
-  font-size: 15px;
-  text-decoration: none;
-  word-break: break-word;
-  display: block;
-  margin-bottom: 10px;
-}
+    .auth-btn:hover {
+      border-color: var(--kfc-red);
+      color: var(--kfc-red);
+      transform: translateY(-1px);
+    }
 
-.link-box a:hover {
-  text-decoration: underline;
-}
+    /* === ECRAN AUTENTIFICARE (CÂND NU EȘTI LOGAT) === */
+    #login-screen {
+      max-width: 460px;
+      margin: 60px auto;
+      padding: 40px 28px;
+      background: var(--kfc-white);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      text-align: center;
+      border-top: 6px solid var(--kfc-red);
+    }
 
-.button-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 8px;
-}
+    .login-hero-logo {
+      display: inline-block;
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 900;
+      font-size: 54px;
+      color: var(--kfc-red);
+      letter-spacing: -2px;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
 
-.button-row button {
-  flex: 1;
-  min-width: 120px;
-  font-size: 14px;
-  background-color: var(--kfc-dark);
-  font-weight: 500;
-}
+    #login-screen h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-style: italic;
+      font-weight: 900;
+      text-transform: uppercase;
+      font-size: 24px;
+      margin: 0 0 8px 0;
+    }
 
-.proxy-container {
-  margin-top: 30px;
-  text-align: center;
-}
+    #login-screen p {
+      color: var(--kfc-gray);
+      font-size: 14px;
+      margin: 0 0 28px 0;
+    }
 
-.proxy-container button {
-  width: 48%;
-  margin: 8px 1%;
-  background-color: #444;
-}
+    .google-login-cta {
+      width: 100%;
+      padding: 15px 20px;
+      background: var(--kfc-red);
+      color: var(--kfc-white);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-style: italic;
+      font-size: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: var(--shadow-red);
+      transition: all 0.2s ease;
+    }
 
-#qr-scanner {
-  display: none;
-  width: 100%;
-  margin-top: 10px;
-  border: 2px dashed #ccc;
-  border-radius: 6px;
-  padding: 10px;
-}
+    .google-login-cta:hover {
+      background: var(--kfc-red-hover);
+      transform: translateY(-2px);
+    }
 
-@media (max-width: 600px) {
-  main {
-    margin: 20px;
-    padding: 18px;
-  }
+    /* === CONTAINER PRINCIPAL === */
+    main {
+      max-width: 740px;
+      width: 100%;
+      margin: 28px auto 60px auto;
+      padding: 0 16px;
+    }
 
-  .button-row {
-    flex-direction: column;
-  }
+    /* === BANNER REBRAND KFC === */
+    .hero-banner {
+      background: var(--kfc-red);
+      color: var(--kfc-white);
+      padding: 24px 28px;
+      border-radius: var(--radius-lg);
+      margin-bottom: 22px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-red);
+    }
 
-  .proxy-container button {
-    width: 100%;
-    margin: 8px 0;
-  }
+    .hero-banner::after {
+      content: "KFC";
+      position: absolute;
+      right: -12px;
+      bottom: -24px;
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 900;
+      font-size: 120px;
+      color: rgba(255, 255, 255, 0.1);
+      letter-spacing: -5px;
+      pointer-events: none;
+      user-select: none;
+    }
 
-  header h1 {
-    font-size: 18px;
-  }
-}
+    .hero-banner .tag {
+      display: inline-block;
+      background: var(--kfc-black);
+      color: var(--kfc-white);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-style: italic;
+      font-size: 11px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+      letter-spacing: 0.6px;
+    }
 
-/* Для никнейма в хедере */
-.nickname {
-  margin-left: auto;
-  font-weight: 500;
-  color: #888;
-  font-size: 16px;
-  opacity: 0.7;
-  transition: opacity 0.3s ease;
-}
+    .hero-banner h2 {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 900;
+      font-size: 28px;
+      margin: 0;
+      letter-spacing: -0.5px;
+      line-height: 1.1;
+      text-transform: uppercase;
+    }
 
-.nickname:hover {
-  opacity: 1;
-  color: var(--kfc-red);
-}
+    .hero-banner p {
+      margin: 6px 0 0 0;
+      font-size: 13.5px;
+      opacity: 0.92;
+      font-weight: 500;
+    }
 
-.material-symbols-outlined {
-  font-variation-settings:
-    'FILL' 0,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 28;
-  cursor: pointer;
+    /* === CARDURI DE CONTROL === */
+    .control-card {
+      background: var(--kfc-white);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--kfc-border);
+    }
 
-  /* Полностью убираем фон и рамку */
-  border: none;
-  background: transparent;
-  color: var(--kfc-dark);
+    .field-group {
+      margin-bottom: 20px;
+    }
 
-  /* Убираем стандартные обводки при фокусе/клике */
-  outline: none;
-  box-shadow: none;
+    .field-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-style: italic;
+      font-size: 12.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--kfc-black);
+      margin-bottom: 8px;
+    }
 
-  /* Плавный переход цвета */
-  transition: color 0.2s;
-}
+    .field-label span.auto-badge {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-style: normal;
+      font-weight: 700;
+      font-size: 11px;
+      color: var(--kfc-red);
+      background: var(--kfc-red-soft);
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
 
-.material-symbols-outlined:hover {
-  color: var(--kfc-red);
-}
+    /* Inputuri */
+    input[type="text"],
+    input[type="date"],
+    input[type="time"],
+    input[type="number"] {
+      width: 100%;
+      height: 50px;
+      padding: 0 14px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--kfc-black);
+      background: var(--kfc-cream);
+      border: 2px solid transparent;
+      border-radius: var(--radius-md);
+      transition: all 0.2s ease;
+      appearance: none;
+      -webkit-appearance: none;
+    }
 
-/* Для состояния при нажатии/фокусе */
-.material-symbols-outlined:active,
-.material-symbols-outlined:focus {
-  background: transparent;
-  outline: none;
-  box-shadow: none;
-}
+    input:focus {
+      outline: none;
+      background: var(--kfc-white);
+      border-color: var(--kfc-red);
+      box-shadow: 0 0 0 4px var(--kfc-red-soft);
+    }
 
+    .scan-input-row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .scan-input-row input[type="text"] {
+      flex: 1;
+    }
+
+    /* Detalii bon detectat */
+    .receipt-meta {
+      display: none;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .receipt-meta.active {
+      display: flex;
+    }
+
+    .meta-chip {
+      background: var(--kfc-black);
+      color: var(--kfc-white);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 5px 10px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .meta-chip strong {
+      color: #ff6b88;
+    }
+
+    /* Butoane pătrate cu iconițe */
+    .icon-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: var(--radius-md);
+      border: none;
+      cursor: pointer;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--kfc-black);
+      color: var(--kfc-white);
+      transition: all 0.16s ease;
+    }
+
+    .icon-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .icon-btn:active {
+      transform: scale(0.95);
+    }
+
+    .icon-btn.primary {
+      background-color: var(--kfc-red);
+      box-shadow: 0 4px 12px rgba(228, 0, 43, 0.25);
+    }
+
+    .icon-btn.primary:hover {
+      background-color: var(--kfc-red-hover);
+    }
+
+    .icon-btn.danger {
+      background-color: #2b2b2b;
+    }
+
+    .icon-btn.danger:hover {
+      background-color: var(--kfc-black);
+    }
+
+    .material-symbols-outlined {
+      font-size: 24px;
+      line-height: 1;
+      user-select: none;
+    }
+
+    /* QR Scanner */
+    #qr-scanner-wrap {
+      display: none;
+      margin-top: 14px;
+      background: var(--kfc-black);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      text-align: center;
+    }
+
+    #qr-scanner {
+      width: 100%;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+
+    #qr-scanner video {
+      width: 100% !important;
+      height: auto !important;
+      border-radius: 8px;
+    }
+
+    .stop-scan-btn {
+      margin-top: 10px;
+      background: var(--kfc-red);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* Rând Dată + Oră */
+    .datetime-row {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 10px;
+    }
+
+    /* Rând Generare + Preseturi */
+    .generate-row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .preset-pills {
+      display: flex;
+      gap: 6px;
+    }
+
+    .preset-btn {
+      height: 50px;
+      padding: 0 14px;
+      border-radius: var(--radius-md);
+      border: 2px solid var(--kfc-border);
+      background: var(--kfc-white);
+      color: var(--kfc-black);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-style: italic;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .preset-btn:hover,
+    .preset-btn.active {
+      border-color: var(--kfc-red);
+      background: var(--kfc-red-soft);
+      color: var(--kfc-red);
+    }
+
+    .generate-cta {
+      height: 50px;
+      padding: 0 22px;
+      border-radius: var(--radius-md);
+      border: none;
+      background: var(--kfc-red);
+      color: var(--kfc-white);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-style: italic;
+      font-size: 15px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: var(--shadow-red);
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .generate-cta:hover {
+      background: var(--kfc-red-hover);
+      transform: translateY(-2px);
+    }
+
+    /* Bara de opțiuni automatizare */
+    .automation-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px dashed var(--kfc-border);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--kfc-gray);
+    }
+
+    .toggle-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      color: var(--kfc-black);
+      user-select: none;
+    }
+
+    .toggle-label input {
+      accent-color: var(--kfc-red);
+      width: 17px;
+      height: 17px;
+      cursor: pointer;
+    }
+
+    /* === HEADER REZULTATE === */
+    .results-header {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      margin: 26px 4px 14px 4px;
+    }
+
+    .results-header.visible {
+      display: flex;
+    }
+
+    .results-title {
+      font-family: 'Montserrat', sans-serif;
+      font-style: italic;
+      font-weight: 900;
+      font-size: 18px;
+      text-transform: uppercase;
+      margin: 0;
+    }
+
+    .results-stats {
+      font-size: 13px;
+      font-weight: 700;
+      background: var(--kfc-black);
+      color: var(--kfc-white);
+      padding: 5px 12px;
+      border-radius: 999px;
+    }
+
+    /* === CARDURI LINKURI GENERATE === */
+    .link-container {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .link-box {
+      background: var(--kfc-white);
+      padding: 18px;
+      border-radius: 16px;
+      border: 1.5px solid var(--kfc-border);
+      border-left: 6px solid var(--kfc-red);
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .link-box:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .link-box.used {
+      opacity: 0.48;
+      border-left-color: #888;
+      background: #fafafa;
+    }
+
+    .link-top-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      gap: 8px;
+    }
+
+    .badge-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .idx-badge {
+      background: var(--kfc-red);
+      color: var(--kfc-white);
+      font-family: 'Montserrat', sans-serif;
+      font-style: italic;
+      font-weight: 900;
+      font-size: 12px;
+      padding: 4px 9px;
+      border-radius: 6px;
+    }
+
+    .ti-badge {
+      background: var(--kfc-black);
+      color: var(--kfc-white);
+      font-weight: 700;
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      letter-spacing: 0.3px;
+    }
+
+    .time-badge {
+      background: var(--kfc-cream);
+      color: var(--kfc-black);
+      border: 1px solid var(--kfc-border);
+      font-weight: 700;
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .status-used-tag {
+      display: none;
+      font-family: 'Montserrat', sans-serif;
+      font-style: italic;
+      font-weight: 900;
+      font-size: 11px;
+      text-transform: uppercase;
+      color: #16a34a;
+      background: rgba(22, 163, 74, 0.12);
+      padding: 4px 9px;
+      border-radius: 6px;
+    }
+
+    .link-box.used .status-used-tag {
+      display: inline-block;
+    }
+
+    .link-url {
+      color: var(--kfc-gray);
+      font-size: 12.5px;
+      font-weight: 500;
+      text-decoration: none;
+      word-break: break-all;
+      display: block;
+      margin-bottom: 14px;
+      padding: 8px 10px;
+      background: var(--kfc-cream);
+      border-radius: 8px;
+      transition: color 0.15s;
+    }
+
+    .link-url:hover {
+      color: var(--kfc-red);
+    }
+
+    .link-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .action-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .action-btn {
+      padding: 11px 14px;
+      border-radius: 10px;
+      border: none;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+
+    .action-btn .material-symbols-outlined {
+      font-size: 18px;
+    }
+
+    .action-row.primary .action-btn {
+      background: var(--kfc-black);
+      color: var(--kfc-white);
+    }
+
+    .action-row.primary .action-btn:hover {
+      background: var(--kfc-red);
+    }
+
+    .action-row.secondary .action-btn {
+      background: var(--kfc-cream);
+      color: var(--kfc-black);
+      border: 1px solid var(--kfc-border);
+    }
+
+    .action-row.secondary .action-btn:hover {
+      background: #eae6df;
+    }
+
+    /* === MODAL CONFIRMARE ȘTERGERE === */
+    #confirmDeleteModal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+    }
+
+    .modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(17, 17, 17, 0.6);
+      backdrop-filter: blur(4px);
+    }
+
+    .modal-box {
+      position: relative;
+      background: var(--kfc-white);
+      max-width: 380px;
+      margin: 22vh auto;
+      padding: 26px 24px;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      text-align: center;
+      border-top: 6px solid var(--kfc-red);
+    }
+
+    .modal-box h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-style: italic;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin: 0 0 8px 0;
+      font-size: 20px;
+    }
+
+    .modal-box p {
+      font-size: 14px;
+      color: var(--kfc-gray);
+      margin: 0 0 22px 0;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .modal-actions button {
+      flex: 1;
+      padding: 12px 10px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 13.5px;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-secondary {
+      background: var(--kfc-cream);
+      color: var(--kfc-black);
+    }
+
+    .btn-secondary:hover {
+      background: #e5e1da;
+    }
+
+    .btn-danger {
+      background: var(--kfc-red);
+      color: var(--kfc-white);
+    }
+
+    .btn-danger:hover {
+      background: var(--kfc-red-hover);
+    }
+
+    /* === TOAST NOTIFICATIONS (ÎNLOCUIEȘTE ALERT-UL) === */
+    #toast-container {
+      position: fixed;
+      bottom: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      pointer-events: none;
+      width: max-content;
+      max-width: 90vw;
+    }
+
+    .toast {
+      background: var(--kfc-black);
+      color: var(--kfc-white);
+      padding: 12px 18px;
+      border-radius: 12px;
+      border-left: 5px solid var(--kfc-red);
+      font-size: 13.5px;
+      font-weight: 700;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      animation: toastIn 0.22s ease forwards;
+    }
+
+    @keyframes toastIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* === RESPONSIVE MOBILE === */
+    @media (max-width: 600px) {
+      header {
+        padding: 10px 16px;
+      }
+      .user-pill span.user-name-text {
+        max-width: 110px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .hero-banner {
+        padding: 18px 20px;
+      }
+      .hero-banner h2 {
+        font-size: 22px;
+      }
+      .control-card {
+        padding: 18px;
+      }
+      .datetime-row {
+        grid-template-columns: 1fr 1fr;
+      }
+      .datetime-row input[type="date"] {
+        grid-column: span 2;
+      }
+      .preset-pills {
+        display: none;
+      }
+    }
   </style>
-
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
-<style>
-.material-symbols-outlined {
-  font-variation-settings:
-    'FILL' 0,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 28;
-  cursor: pointer;
-  border: none;
-  background: none;
-  color: var(--kfc-dark);
-  transition: color 0.2s;
-}
-
-.material-symbols-outlined:hover {
-  color: var(--kfc-red);
-}
-/* Контейнер */
-.scan-row {
-  display: flex;
-  align-items: center; /* 🔥 ЭТО ВЫРАВНИВАЕТ ПО ВЫСОТЕ */
-  gap: 10px;
-}
-	
-/* Кнопка Camera */
-.camera-btn {
-  flex: 1;
-  height: 48px;
-  background-color: var(--kfc-red);
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.camera-btn:hover {
-  background-color: #b80020;
-}
-
-/* Иконка QR */
-.camera-btn .material-symbols-outlined {
-  font-size: 26px;
-  color: white;
-  line-height: 1;
-}
-
-/* Кнопка Upload — КВАДРАТ */
-/* Кнопка Upload — идеально по центру */
-.upload-btn {
-  width: 48px;
-  height: 48px;
-  background-color: var(--kfc-red);
-  border-radius: 8px;
-  cursor: pointer;
-  flex-shrink: 0;
-
-  display: flex;              /* 🔥 ВАЖНО */
-  align-items: center;        /* 🔥 ВАЖНО */
-  justify-content: center;    /* 🔥 ВАЖНО */
-
-  padding: 0;
-  margin: 0;
-  line-height: 1;
-  vertical-align: middle;
-
-  box-sizing: border-box;
-}
-.upload-btn:hover {
-  background-color: #b80020;
-}
-
-/* Иконка Upload по центру */
-.upload-btn .material-symbols-outlined {
-  font-size: 26px;
-  color: white;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  line-height: 1;
-}
-
-	.auth-actions {
-  margin-left: auto; /* 🔥 ОТПРАВЛЯЕТ КНОПКУ ВПРАВО */
-  display: flex;
-  align-items: center;
-}
-
-#loginBtn,
-#logoutBtn {
-  font-size: 26px; /* было 28 */
-}
-
-	/* ===== AUTH ICON BUTTONS (LOGIN / LOGOUT) ===== */
-.auth-actions button {
-  all: unset;                 /* 💣 СНОСИТ ВСЕ СТИЛИ button */
-  cursor: pointer;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 32px;
-  height: 32px;
-
-  font-family: 'Material Symbols Outlined';
-  font-size: 26px;
-  line-height: 1;
-
-  color: var(--kfc-dark);
-  background: transparent;    /* 🔥 ВСЕГДА ПРОЗРАЧНЫЙ */
-}
-
-/* Hover */
-.auth-actions button:hover {
-  color: var(--kfc-red);
-}
-
-/* Active / focus — НИКАКОГО КРАСНОГО ФОНА */
-.auth-actions button:active,
-.auth-actions button:focus {
-  background: transparent;
-  outline: none;
-  box-shadow: none;
-}
-
-.scan-input-row {
-  display: flex;
-  align-items: center; /* 🔥 ВАЖНО */
-  gap: 10px;
-}
-	.upload-btn .material-symbols-outlined {
-  margin-left: 1px; /* попробуй -1px / -2px / -3px */
-}
-
-	.link-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 10px;
-}
-
-.action-row {
-  display: flex;
-  gap: 8px;
-}
-
-.action-row button {
-  flex: 1;
-  font-size: 14px;
-  padding: 12px;
-  border-radius: 8px;
-}
-
-/* 🔥 Основные кнопки (VPN) */
-.action-row.primary button {
-  background-color: #111;
-  color: #fff;
-}
-
-/* Второстепенные */
-.action-row.secondary button {
-  background-color: #e0e0e0;
-  color: #111;
-}
-
-/* Hover */
-.action-row.primary button:hover {
-  background-color: #000;
-}
-
-.action-row.secondary button:hover {
-  background-color: #ccc;
-}
-
-/* === FIX html5-qrcode on mobile === */
-#qr-scanner {
-  width: 100%;
-  max-width: 100%;
-  overflow: hidden;
-}
-
-#qr-scanner video {
-  width: 100% !important;
-  height: auto !important;
-  object-fit: cover;
-  border-radius: 6px;
-}
-
-input[type="date"],
-input[type="time"] {
-  width: 100%;
-  box-sizing: border-box;
-  -webkit-appearance: none;
-  appearance: none;
-}
-
-main {
-  overflow-x: hidden;
-}
-	
-
-/* === Generate links row === */
-.generate-row {
-  display: flex;
-  gap: 10px;
-  margin-top: 8px;
-}
-
-/* Input count */
-.generate-row input[type="number"] {
-  flex: 1;
-  height: 48px;
-  font-size: 16px;
-}
-
-/* Generate button */
-.generate-btn {
-  width: 48px;
-  height: 48px;
-  background-color: var(--kfc-red);
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  flex-shrink: 0;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.generate-btn:hover {
-  background-color: #b80020;
-}
-
-/* Icon inside */
-.generate-btn .material-symbols-outlined {
-  color: white;
-  font-size: 26px;
-  line-height: 1;
-}
-
-
-/* === QR input row === */
-.scan-input-row {
-  display: flex;
-  gap: 10px;
-  margin-top: 8px;
-}
-
-/* Input — основной */
-.scan-input-row input[type="text"] {
-  flex: 1;
-  height: 48px;
-  font-size: 16px;
-}
-
-/* Иконки — КВАДРАТЫ как generate */
-.scan-input-row .icon-btn {
-  width: 48px;
-  height: 48px;
-}
-
-/* Иконки внутри */
-.scan-input-row .material-symbols-outlined {
-  font-size: 24px;
-  line-height: 1;
-}
-
-	
-	
-
-/* === Date + Time row === */
-.datetime-row {
-  display: flex;
-  gap: 10px;
-  margin-top: 8px;
-}
-
-/* Date — шире */
-.datetime-row input[type="date"] {
-  flex: 2;
-}
-
-/* Time — уже */
-.datetime-row input[type="time"] {
-  flex: 1;
-}
-
-/* Общая высота */
-.datetime-row input {
-  height: 48px;
-  font-size: 16px;
-}
-
-/* === Universal icon buttons === */
-.icon-btn {
-  width: 48px;
-  height: 48px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  flex-shrink: 0;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background-color: var(--kfc-dark);
-}
-
-.icon-btn .material-symbols-outlined {
-  font-size: 24px;
-  color: white;
-  line-height: 1;
-}
-
-/* Красная (generate) */
-.icon-btn.primary {
-  background-color: var(--kfc-red);
-}
-
-.icon-btn.primary:hover {
-  background-color: #b80020;
-}
-
-/* Серая корзина */
-.icon-btn.danger {
-  background-color: #555;
-}
-
-.icon-btn.danger:hover {
-  background-color: #333;
-}
-
-/*
-/* 🔧 Pixel-fix ТОЛЬКО для arrow_forward */
-.icon-btn.primary .material-symbols-outlined {
-  transform: translateX(0px);
-}
-	
-/* 🔥 RESET для Material Icons */
-.material-symbols-outlined {
-  margin: 0 !important;
-  padding: 0;
-  transform: none;
-  line-height: 1;
-}
-
-	/* ===== Confirm modal ===== */
-#confirmDeleteModal {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-}
-
-.modal-backdrop {
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.4);
-}
-
-.modal-box {
-  position: relative;
-  background: white;
-  max-width: 360px;
-  margin: 20vh auto;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: var(--shadow);
-  text-align: center;
-}
-
-.modal-box p {
-  font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 20px;
-}
-
-.modal-actions {
-  display: flex;
-  gap: 8px;
-}
-
-.modal-actions button {
-  flex: 1;
-  padding: 10px;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  border: none;
-}
-
-/* Кнопки */
-.btn-secondary {
-  background: #e0e0e0;
-  color: #111;
-}
-
-.btn-secondary:hover {
-  background: #ccc;
-}
-
-.btn-danger {
-  background: var(--kfc-red);
-  color: white;
-}
-
-.btn-danger:hover {
-  background: #b80020;
-}
-
-.header-title h1 {
-  font-size: 20px;
-  margin: 0;
-  font-weight: 600;
-  letter-spacing: 0.3px;
-}
-
-.header-title span {
-  font-size: 13px;
-  color: #888;
-  font-weight: 400;
-}
-
-label.icon-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-
-.upload-label {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* 🔥 КЛЮЧЕВОЙ ФИКС */
-.upload-label .icon-wrap {
-  width: 100%;
-  height: 100%;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* 🔥 ИКОНКА ВНЕ TEXT FLOW */
-.upload-label .material-symbols-outlined {
-  display: block;
-  line-height: 1;
-}
-
-/* === FIX: выравнивание input + icon buttons === */
-.scan-input-row > * {
-  margin-top: 0 !important;
-}
-
-
-main {
-  overscroll-behavior: contain;
-}
-
-/* эффект резинки */
-body {
-  scroll-behavior: smooth;
-}
-
-
-
-
-
-
-.icon-btn {
-  transition: transform 0.12s ease, box-shadow 0.12s ease;
-}
-
-.icon-btn:active {
-  transform: scale(0.94);
-}
-	
-
-
-
-
-.nickname {
-  font-size: 13px;
-  color: #777;
-  margin-top: 4px;
-  opacity: 0.9;
-}
-
-/* подчёркиваем имя */
-.nickname strong {
-  color: #000;
-  font-weight: 600;
-}
-
-.nickname {
-  opacity: 0;
-}
-
-.nickname.visible {
-  opacity: 1;
-}
-	
-</style>
-	
 </head>
 <body>
 
-
-
-
-<header id="pageHeader">
-  <img src="https://kfclistenscx.qualtrics.com/CP/Graphic.php?IM=IM_dbC1Qsmkf9X2Bmu" alt="KFC Logo">
-  <div class="header-title">
-  <h1>Feedback Generator</h1>
-  <span>KFC internal tool</span>
- </div>
-
-
-  <!-- Кнопка входа через Google (иконка) -->
-<div class="auth-actions">
-  <button id="loginBtn" class="material-symbols-outlined">login</button>
-  <button id="logoutBtn" class="material-symbols-outlined" style="display:none;">logout</button>
-</div>
-</header>
-
-	
-
-
-	
-
-  <div class="nickname" id="nickname">Не авторизован</div>
-
-	
-
-<!-- 🔐 Защищённый контент -->
-<div id="protected-content" style="display:none;">
-
-	
-<main>
-  <h2>Generează linkuri pentru feedback</h2>
-
-<label>Link original:</label>
-
-<div class="scan-input-row">
-  <!-- Input -->
-  <input type="text" id="scannedResult" placeholder="Aici apare linkul scanat">
-
-  <!-- QR Camera -->
-  <button class="icon-btn primary" onclick="startQRScanner()" title="Scanează QR">
-    <span class="material-symbols-outlined">qr_code_2</span>
-  </button>
-
-  <!-- Upload -->
-<label class="icon-btn primary upload-label" title="Încarcă imagine">
-  <div class="icon-wrap">
-    <span class="material-symbols-outlined">upload</span>
-  </div>
-  <input type="file" id="imageInput" accept="image/*" hidden>
-</label>
-
-</div>
-
-<div id="qr-scanner"></div>
-
-  <label>Dată / ora de început / ora de sfârșit:</label>
-
-<div class="datetime-row">
-  <input type="date" id="selectedDate">
-  <input type="time" id="startTime">
-  <input type="time" id="endTime">
-</div>
-
-  <label>Câte linkuri să se genereze:</label>
-
-<div class="generate-row">
-  <input type="number" id="linkCount" value="10">
-
-  <!-- 🗑 Корзина -->
-  <button class="icon-btn danger" onclick="clearUsedLinks()" title="Curăță linkuri">
-    <span class="material-symbols-outlined">delete</span>
-  </button>
-
-  <!-- ▶ Генерация -->
-  <button class="icon-btn primary" onclick="generateLinks()">
-    <span class="material-symbols-outlined">arrow_forward</span>
-  </button>
-</div>
-
-  <div id="links" class="link-container"></div>
-
-
-
-
-</main>
-	
-<script>
-  function copyLink(link) {
-    navigator.clipboard.writeText(link).then(() => {
-      alert("Link copiat!");
-    });
-  }
-
-  function openProxyium(link) {
-    // Просто копируем уже готовую ссылку, без encodeURIComponent!
-    navigator.clipboard.writeText(link).then(() => {
-      window.open("https://www.proxyium.com", "_blank");
-    });
-  }
-
-  function openCroxy(link) {
-    navigator.clipboard.writeText(link).then(() => {
-      window.open("https://www.croxyproxy.com", "_blank");
-    });
-  }
-  // Salvăm linkurile folosite
-function getUsedTI() {
-  return JSON.parse(localStorage.getItem("usedTI") || "[]");
-}
-
-function markTIUsed(ti) {
-  const used = getUsedTI();
-  if (!used.includes(ti)) {
-    used.push(ti);
-    localStorage.setItem("usedTI", JSON.stringify(used));
-  }
-}
-
-function isTIUsed(ti) {
-  return getUsedTI().includes(ti);
-}
-
-function clearUsedLinks() {
-  // открываем подтверждение
-  document.getElementById("confirmDeleteModal").style.display = "block";
-}
-
-function closeDeleteModal() {
-  document.getElementById("confirmDeleteModal").style.display = "none";
-}
-
-function confirmDelete(deleteAll) {
-  if (deleteAll) {
-    // 🔥 ȘTERGE TOT (как раньше)
-    localStorage.removeItem("usedTI");
-
-    document.getElementById("links").innerHTML = "";
-    document.getElementById("scannedResult").value = "";
-
-    closeDeleteModal();
-    location.reload(); // тут reload НУЖЕН
-    return;
-  }
-
-  // ✅ DOAR linkurile generate (fără reload)
-  document.getElementById("links").innerHTML = "";
-
-  closeDeleteModal();
-}
-
-function saveAppState() {
-  const state = {
-    link: scannedResult.value,
-    date: selectedDate.value,
-    start: startTime.value,
-    end: endTime.value,
-    count: linkCount.value
-  };
-  localStorage.setItem("appState", JSON.stringify(state));
-}
-
-function restoreAppState() {
-  const saved = localStorage.getItem("appState");
-  if (!saved) return;
-
-  const s = JSON.parse(saved);
-  scannedResult.value = s.link || "";
-  selectedDate.value = s.date || "";
-  startTime.value = s.start || "";
-  endTime.value = s.end || "";
-  linkCount.value = s.count || 10;
-}
-
-restoreAppState();
-	
-</script>
-
-
-
-<script src="https://unpkg.com/html5-qrcode"></script>
-<script>
-
-let qrDetected = false;
-let dateFromLink = false;
-	
-  let html5QrCode;
-
-  function setDefaultDateTime() {
-  if (dateFromLink) return;
-
-  const now = new Date();
-  document.getElementById("selectedDate").valueAsDate = now;
-  document.getElementById("startTime").value = "10:00";
-  document.getElementById("endTime").value = now.toTimeString().slice(0, 5);
-}
-
-  function startQRScanner() {
-    const scannerDiv = document.getElementById("qr-scanner");
-    scannerDiv.style.display = "block";
-    html5QrCode = new Html5Qrcode("qr-scanner");
-    html5QrCode.start(
-      { facingMode: "environment" },
-      { fps: 10, qrbox: 250 },
-      qrCodeSuccess
-    ).catch(err => alert("Eroare cameră: " + err));
-  }
-
-  function qrCodeSuccess(decodedText) {
-  qrDetected = true;
-
-  document.getElementById("scannedResult").value = decodedText;
-  autofillDateTimeFromLink(decodedText);
-
-  html5QrCode.stop().then(() => {
-    document.getElementById("qr-scanner").style.display = "none";
-  });
-}
-
-  document.getElementById("imageInput").addEventListener("change", function () {
-    const file = this.files[0];
-    if (!file) return;
-    const qr = new Html5Qrcode("qr-scanner");
-
-    qr.scanFile(file, true).then(decodedText => {
-        qrDetected = true; // ✅ добавляем сюда
-        document.getElementById("scannedResult").value = decodedText;
-        autofillDateTimeFromLink(decodedText);
-    }).catch(() => {
-        if (!qrDetected) {
-            console.log("QR not detected");
-        }
-    });
-});
-
-
-  function parseLinkData(link) {
-    const url = new URL(link);
-    const params = new URLSearchParams(url.search);
-    return {
-      S: params.get("S"),
-      dateTime: decodeURIComponent(params.get("D")),
-      TI: parseInt(params.get("TI")),
-      lang: params.get("Q_Language") || "RO"
-    };
-  }
-
-  function generateLinks() {
-    const link = document.getElementById("scannedResult").value.trim();
-    const date = document.getElementById("selectedDate").value;
-    const startTime = document.getElementById("startTime").value;
-    const endTime = document.getElementById("endTime").value;
-    const count = parseInt(document.getElementById("linkCount").value);
-
-    if (!link || !date || !startTime || !endTime || !count) {
-      alert("Completează toate câmpurile!");
-      return;
-    }
-
-    const data = parseLinkData(link);
-    const base = "https://customer.kfc-listens.com/jfe/form/SV_7WmLtfIDJuM3Vn8";
-    const start = new Date(`${date}T${startTime}`);
-    const end = new Date(`${date}T${endTime}`);
-    const now = new Date();
-
-    if (end < start) {
-      alert("Ora de sfârșit nu poate fi înaintea celei de început!");
-      return;
-    }
-    if (end > now) {
-      alert("Ora de sfârșit nu poate fi în viitor!");
-      return;
-    }
-
-    const diff = (end - start) / count;
-    let linksHTML = "";
-
-    for (let i = 0; i < count; i++) {
-      const ti = data.TI - (count - i - 1);
-      const time = new Date(start.getTime() + diff * i);
-      const dd = String(time.getDate()).padStart(2, "0");
-      const mm = String(time.getMonth() + 1).padStart(2, "0");
-      const yyyy = time.getFullYear();
-      const hh = String(time.getHours()).padStart(2, "0");
-      const mi = String(time.getMinutes()).padStart(2, "0");
-
-      const encodedDateTime = encodeURIComponent(`${dd}/${mm}/${yyyy}%20${hh}:${mi}`);
-      const fullLink = `${base}?S=${data.S}&D=${encodedDateTime}&TI=${ti}&Q_Language=${data.lang}`;
-
-
-
-linksHTML += `<div class="link-box">
-  <a href="${fullLink}" target="_blank">${decodeURIComponent(fullLink)}</a>
-<div class="link-actions">
-
-  <div class="action-row primary">
-    <button onclick="openProxyium('${fullLink}', event)">🌐 VPN Proxy</button>
-    <button onclick="openCroxy('${fullLink}', event)">🛡️ VPN Croxy</button>
+  <!-- Dungile KFC sus -->
+  <div class="kfc-stripes"></div>
+
+  <!-- Header -->
+  <header id="pageHeader">
+    <div class="brand-wrap">
+      <div class="kfc-logo-badge">KFC</div>
+      <div class="header-title">
+        <h1>FEEDBACK <span>PRO</span></h1>
+        <p>Automated Link Hub</p>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <div class="user-pill" id="nicknamePill">
+        <span class="dot"></span>
+        <span class="user-name-text" id="nickname">Neautentificat</span>
+      </div>
+      <button id="loginBtn" class="auth-btn" title="Autentificare cu Google">
+        <span class="material-symbols-outlined">login</span>
+      </button>
+      <button id="logoutBtn" class="auth-btn" style="display:none;" title="Deconectare">
+        <span class="material-symbols-outlined">logout</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Ecran afișat când utilizatorul NU este autentificat -->
+  <div id="login-screen" style="display:none;">
+    <div class="login-hero-logo">KFC</div>
+    <h2>Acces Intern</h2>
+    <p>Autentifică-te cu contul Google pentru a accesa generatorul automat de linkuri KFC Feedback.</p>
+    <button class="google-login-cta" onclick="loginWithGoogle()">
+      <span class="material-symbols-outlined">account_circle</span>
+      Continuă cu Google
+    </button>
   </div>
 
-  <div class="action-row secondary">
-    <button onclick="openAndMark('${fullLink}')">🔓 Deschide</button>
-    <button onclick="copyAndMark('${fullLink}')">📋 Copie</button>
+  <!-- Conținut protejat -->
+  <div id="protected-content" style="display:none;">
+    <main>
+
+      <!-- Banner KFC Rebrand -->
+      <div class="hero-banner">
+        <span class="tag">AUTO-GENERATOR 2026</span>
+        <h2>Generează Linkuri Feedback</h2>
+        <p>Scanează QR-ul sau lipește linkul — data, ora și bonurile se calculează automat.</p>
+      </div>
+
+      <!-- Card Principal Controale -->
+      <div class="control-card">
+
+        <!-- 1. Link / QR -->
+        <div class="field-group">
+          <div class="field-label">
+            <span>1. Link Original / Scanare Bon</span>
+            <span class="auto-badge">⚡ Auto-Paste & Scan</span>
+          </div>
+
+          <div class="scan-input-row">
+            <input type="text" id="scannedResult" placeholder="Lipește linkul aici sau scanează QR..." autocomplete="off">
+
+            <!-- Cameră QR -->
+            <button class="icon-btn primary" onclick="startQRScanner()" title="Scanează QR cu camera">
+              <span class="material-symbols-outlined">qr_code_scanner</span>
+            </button>
+
+            <!-- Upload Imagine QR -->
+            <label class="icon-btn primary" title="Încarcă poză cu QR" style="margin:0;">
+              <span class="material-symbols-outlined">upload_file</span>
+              <input type="file" id="imageInput" accept="image/*" hidden>
+            </label>
+          </div>
+
+          <!-- Chip-uri cu informațiile extrase automat din link -->
+          <div id="receiptMeta" class="receipt-meta"></div>
+
+          <!-- Container Cameră QR -->
+          <div id="qr-scanner-wrap">
+            <div id="qr-scanner"></div>
+            <button class="stop-scan-btn" onclick="stopQRScanner()">Închide Camera</button>
+          </div>
+        </div>
+
+        <!-- 2. Dată & Interval Orar -->
+        <div class="field-group">
+          <div class="field-label">
+            <span>2. Dată / Ora de început / Ora de sfârșit</span>
+          </div>
+          <div class="datetime-row">
+            <input type="date" id="selectedDate">
+            <input type="time" id="startTime">
+            <input type="time" id="endTime">
+          </div>
+        </div>
+
+        <!-- 3. Număr de linkuri & Acțiuni -->
+        <div class="field-group" style="margin-bottom: 0;">
+          <div class="field-label">
+            <span>3. Câte linkuri să se genereze</span>
+          </div>
+
+          <div class="generate-row">
+            <input type="number" id="linkCount" value="10" min="1" max="100">
+
+            <div class="preset-pills">
+              <button type="button" class="preset-btn" onclick="setQuickCount(5)">5</button>
+              <button type="button" class="preset-btn active" onclick="setQuickCount(10)">10</button>
+              <button type="button" class="preset-btn" onclick="setQuickCount(15)">15</button>
+              <button type="button" class="preset-btn" onclick="setQuickCount(20)">20</button>
+            </div>
+
+            <button class="icon-btn danger" onclick="clearUsedLinks()" title="Șterge / Resetează">
+              <span class="material-symbols-outlined">delete</span>
+            </button>
+
+            <button class="generate-cta" onclick="generateLinks()">
+              <span>Generează</span>
+              <span class="material-symbols-outlined">bolt</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Opțiuni Automatizare -->
+        <div class="automation-bar">
+          <label class="toggle-label">
+            <input type="checkbox" id="hideUsedToggle" onchange="generateLinks(true)">
+            <span>Ascunde bonurile (TI) deja folosite</span>
+          </label>
+          <span id="usedCountInfo">0 TI folosite în istoric</span>
+        </div>
+
+      </div>
+
+      <!-- Header Rezultate -->
+      <div class="results-header" id="resultsHeader">
+        <h3 class="results-title">Linkuri Pregătite</h3>
+        <span class="results-stats" id="resultsStats">0 linkuri</span>
+      </div>
+
+      <!-- Lista de linkuri generate -->
+      <div id="links" class="link-container"></div>
+
+    </main>
   </div>
 
-</div>
-</div>`;
-
-
-    }
-
-    document.getElementById("links").innerHTML = linksHTML;
-  }
-  function copyLink(text) {
-    navigator.clipboard.writeText(decodeURIComponent(text))
-      .then(() => alert("Copiat!"))
-      .catch(() => alert("Copierea nu a reușit"));
-  }
-
-function copyAndMark(link) {
-  copyLink(link);
-
-  const ti = parseInt(new URL(link).searchParams.get("TI"));
-  markTIUsed(ti);
-
-  event.target.closest('.link-box').style.opacity = 0.4;
-}
-
-function openAndMark(link) {
-  window.open(decodeURIComponent(link), '_blank');
-
-  const ti = parseInt(new URL(link).searchParams.get("TI"));
-  markTIUsed(ti);
-
-  event.target.closest('.link-box').style.opacity = 0.4;
-}
-
-
-function openProxyium(link, event) {
-  const decodedLink = decodeURIComponent(link);
-  navigator.clipboard.writeText(decodedLink).then(() => {
-
-    const ti = parseInt(new URL(link).searchParams.get("TI"));
-    markTIUsed(ti);
-
-    event.target.closest('.link-box').style.opacity = 0.4;
-    window.open("https://www.proxyium.com", "_blank");
-  });
-}
-
-function openCroxy(link, event) {
-  const decodedLink = decodeURIComponent(link);
-  navigator.clipboard.writeText(decodedLink).then(() => {
-
-    const ti = parseInt(new URL(link).searchParams.get("TI"));
-    markTIUsed(ti);
-
-    event.target.closest('.link-box').style.opacity = 0.4;
-    window.open("https://www.croxyproxy.com", "_blank");
-  });
-}
-
-
-  setDefaultDateTime();
-
-	function autofillDateTimeFromLink(link) {
-  try {
-    const url = new URL(link);
-    const dParam = url.searchParams.get("D");
-    if (!dParam) return;
-
-    const decoded = decodeURIComponent(dParam);
-    const [datePart, timePart] = decoded.split(" ");
-    if (!datePart || !timePart) return;
-
-    const [dd, mm, yyyy] = datePart.split("/");
-
-    document.getElementById("selectedDate").value = `${yyyy}-${mm}-${dd}`;
-    document.getElementById("endTime").value = timePart;
-
-    dateFromLink = true; // 🔥
-  } catch {}
-}
-
-
-window.addEventListener("scroll", () => {
-  const header = document.querySelector("header");
-  header.classList.toggle("scrolled", window.scrollY > 4);
-});
-
-
-	
-
-</script>
-</body>
-
-	<!-- 🛑 Confirm delete modal -->
-<div id="confirmDeleteModal" style="display:none;">
-  <div class="modal-backdrop"></div>
-
-  <div class="modal-box">
-    <p>Doriți să ștergeți linkurile generate?</p>
-
-    <div class="modal-actions">
-      <button class="btn-secondary" onclick="confirmDelete(false)">Da</button>
-      <button class="btn-secondary" onclick="closeDeleteModal()">Nu</button>
-      <button class="btn-danger" onclick="confirmDelete(true)">Șterge tot</button>
+  <!-- Modal Confirmare Ștergere -->
+  <div id="confirmDeleteModal">
+    <div class="modal-backdrop" onclick="closeDeleteModal()"></div>
+    <div class="modal-box">
+      <h3>Curățare Linkuri</h3>
+      <p>Vrei să cureți doar lista afișată acum sau să ștergi tot istoricul bonurilor folosite?</p>
+      <div class="modal-actions">
+        <button class="btn-secondary" onclick="confirmDelete(false)">Doar lista</button>
+        <button class="btn-secondary" onclick="closeDeleteModal()">Anulează</button>
+        <button class="btn-danger" onclick="confirmDelete(true)">Șterge tot</button>
+      </div>
     </div>
   </div>
-</div>
 
-	
+  <!-- Container Notificări Toast -->
+  <div id="toast-container"></div>
 
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
-  import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
-  import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
+  <!-- Librărie QR -->
+  <script src="https://unpkg.com/html5-qrcode"></script>
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyDMO3a9eUai1bjx7K7dHsBP9FWST7uPFwI",
-    authDomain: "kfc-malldova-link.firebaseapp.com",
-    projectId: "kfc-malldova-link",
-    storageBucket: "kfc-malldova-link.firebasestorage.app",
-    messagingSenderId: "674846762418",
-    appId: "1:674846762418:web:a0199fed7c41af71fd30ab"
-  };
+  <!-- Script Principal Automatizare -->
+  <script>
+    let qrDetected = false;
+    let dateFromLink = false;
+    let html5QrCode = null;
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
-  const provider = new GoogleAuthProvider();
+    const scannedResultEl = document.getElementById("scannedResult");
+    const selectedDateEl = document.getElementById("selectedDate");
+    const startTimeEl = document.getElementById("startTime");
+    const endTimeEl = document.getElementById("endTime");
+    const linkCountEl = document.getElementById("linkCount");
 
-  window.loginWithGoogle = async () => {
-    try { await signInWithPopup(auth, provider); }
-    catch (error) { console.error("Login error:", error); }
-  };
+    // === NOTIFICĂRI RAPIDE (FĂRĂ ALERT BLOCANT) ===
+    function showToast(message, icon = "check_circle") {
+      const container = document.getElementById("toast-container");
+      const toast = document.createElement("div");
+      toast.className = "toast";
+      toast.innerHTML = `<span class="material-symbols-outlined" style="color:#E4002B">${icon}</span><span>${message}</span>`;
+      container.appendChild(toast);
 
-  const loginBtn = document.getElementById("loginBtn");
-  const logoutBtn = document.getElementById("logoutBtn");
-  const nicknameDiv = document.getElementById("nickname");
-  const protectedContent = document.getElementById("protected-content");
-
-  // Кнопка входа
-  loginBtn.onclick = () => loginWithGoogle();
-
-  // Отслеживаем состояние авторизации
-  onAuthStateChanged(auth, async (user) => {
-    if (!user) {
-      nicknameDiv.innerText = "Не авторизован";
-      protectedContent.style.display = "none";
-      logoutBtn.style.display = "none";
-      loginBtn.style.display = "inline-block"; // показываем вход
-      return;
+      setTimeout(() => {
+        toast.style.opacity = "0";
+        toast.style.transition = "opacity 0.25s ease";
+        setTimeout(() => toast.remove(), 250);
+      }, 2200);
     }
 
-    const userRef = doc(db, "users", user.uid);
-    const snap = await getDoc(userRef);
+    // === GESTIONARE BONURI (TI) FOLOSITE ===
+    function getUsedTI() {
+      return JSON.parse(localStorage.getItem("usedTI") || "[]");
+    }
 
-    if (!snap.exists()) {
-      await setDoc(userRef, { name: user.displayName, email: user.email, blocked: false, createdAt: new Date() });
-    } else if (snap.data().blocked === true) {
-      alert("Acces interzis");
+    function updateUsedCounterUI() {
+      const count = getUsedTI().length;
+      document.getElementById("usedCountInfo").innerText = `${count} TI folosite în istoric`;
+    }
+
+    function markTIUsed(ti) {
+      const used = getUsedTI();
+      if (!used.includes(ti)) {
+        used.push(ti);
+        localStorage.setItem("usedTI", JSON.stringify(used));
+        updateUsedCounterUI();
+      }
+    }
+
+    function isTIUsed(ti) {
+      return getUsedTI().includes(ti);
+    }
+
+    // === SALVARE & RESTAURARE AUTOMATĂ STARE ===
+    function saveAppState() {
+      const state = {
+        link: scannedResultEl.value,
+        date: selectedDateEl.value,
+        start: startTimeEl.value,
+        end: endTimeEl.value,
+        count: linkCountEl.value,
+        hideUsed: document.getElementById("hideUsedToggle").checked
+      };
+      localStorage.setItem("appState", JSON.stringify(state));
+    }
+
+    function setDefaultDateTime() {
+      if (dateFromLink) return;
+      const now = new Date();
+      selectedDateEl.valueAsDate = now;
+      startTimeEl.value = "10:00";
+      endTimeEl.value = now.toTimeString().slice(0, 5);
+    }
+
+    function restoreAppState() {
+      updateUsedCounterUI();
+      const saved = localStorage.getItem("appState");
+      if (!saved) {
+        setDefaultDateTime();
+        return;
+      }
+
+      try {
+        const s = JSON.parse(saved);
+        scannedResultEl.value = s.link || "";
+        selectedDateEl.value = s.date || "";
+        startTimeEl.value = s.start || "10:00";
+        endTimeEl.value = s.end || "";
+        linkCountEl.value = s.count || 10;
+        document.getElementById("hideUsedToggle").checked = !!s.hideUsed;
+
+        if (!selectedDateEl.value || !endTimeEl.value) {
+          setDefaultDateTime();
+        }
+
+        if (scannedResultEl.value.trim()) {
+          updateReceiptBadge(scannedResultEl.value.trim());
+          generateLinks(true);
+        }
+      } catch {
+        setDefaultDateTime();
+      }
+    }
+
+    // === EXTRAGERE AUTOMATĂ DATE DIN LINK ===
+    function parseLinkData(link) {
+      const url = new URL(link);
+      const params = new URLSearchParams(url.search);
+      return {
+        S: params.get("S"),
+        dateTime: decodeURIComponent(params.get("D") || ""),
+        TI: parseInt(params.get("TI")),
+        lang: params.get("Q_Language") || "RO"
+      };
+    }
+
+    function updateReceiptBadge(link) {
+      const metaBox = document.getElementById("receiptMeta");
+      try {
+        const d = parseLinkData(link);
+        if (!d.S || isNaN(d.TI)) {
+          metaBox.classList.remove("active");
+          return false;
+        }
+        metaBox.innerHTML = `
+          <span class="meta-chip">📍 Restaurant: <strong>${d.S}</strong></span>
+          <span class="meta-chip">🧾 TI Bază: <strong>${d.TI}</strong></span>
+          <span class="meta-chip">🕒 Bon: <strong>${d.dateTime}</strong></span>
+          <span class="meta-chip">🌐 Limbă: <strong>${d.lang}</strong></span>
+        `;
+        metaBox.classList.add("active");
+        return true;
+      } catch {
+        metaBox.classList.remove("active");
+        return false;
+      }
+    }
+
+    function autofillDateTimeFromLink(link) {
+      try {
+        const url = new URL(link);
+        const dParam = url.searchParams.get("D");
+        if (!dParam) return;
+
+        const decoded = decodeURIComponent(dParam);
+        const [datePart, timePart] = decoded.split(" ");
+        if (!datePart || !timePart) return;
+
+        const [dd, mm, yyyy] = datePart.split("/");
+        selectedDateEl.value = `${yyyy}-${mm}-${dd}`;
+        endTimeEl.value = timePart;
+        if (!startTimeEl.value) startTimeEl.value = "10:00";
+
+        dateFromLink = true;
+        updateReceiptBadge(link);
+        saveAppState();
+        // Generăm automat linkurile imediat după scanare/lipire!
+        generateLinks(true);
+      } catch {}
+    }
+
+    // === EVENIMENTE AUTOMATE LA PASTE / MODIFICARE ===
+    scannedResultEl.addEventListener("input", () => {
+      const val = scannedResultEl.value.trim();
+      if (val.startsWith("http")) {
+        autofillDateTimeFromLink(val);
+      } else {
+        document.getElementById("receiptMeta").classList.remove("active");
+      }
+      saveAppState();
+    });
+
+    [selectedDateEl, startTimeEl, endTimeEl, linkCountEl].forEach(el => {
+      el.addEventListener("change", () => {
+        saveAppState();
+        if (scannedResultEl.value.trim()) {
+          generateLinks(true);
+        }
+      });
+    });
+
+    function setQuickCount(n) {
+      linkCountEl.value = n;
+      document.querySelectorAll(".preset-btn").forEach(btn => {
+        btn.classList.toggle("active", parseInt(btn.innerText) === n);
+      });
+      saveAppState();
+      if (scannedResultEl.value.trim()) {
+        generateLinks(true);
+      }
+    }
+
+    // === SCANARE QR CAMERĂ & IMAGINE ===
+    function startQRScanner() {
+      const wrap = document.getElementById("qr-scanner-wrap");
+      wrap.style.display = "block";
+      html5QrCode = new Html5Qrcode("qr-scanner");
+      html5QrCode.start(
+        { facingMode: "environment" },
+        { fps: 10, qrbox: 250 },
+        qrCodeSuccess
+      ).catch(err => showToast("Eroare cameră: " + err, "error"));
+    }
+
+    function stopQRScanner() {
+      if (html5QrCode) {
+        html5QrCode.stop().then(() => {
+          document.getElementById("qr-scanner-wrap").style.display = "none";
+        }).catch(() => {
+          document.getElementById("qr-scanner-wrap").style.display = "none";
+        });
+      } else {
+        document.getElementById("qr-scanner-wrap").style.display = "none";
+      }
+    }
+
+    function qrCodeSuccess(decodedText) {
+      qrDetected = true;
+      scannedResultEl.value = decodedText;
+      showToast("Cod QR scanat cu succes!", "qr_code_2");
+      stopQRScanner();
+      autofillDateTimeFromLink(decodedText);
+    }
+
+    document.getElementById("imageInput").addEventListener("change", function () {
+      const file = this.files[0];
+      if (!file) return;
+      const qr = new Html5Qrcode("qr-scanner");
+
+      qr.scanFile(file, true).then(decodedText => {
+        qrDetected = true;
+        scannedResultEl.value = decodedText;
+        showToast("QR extras din imagine!", "image");
+        autofillDateTimeFromLink(decodedText);
+      }).catch(() => {
+        showToast("Nu s-a detectat niciun cod QR în imagine!", "warning");
+      });
+    });
+
+    // === GENERARE AUTOMATĂ LINKURI ===
+    function generateLinks(silent = false) {
+      const link = scannedResultEl.value.trim();
+      const date = selectedDateEl.value;
+      const startTime = startTimeEl.value;
+      const endTime = endTimeEl.value;
+      const count = parseInt(linkCountEl.value);
+      const hideUsed = document.getElementById("hideUsedToggle").checked;
+
+      if (!link || !date || !startTime || !endTime || !count) {
+        if (!silent) showToast("Completează toate câmpurile!", "warning");
+        return;
+      }
+
+      let data;
+      try {
+        data = parseLinkData(link);
+        if (!data.S || isNaN(data.TI)) throw new Error("Invalid link");
+      } catch {
+        if (!silent) showToast("Linkul introdus nu este un link KFC valid!", "error");
+        return;
+      }
+
+      const base = "https://customer.kfc-listens.com/jfe/form/SV_7WmLtfIDJuM3Vn8";
+      const start = new Date(`${date}T${startTime}`);
+      const end = new Date(`${date}T${endTime}`);
+      const now = new Date();
+
+      if (end < start) {
+        if (!silent) showToast("Ora de sfârșit nu poate fi înaintea celei de început!", "warning");
+        return;
+      }
+      if (end > now) {
+        if (!silent) showToast("Ora de sfârșit nu poate fi în viitor!", "warning");
+        return;
+      }
+
+      saveAppState();
+
+      const diff = (end - start) / count;
+      let linksHTML = "";
+      let visibleCount = 0;
+
+      for (let i = 0; i < count; i++) {
+        const ti = data.TI - (count - i - 1);
+        const alreadyUsed = isTIUsed(ti);
+
+        if (hideUsed && alreadyUsed) continue;
+        visibleCount++;
+
+        const time = new Date(start.getTime() + diff * i);
+        const dd = String(time.getDate()).padStart(2, "0");
+        const mm = String(time.getMonth() + 1).padStart(2, "0");
+        const yyyy = time.getFullYear();
+        const hh = String(time.getHours()).padStart(2, "0");
+        const mi = String(time.getMinutes()).padStart(2, "0");
+
+        const readableDateTime = `${dd}/${mm}/${yyyy} ${hh}:${mi}`;
+        const encodedDateTime = encodeURIComponent(readableDateTime);
+        const fullLink = `${base}?S=${data.S}&D=${encodedDateTime}&TI=${ti}&Q_Language=${data.lang}`;
+
+        linksHTML += `
+          <div class="link-box ${alreadyUsed ? 'used' : ''}" data-ti="${ti}">
+            <div class="link-top-meta">
+              <div class="badge-group">
+                <span class="idx-badge">#${i + 1}</span>
+                <span class="ti-badge">TI: ${ti}</span>
+                <span class="time-badge">🕒 ${hh}:${mi} (${dd}.${mm})</span>
+              </div>
+              <span class="status-used-tag">✓ FOLOSIT</span>
+            </div>
+
+            <a class="link-url" href="${fullLink}" target="_blank" onclick="markCardAsUsed(${ti}, this)">${decodeURIComponent(fullLink)}</a>
+
+            <div class="link-actions">
+              <div class="action-row primary">
+                <button class="action-btn" onclick="openProxyium('${fullLink}', ${ti}, this)">
+                  <span class="material-symbols-outlined">language</span> VPN Proxyium
+                </button>
+                <button class="action-btn" onclick="openCroxy('${fullLink}', ${ti}, this)">
+                  <span class="material-symbols-outlined">shield</span> VPN Croxy
+                </button>
+              </div>
+
+              <div class="action-row secondary">
+                <button class="action-btn" onclick="openAndMark('${fullLink}', ${ti}, this)">
+                  <span class="material-symbols-outlined">open_in_new</span> Deschide Direct
+                </button>
+                <button class="action-btn" onclick="copyAndMark('${fullLink}', ${ti}, this)">
+                  <span class="material-symbols-outlined">content_copy</span> Copiază Link
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      document.getElementById("links").innerHTML = linksHTML;
+      const resultsHeader = document.getElementById("resultsHeader");
+      resultsHeader.classList.add("visible");
+      document.getElementById("resultsStats").innerText = `${visibleCount} din ${count} afișate`;
+
+      if (!silent) {
+        showToast(`S-au generat ${visibleCount} linkuri!`, "bolt");
+      }
+    }
+
+    // === ACȚIUNI PE LINKURI (PROXY / COPY / OPEN) ===
+    function markCardAsUsed(ti, btnEl) {
+      markTIUsed(ti);
+      const card = btnEl.closest(".link-box");
+      if (card) {
+        if (document.getElementById("hideUsedToggle").checked) {
+          card.style.display = "none";
+        } else {
+          card.classList.add("used");
+        }
+      }
+    }
+
+    function copyAndMark(link, ti, btnEl) {
+      const decoded = decodeURIComponent(link);
+      navigator.clipboard.writeText(decoded).then(() => {
+        markCardAsUsed(ti, btnEl);
+        showToast(`TI ${ti} copiat în clipboard!`, "content_copy");
+      }).catch(() => {
+        showToast("Eroare la copiere!", "error");
+      });
+    }
+
+    function openAndMark(link, ti, btnEl) {
+      markCardAsUsed(ti, btnEl);
+      window.open(decodeURIComponent(link), "_blank");
+    }
+
+    function openProxyium(link, ti, btnEl) {
+      const decodedLink = decodeURIComponent(link);
+      navigator.clipboard.writeText(decodedLink).then(() => {
+        markCardAsUsed(ti, btnEl);
+        showToast(`TI ${ti} copiat! Se deschide Proxyium...`, "language");
+        window.open("https://www.proxyium.com", "_blank");
+      });
+    }
+
+    function openCroxy(link, ti, btnEl) {
+      const decodedLink = decodeURIComponent(link);
+      navigator.clipboard.writeText(decodedLink).then(() => {
+        markCardAsUsed(ti, btnEl);
+        showToast(`TI ${ti} copiat! Se deschide CroxyProxy...`, "shield");
+        window.open("https://www.croxyproxy.com", "_blank");
+      });
+    }
+
+    // === ȘTERGERE / RESETARE ===
+    function clearUsedLinks() {
+      document.getElementById("confirmDeleteModal").style.display = "block";
+    }
+
+    function closeDeleteModal() {
+      document.getElementById("confirmDeleteModal").style.display = "none";
+    }
+
+    function confirmDelete(deleteAll) {
+      if (deleteAll) {
+        localStorage.removeItem("usedTI");
+        localStorage.removeItem("appState");
+        document.getElementById("links").innerHTML = "";
+        document.getElementById("resultsHeader").classList.remove("visible");
+        document.getElementById("receiptMeta").classList.remove("active");
+        scannedResultEl.value = "";
+        updateUsedCounterUI();
+        closeDeleteModal();
+        showToast("Tot istoricul a fost resetat!", "delete_forever");
+        return;
+      }
+
+      document.getElementById("links").innerHTML = "";
+      document.getElementById("resultsHeader").classList.remove("visible");
+      closeDeleteModal();
+      showToast("Lista de linkuri a fost curățată!", "check");
+    }
+
+    window.addEventListener("scroll", () => {
+      const header = document.getElementById("pageHeader");
+      header.classList.toggle("scrolled", window.scrollY > 4);
+    });
+
+    // Inițializare la încărcare
+    restoreAppState();
+  </script>
+
+  <!-- Script Firebase Autentificare -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
+    import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
+    import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDMO3a9eUai1bjx7K7dHsBP9FWST7uPFwI",
+      authDomain: "kfc-malldova-link.firebaseapp.com",
+      projectId: "kfc-malldova-link",
+      storageBucket: "kfc-malldova-link.firebasestorage.app",
+      messagingSenderId: "674846762418",
+      appId: "1:674846762418:web:a0199fed7c41af71fd30ab"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const provider = new GoogleAuthProvider();
+
+    window.loginWithGoogle = async () => {
+      try {
+        await signInWithPopup(auth, provider);
+      } catch (error) {
+        console.error("Login error:", error);
+      }
+    };
+
+    const loginBtn = document.getElementById("loginBtn");
+    const logoutBtn = document.getElementById("logoutBtn");
+    const nicknameDiv = document.getElementById("nickname");
+    const nicknamePill = document.getElementById("nicknamePill");
+    const protectedContent = document.getElementById("protected-content");
+    const loginScreen = document.getElementById("login-screen");
+
+    loginBtn.onclick = () => window.loginWithGoogle();
+
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        nicknamePill.classList.remove("visible");
+        protectedContent.style.display = "none";
+        loginScreen.style.display = "block";
+        logoutBtn.style.display = "none";
+        loginBtn.style.display = "inline-flex";
+        return;
+      }
+
+      const userRef = doc(db, "users", user.uid);
+      const snap = await getDoc(userRef);
+
+      if (!snap.exists()) {
+        await setDoc(userRef, {
+          name: user.displayName,
+          email: user.email,
+          blocked: false,
+          createdAt: new Date()
+        });
+      } else if (snap.data().blocked === true) {
+        alert("Acces interzis!");
+        await signOut(auth);
+        protectedContent.style.display = "none";
+        loginScreen.style.display = "block";
+        logoutBtn.style.display = "none";
+        loginBtn.style.display = "inline-flex";
+        return;
+      }
+
+      nicknameDiv.innerHTML = `<strong>${user.displayName}</strong>`;
+      nicknamePill.classList.add("visible");
+      loginScreen.style.display = "none";
+      protectedContent.style.display = "block";
+      loginBtn.style.display = "none";
+      logoutBtn.style.display = "inline-flex";
+    });
+
+    logoutBtn.onclick = async () => {
       await signOut(auth);
+      nicknamePill.classList.remove("visible");
       protectedContent.style.display = "none";
+      loginScreen.style.display = "block";
       logoutBtn.style.display = "none";
-      loginBtn.style.display = "inline-block";
-      return;
-    }
-
-    nicknameDiv.innerHTML = `Salut, <strong>${user.displayName}</strong>`;
-	  nicknameDiv.classList.add("visible");
-    protectedContent.style.display = "block";
-    loginBtn.style.display = "none";        // скрываем вход
-    logoutBtn.style.display = "inline-block"; // показываем выход
-  });
-
-  // Кнопка выхода
-  logoutBtn.onclick = async () => {
-    await signOut(auth);
-    nicknameDiv.innerText = "Trebuie să te autentifici";
-    protectedContent.style.display = "none";
-    logoutBtn.style.display = "none";
-    loginBtn.style.display = "inline-block"; // показываем вход
-  };
-
-
-	
-</script>
-	
-</div>
-
-
+      loginBtn.style.display = "inline-flex";
+    };
+  </script>
+</body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
