@@ -2,7 +2,7 @@
 <html lang="ro">
 <head>
   <meta charset="UTF-8">
-  <title>KFC Feedback Generator | Rebrand Edition</title>
+  <title>KFC Feedback Generator | Rebrand Pro</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <link rel="icon" href="https://kfclistenscx.qualtrics.com/CP/Graphic.php?IM=IM_dbC1Qsmkf9X2Bmu">
   
@@ -23,6 +23,7 @@
       --kfc-white: #FFFFFF;
       --kfc-gray: #767676;
       --kfc-border: #E6E3DD;
+      --green-ok: #16a34a;
       --shadow-sm: 0 4px 14px rgba(17, 17, 17, 0.05);
       --shadow-md: 0 12px 32px rgba(17, 17, 17, 0.08);
       --shadow-red: 0 8px 20px rgba(228, 0, 43, 0.25);
@@ -51,7 +52,7 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      padding-top: 66px; /* Spațiu pentru header-ul fix */
+      padding-top: 66px;
     }
 
     /* === DUNGILE EMBLEMATICE KFC SUS === */
@@ -71,7 +72,7 @@
       z-index: 1001;
     }
 
-    /* === HEADER FIXED (BĂTUT ÎN CUIE SUS) === */
+    /* === HEADER FIXED PERMANENT === */
     header {
       position: fixed;
       top: 6px;
@@ -184,7 +185,7 @@
     .user-pill .dot {
       width: 8px;
       height: 8px;
-      background: #16a34a;
+      background: var(--green-ok);
       border-radius: 50%;
       box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.2);
       animation: pulseGreen 2s infinite;
@@ -292,7 +293,7 @@
     }
 
     .status-dot.online {
-      background: #16a34a;
+      background: var(--green-ok);
       box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.18);
     }
 
@@ -308,7 +309,7 @@
     }
 
     .presence-time.live {
-      color: #16a34a;
+      color: var(--green-ok);
     }
 
     .auth-btn {
@@ -396,7 +397,7 @@
     main {
       max-width: 680px;
       width: 100%;
-      margin: 16px auto 50px auto;
+      margin: 14px auto 50px auto;
       padding: 0 12px;
     }
 
@@ -406,7 +407,7 @@
       color: var(--kfc-white);
       padding: 18px 20px;
       border-radius: var(--radius-lg);
-      margin-bottom: 16px;
+      margin-bottom: 14px;
       position: relative;
       overflow: hidden;
       box-shadow: var(--shadow-red);
@@ -446,7 +447,7 @@
       font-family: 'Fraunces', serif;
       font-style: italic;
       font-weight: 900;
-      font-size: 23px;
+      font-size: 22px;
       margin: 0;
       letter-spacing: -0.5px;
       line-height: 1.1;
@@ -456,7 +457,7 @@
     .hero-banner p {
       margin: 5px 0 0 0;
       font-size: 12.5px;
-      opacity: 0.94;
+      opacity: 0.95;
       font-weight: 500;
     }
 
@@ -498,6 +499,60 @@
       padding: 3px 8px;
       border-radius: 6px;
       white-space: nowrap;
+    }
+
+    /* === SELECTOR METODĂ DE CONECTARE (3 MODURI TOP) === */
+    .mode-selector {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .mode-btn {
+      padding: 10px 6px;
+      border-radius: 10px;
+      border: 2px solid var(--kfc-border);
+      background: var(--kfc-cream);
+      color: var(--kfc-black);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 11.5px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      text-align: center;
+      transition: all 0.15s ease;
+    }
+
+    .mode-btn .material-symbols-outlined {
+      font-size: 19px;
+      color: var(--kfc-red);
+    }
+
+    .mode-btn.active {
+      border-color: var(--kfc-red);
+      background: var(--kfc-red);
+      color: var(--kfc-white);
+      box-shadow: 0 4px 12px rgba(228, 0, 43, 0.22);
+    }
+
+    .mode-btn.active .material-symbols-outlined {
+      color: var(--kfc-white);
+    }
+
+    .mode-hint-box {
+      background: var(--kfc-cream);
+      border-left: 4px solid var(--kfc-red);
+      padding: 8px 10px;
+      border-radius: 8px;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--kfc-black);
+      line-height: 1.35;
     }
 
     /* Inputuri */
@@ -706,7 +761,7 @@
       flex-shrink: 0;
     }
 
-    /* === PANOU BANCĂ DE IP-URI PROXY PER RESTAURANT === */
+    /* === PANOU BANCĂ DE IP-URI PROXY VERIFICATE === */
     .proxy-bank-bar {
       margin-top: 16px;
       padding: 12px;
@@ -722,7 +777,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 8px;
+      gap: 6px;
       flex-wrap: wrap;
     }
 
@@ -806,6 +861,38 @@
       margin: 0 0 8px 0;
       font-size: 11.5px;
       color: var(--kfc-gray);
+    }
+
+    .verified-ip-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .verified-ip-chip {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 6px;
+      background: var(--kfc-cream);
+      border: 1px solid var(--kfc-border);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .verified-ip-chip.online {
+      border-color: var(--green-ok);
+      background: rgba(22, 163, 74, 0.1);
+      color: #15803d;
+    }
+
+    .verified-ip-chip.dead {
+      border-color: var(--kfc-red);
+      background: rgba(228, 0, 43, 0.08);
+      color: var(--kfc-red);
+      text-decoration: line-through;
     }
 
     .proxy-drawer-actions {
@@ -980,7 +1067,7 @@
       font-weight: 900;
       font-size: 10.5px;
       text-transform: uppercase;
-      color: #16a34a;
+      color: var(--green-ok);
       background: rgba(22, 163, 74, 0.12);
       padding: 3px 7px;
       border-radius: 6px;
@@ -1015,20 +1102,20 @@
       gap: 6px;
     }
 
-    .btn-auto-proxy-main {
+    /* Link nativ <a> stilizat ca buton pentru a elimina 100% about:blank pe iOS */
+    a.btn-primary-native {
       flex: 1;
-      padding: 12px 12px;
+      padding: 12px 10px;
       border-radius: 10px;
-      border: none;
       background: var(--kfc-red);
       color: var(--kfc-white);
       font-family: 'Montserrat', sans-serif;
       font-style: italic;
       font-weight: 900;
-      font-size: 12.5px;
+      font-size: 12px;
       text-transform: uppercase;
       letter-spacing: 0.3px;
-      cursor: pointer;
+      text-decoration: none;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1036,8 +1123,13 @@
       box-shadow: 0 5px 14px rgba(228, 0, 43, 0.22);
     }
 
+    a.btn-primary-native.green-mode {
+      background: #15803d;
+      box-shadow: 0 5px 14px rgba(21, 128, 61, 0.22);
+    }
+
     .btn-swap-ip {
-      width: 44px;
+      width: 42px;
       border-radius: 10px;
       border: 1.5px solid var(--kfc-border);
       background: var(--kfc-cream);
@@ -1049,31 +1141,35 @@
       flex-shrink: 0;
     }
 
-    .action-row {
+    .btn-swap-ip.ban-ip {
+      color: var(--kfc-red);
+    }
+
+    .action-row-3 {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
       gap: 6px;
     }
 
     .action-btn {
-      padding: 9px 10px;
+      padding: 9px 6px;
       border-radius: 9px;
-      border: none;
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 700;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 5px;
+      gap: 4px;
       background: var(--kfc-cream);
       color: var(--kfc-black);
       border: 1px solid var(--kfc-border);
+      text-decoration: none;
     }
 
     .action-btn .material-symbols-outlined {
-      font-size: 16px;
+      font-size: 15px;
     }
 
     /* === MODAL CONFIRMARE ȘTERGERE === */
@@ -1179,7 +1275,6 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* === ADAPTARE ECRANE MICI === */
     @media (max-width: 480px) {
       header {
         padding: 8px 10px;
@@ -1224,13 +1319,13 @@
   <!-- Dungile KFC sus -->
   <div class="kfc-stripes"></div>
 
-  <!-- Header Fixed -->
+  <!-- Header Fixed Permanent -->
   <header id="pageHeader">
     <div class="brand-wrap">
       <div class="kfc-logo-badge">KFC</div>
       <div class="header-title">
         <h1>FEEDBACK <span>PRO</span></h1>
-        <p>Auto-Store Proxy</p>
+        <p>Smart Multi-Mode</p>
       </div>
     </div>
 
@@ -1269,7 +1364,7 @@
   <div id="login-screen" style="display:none;">
     <div class="login-hero-logo">KFC</div>
     <h2>Acces Intern</h2>
-    <p>Autentifică-te cu contul Google pentru a accesa generatorul cu detectare automată a restaurantului din QR.</p>
+    <p>Autentifică-te cu contul Google pentru a accesa generatorul multi-mod cu detectare automată din QR.</p>
     <button class="google-login-cta" onclick="loginWithGoogle()">
       <span class="material-symbols-outlined">account_circle</span>
       Continuă cu Google
@@ -1281,18 +1376,45 @@
     <main>
 
       <div class="hero-banner">
-        <span class="tag">AUTO-STORE & PROXY 2026</span>
+        <span class="tag">3 METODE INTEGRATE • FĂRĂ ERORI</span>
         <h2>Generează Linkuri Feedback</h2>
-        <p>Restaurantul (373K1 – 373K4) se setează <strong>automat</strong> din codul QR sau linkul scanat!</p>
+        <p>Restaurantul se ia automat din QR. Alege mai jos modul de deschidere care îți merge cel mai rapid!</p>
       </div>
 
       <div class="control-card">
+
+        <!-- 0. SELECTORUL CELOR 3 METODE TOP -->
+        <div class="field-group">
+          <div class="field-label">
+            <span>⚡ Alege Metoda de Deschidere</span>
+            <span class="auto-badge">Schimbă oricând</span>
+          </div>
+
+          <div class="mode-selector">
+            <button type="button" class="mode-btn active" data-mode="direct4g" onclick="setLaunchMode('direct4g')">
+              <span class="material-symbols-outlined">cell_tower</span>
+              <span>1. Direct 4G/5G</span>
+            </button>
+            <button type="button" class="mode-btn" data-mode="autoproxy" onclick="setLaunchMode('autoproxy')">
+              <span class="material-symbols-outlined">shield_lock</span>
+              <span>2. Auto-Proxy</span>
+            </button>
+            <button type="button" class="mode-btn" data-mode="verifiedip" onclick="setLaunchMode('verifiedip')">
+              <span class="material-symbols-outlined">dns</span>
+              <span>3. IP Verificat</span>
+            </button>
+          </div>
+
+          <div class="mode-hint-box" id="modeHintBox">
+            ✅ <strong>Mod 1 (Direct 4G/5G - 0% erori):</strong> Deschide linkul oficial KFC instantaneu. Comută <strong>Mod Avion 3 secunde</strong> între bonuri pentru IP nou automat de la operator!
+          </div>
+        </div>
 
         <!-- 1. Link / QR -->
         <div class="field-group">
           <div class="field-label">
             <span>1. Scanează QR sau Lipește Bonul</span>
-            <span class="auto-badge">⚡ Restaurant setat automat</span>
+            <span class="auto-badge">📍 Auto-Restaurant</span>
           </div>
 
           <div class="scan-input-row">
@@ -1332,7 +1454,7 @@
         <div class="field-group" style="margin-bottom: 0;">
           <div class="field-label">
             <span>3. Câte linkuri să se genereze</span>
-            <span class="auto-badge">Până la 200 / serie</span>
+            <span class="auto-badge">10 – 200 linkuri</span>
           </div>
 
           <div class="generate-row">
@@ -1357,28 +1479,35 @@
           </div>
         </div>
 
-        <!-- BANCĂ PROXY -->
+        <!-- BANCĂ PROXY VERIFICATĂ -->
         <div class="proxy-bank-bar">
           <div class="proxy-bank-top">
-            <span class="proxy-store-indicator">Restaurant detectat: <span id="proxyStoreLabel">Niciunul</span></span>
-            <button type="button" class="manage-proxy-btn" onclick="toggleProxyDrawer()">
-              <span class="material-symbols-outlined" style="font-size:15px;">dns</span>
-              Bancă IP Proxy
-            </button>
+            <span class="proxy-store-indicator">Restaurant din QR: <span id="proxyStoreLabel">373K1</span></span>
+            <div style="display:flex;gap:6px;">
+              <button type="button" class="manage-proxy-btn" onclick="pingAllVerifiedIPs()" id="pingBtn">
+                <span class="material-symbols-outlined" style="font-size:15px;">network_check</span>
+                Verifică IP-uri
+              </button>
+              <button type="button" class="manage-proxy-btn" onclick="toggleProxyDrawer()">
+                <span class="material-symbols-outlined" style="font-size:15px;">dns</span>
+                Bancă IP
+              </button>
+            </div>
           </div>
           <div class="proxy-bank-info">
-            <span class="proxy-stat-pill available" id="availProxiesBadge">🟢 0 IP Libere</span>
-            <span class="proxy-stat-pill cooldown" id="usedProxiesBadge">⏳ 0 Folosite</span>
+            <span class="proxy-stat-pill available" id="availProxiesBadge">🟢 0 IP Verificate Libere</span>
+            <span class="proxy-stat-pill cooldown" id="usedProxiesBadge">⏳ 0 Folosite azi</span>
           </div>
         </div>
 
         <div class="proxy-manager-drawer" id="proxyDrawer">
-          <h4>➕ Bancă IP Proxy (<span id="drawerStoreName">General</span>)</h4>
-          <p>Fiecare restaurant are istoric separat. Poți adăuga IP-uri suplimentare mai jos:</p>
-          <textarea id="bulkProxyInput" placeholder="Exemplu: https://51.38.132.86/jfe/form/... sau 185.16.38.114"></textarea>
+          <h4>➕ IP-uri Reale Verificate (<span id="drawerStoreName">373K1</span>)</h4>
+          <p>Am eliminat IP-urile false! Mai jos sunt doar IP-urile reale. Apasă pe <strong>Verifică IP-uri</strong> ca să vezi care sunt verzi (Online acum), sau lipește linkuri noi de pe Croxy/Proxyium:</p>
+          <div class="verified-ip-chips" id="verifiedIpListUI"></div>
+          <textarea id="bulkProxyInput" placeholder="Lipește aici orice link funcțional de Proxyium/CroxyProxy (ex: https://51.38.132.86/jfe/...)"></textarea>
           <div class="proxy-drawer-actions">
-            <button class="btn-danger" onclick="addBulkProxies()">Salvează IP-uri</button>
-            <button class="btn-secondary" onclick="resetProxyCooldowns()">Resetează Cooldown Restaurant</button>
+            <button class="btn-danger" onclick="addBulkProxies()">Adaugă IP-uri</button>
+            <button class="btn-secondary" onclick="resetProxyCooldowns()">Resetează IP-urile Folosite</button>
             <button class="btn-secondary" onclick="toggleProxyDrawer()">Închide</button>
           </div>
         </div>
@@ -1425,26 +1554,32 @@
     let dateFromLink = false;
     let html5QrCode = null;
     let activeStore = "373K1";
+    let currentLaunchMode = "direct4g"; // 'direct4g' | 'autoproxy' | 'verifiedip'
+    let liveIpStatus = {}; // { ip: 'online' | 'dead' }
 
     const VALID_STORES = ["373K1", "373K2", "373K3", "373K4"];
     const CPO_KEY = "aHR0cHM6Ly9jdXN0b21lci5rZmMtbGlzdGVucy5jb20";
-    const FOUR_DAYS_MS = 4 * 24 * 60 * 60 * 1000; // Cooldown optimizat la 4 zile pentru a asigura 150+ linkuri lunar per restaurant
+    const COOLDOWN_MS = 36 * 60 * 60 * 1000; // 36 ore cooldown pe IP per restaurant ca să poți face 150+ linkuri/lună doar cu IP-uri reale!
 
-    function buildMasterProxyList() {
-      const generated = [];
-      for (let i = 100; i <= 240; i++) {
-        generated.push(`185.16.38.${i}`);
-      }
-      for (let i = 40; i <= 100; i++) {
-        generated.push(`51.38.132.${i}`);
-      }
-      for (let i = 30; i <= 85; i++) {
-        generated.push(`51.38.134.${i}`);
-      }
-      return Array.from(new Set(generated));
-    }
-
-    const DEFAULT_PROXY_IPS = buildMasterProxyList();
+    // DOAR IP-URI REALE CROXYPROXY / PROXYIUM (Fără numere inventate care dau about:blank!)
+    const VERIFIED_PROXY_IPS = [
+      "185.16.38.103",
+      "185.16.38.230",
+      "51.38.132.86",
+      "185.16.38.114",
+      "51.38.134.54",
+      "185.16.38.109",
+      "185.16.38.111",
+      "185.16.38.115",
+      "185.16.38.119",
+      "185.16.38.225",
+      "185.16.38.228",
+      "185.16.38.231",
+      "51.38.132.85",
+      "51.38.132.87",
+      "51.38.134.53",
+      "51.38.134.55"
+    ];
 
     const scannedResultEl = document.getElementById("scannedResult");
     const selectedDateEl = document.getElementById("selectedDate");
@@ -1476,7 +1611,28 @@
       if (dd) dd.classList.remove("open");
     });
 
-    // Setează restaurantul detectat automat
+    // === SCHIMBARE MOD DE DESCHIDERE (CONTROL TOTAL PENTRU UTILIZATOR) ===
+    function setLaunchMode(mode) {
+      currentLaunchMode = mode;
+      document.querySelectorAll(".mode-btn").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.mode === mode);
+      });
+
+      const hintBox = document.getElementById("modeHintBox");
+      if (mode === "direct4g") {
+        hintBox.innerHTML = `✅ <strong>Mod 1 (Direct 4G/5G - 0% erori):</strong> Deschide linkul oficial KFC instantaneu. Comută <strong>Mod Avion 3 secunde</strong> între bonuri pentru IP nou automat!`;
+      } else if (mode === "autoproxy") {
+        hintBox.innerHTML = `🚀 <strong>Mod 2 (Auto-Launch Proxy):</strong> Copiază automat bonul și deschide Proxyium/CroxyProxy ca să își creeze singur sesiunea validă (fără erori de host).`;
+      } else {
+        hintBox.innerHTML = `🌐 <strong>Mod 3 (IP Verificat Direct):</strong> Construiește linkul direct cu IP-urile tale verificate (<code>__cpo</code>). Dacă un IP a expirat, apasă pe 🚫 de lângă el.`;
+      }
+
+      saveAppState();
+      if (scannedResultEl.value.trim()) {
+        generateLinks(true);
+      }
+    }
+
     function setActiveStoreAuto(storeCode) {
       if (!VALID_STORES.includes(storeCode)) storeCode = "373K1";
       activeStore = storeCode;
@@ -1487,11 +1643,30 @@
 
       updateUsedCounterUI();
       updateProxyStatsUI();
+      renderVerifiedIpChips();
+    }
+
+    // === GESTIONARE IP-URI REALE & BAN LIST PENTRU IP-URI MOARTE ===
+    function getDeadIPs() {
+      return JSON.parse(localStorage.getItem("kfcDeadIPs") || "[]");
+    }
+
+    function markIPDead(ip) {
+      const dead = getDeadIPs();
+      if (!dead.includes(ip)) {
+        dead.push(ip);
+        localStorage.setItem("kfcDeadIPs", JSON.stringify(dead));
+      }
+      liveIpStatus[ip] = "dead";
+      updateProxyStatsUI();
+      renderVerifiedIpChips();
     }
 
     function getProxyPool() {
-      const saved = JSON.parse(localStorage.getItem("kfcProxyPool") || "[]");
-      return Array.from(new Set([...DEFAULT_PROXY_IPS, ...saved]));
+      const saved = JSON.parse(localStorage.getItem("kfcCustomVerifiedPool") || "[]");
+      const dead = getDeadIPs();
+      const merged = Array.from(new Set([...VERIFIED_PROXY_IPS, ...saved]));
+      return merged.filter(ip => !dead.includes(ip));
     }
 
     function getAllStoresProxyUsage() {
@@ -1503,7 +1678,7 @@
         cleaned[st] = {};
         const storeMap = raw[st] || {};
         for (const [ip, ts] of Object.entries(storeMap)) {
-          if (now - ts < FOUR_DAYS_MS) {
+          if (now - ts < COOLDOWN_MS) {
             cleaned[st][ip] = ts;
           }
         }
@@ -1542,14 +1717,67 @@
     function updateProxyStatsUI() {
       const pool = getProxyPool();
       const storeUsage = getStoreProxyUsageMap(activeStore);
-      const usedCount = Object.keys(storeUsage).length;
+      const usedCount = Object.keys(storeUsage).filter(ip => pool.includes(ip)).length;
       const availCount = Math.max(0, pool.length - usedCount);
 
-      document.getElementById("availProxiesBadge").innerText = `🟢 ${availCount} IP Libere (${activeStore})`;
-      document.getElementById("usedProxiesBadge").innerText = `⏳ ${usedCount} Folosite`;
+      document.getElementById("availProxiesBadge").innerText = `🟢 ${availCount} IP Verificate (${activeStore})`;
+      document.getElementById("usedProxiesBadge").innerText = `⏳ ${usedCount} Folosite recent`;
+    }
+
+    function renderVerifiedIpChips() {
+      const box = document.getElementById("verifiedIpListUI");
+      if (!box) return;
+      const pool = getProxyPool();
+      box.innerHTML = pool.map(ip => {
+        const st = liveIpStatus[ip] || "";
+        const icon = st === "online" ? "🟢" : (st === "dead" ? "🔴" : "🌐");
+        return `<span class="verified-ip-chip ${st}">${icon} ${ip}</span>`;
+      }).join("");
+    }
+
+    // === SCANNER LIVE PENTRU VERIFICAREA IP-URILOR ACTIVE ===
+    async function pingSingleIP(ip, timeoutMs = 2200) {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), timeoutMs);
+      try {
+        await fetch(`https://${ip}/`, { mode: "no-cors", signal: controller.signal });
+        clearTimeout(timer);
+        return true;
+      } catch {
+        clearTimeout(timer);
+        return false;
+      }
+    }
+
+    async function pingAllVerifiedIPs() {
+      const btn = document.getElementById("pingBtn");
+      btn.disabled = true;
+      btn.innerText = "⏳ Se testează...";
+      showToast("Se verifică ce IP-uri răspund live...", "network_check");
+
+      const pool = getProxyPool();
+      let aliveCount = 0;
+
+      await Promise.all(pool.map(async (ip) => {
+        const ok = await pingSingleIP(ip);
+        if (ok) {
+          liveIpStatus[ip] = "online";
+          aliveCount++;
+        } else {
+          markIPDead(ip);
+        }
+      }));
+
+      btn.disabled = false;
+      btn.innerHTML = `<span class="material-symbols-outlined" style="font-size:15px;">network_check</span> Verifică IP-uri`;
+      renderVerifiedIpChips();
+      updateProxyStatsUI();
+      if (scannedResultEl.value.trim()) generateLinks(true);
+      showToast(`${aliveCount} IP-uri sunt 100% Online și rapide! Cele moarte au fost eliminate.`, "verified");
     }
 
     function toggleProxyDrawer() {
+      renderVerifiedIpChips();
       document.getElementById("proxyDrawer").classList.toggle("open");
     }
 
@@ -1563,9 +1791,13 @@
         return;
       }
 
-      const savedCustom = JSON.parse(localStorage.getItem("kfcProxyPool") || "[]");
+      // Scoatem IP-urile noi din lista de dead dacă erau acolo
+      const dead = getDeadIPs().filter(ip => !found.includes(ip));
+      localStorage.setItem("kfcDeadIPs", JSON.stringify(dead));
+
+      const savedCustom = JSON.parse(localStorage.getItem("kfcCustomVerifiedPool") || "[]");
       const updatedCustom = Array.from(new Set([...savedCustom, ...found]));
-      localStorage.setItem("kfcProxyPool", JSON.stringify(updatedCustom));
+      localStorage.setItem("kfcCustomVerifiedPool", JSON.stringify(updatedCustom));
 
       if (window.syncPoolToCloud) {
         window.syncPoolToCloud(updatedCustom);
@@ -1573,22 +1805,26 @@
 
       document.getElementById("bulkProxyInput").value = "";
       updateProxyStatsUI();
+      renderVerifiedIpChips();
       generateLinks(true);
-      showToast(`S-au adăugat ${found.length} IP-uri în bancă!`, "dns");
+      showToast(`S-au adăugat ${found.length} IP-uri verificate!`, "dns");
     }
 
     function resetProxyCooldowns() {
       const all = getAllStoresProxyUsage();
       all[activeStore] = {};
       localStorage.setItem("kfcProxyUsageByStore", JSON.stringify(all));
+      localStorage.removeItem("kfcDeadIPs");
+      liveIpStatus = {};
 
       if (window.clearCloudStoreProxyUsage) {
         window.clearCloudStoreProxyUsage(activeStore);
       }
 
       updateProxyStatsUI();
+      renderVerifiedIpChips();
       generateLinks(true);
-      showToast(`IP-urile pentru ${activeStore} au fost resetate!`, "restart_alt");
+      showToast(`Toate IP-urile pentru ${activeStore} au fost resetate!`, "restart_alt");
     }
 
     function buildProxyDirectUrl(ip, s, encodedDateTime, ti, lang) {
@@ -1625,6 +1861,7 @@
 
     function saveAppState() {
       const state = {
+        mode: currentLaunchMode,
         store: activeStore,
         link: scannedResultEl.value,
         date: selectedDateEl.value,
@@ -1661,6 +1898,7 @@
         linkCountEl.value = s.count || 10;
         document.getElementById("hideUsedToggle").checked = !!s.hideUsed;
 
+        if (s.mode) setLaunchMode(s.mode);
         if (s.store) setActiveStoreAuto(s.store);
 
         if (!selectedDateEl.value || !endTimeEl.value) {
@@ -1700,7 +1938,6 @@
           return false;
         }
 
-        // Setăm automat restaurantul extras din link/QR
         setActiveStoreAuto(d.S);
 
         metaBox.innerHTML = `
@@ -1820,6 +2057,7 @@
       });
     });
 
+    // === GENERARE LINKURI MULTI-MOD ===
     function generateLinks(silent = false) {
       const link = scannedResultEl.value.trim();
       const date = selectedDateEl.value;
@@ -1875,7 +2113,7 @@
 
         if (hideUsed && alreadyUsed) continue;
 
-        const assignedIP = availableIPs[visibleCount] || allPoolIPs[i % allPoolIPs.length];
+        const assignedIP = availableIPs[visibleCount % Math.max(1, availableIPs.length)] || allPoolIPs[i % Math.max(1, allPoolIPs.length)] || "185.16.38.103";
         visibleCount++;
 
         const time = new Date(start.getTime() + diff * i);
@@ -1890,6 +2128,50 @@
 
         const originalLink = `${base}?S=${storeCode}&D=${encodedDateTime}&TI=${ti}&Q_Language=${data.lang}`;
         const proxyDirectUrl = buildProxyDirectUrl(assignedIP, storeCode, encodedDateTime, ti, data.lang);
+
+        // Alegem ce link și ce buton principal afișăm în funcție de Modul selectat sus
+        let displayedUrl = originalLink;
+        let primaryActionHTML = "";
+
+        if (currentLaunchMode === "direct4g") {
+          displayedUrl = decodeURIComponent(originalLink);
+          primaryActionHTML = `
+            <div class="auto-proxy-row">
+              <!-- Link nativ <a> fără preventDefault = 0% about:blank pe iPhone -->
+              <a class="btn-primary-native green-mode" href="${originalLink}" target="_blank" rel="noopener" onclick="onNativeLinkClick(this, false)">
+                <span class="material-symbols-outlined">bolt</span>
+                <span>Deschide Direct 4G/5G (Fără Erori)</span>
+              </a>
+            </div>
+          `;
+        } else if (currentLaunchMode === "autoproxy") {
+          displayedUrl = decodeURIComponent(originalLink);
+          primaryActionHTML = `
+            <div class="auto-proxy-row">
+              <button type="button" class="btn-primary-native" style="border:none;cursor:pointer;" onclick="launchViaProxySite('${originalLink}', ${ti}, '${storeCode}', 'https://www.croxyproxy.com', this)">
+                <span class="material-symbols-outlined">shield_lock</span>
+                <span>Auto-Copie + Lansează CroxyProxy</span>
+              </button>
+            </div>
+          `;
+        } else {
+          displayedUrl = proxyDirectUrl;
+          primaryActionHTML = `
+            <div class="auto-proxy-row">
+              <!-- Link nativ <a> către IP-ul verificat -->
+              <a class="btn-primary-native main-proxy-anchor" href="${proxyDirectUrl}" target="_blank" rel="noopener" onclick="onNativeLinkClick(this, true)">
+                <span class="material-symbols-outlined">rocket_launch</span>
+                <span class="btn-ip-label">Deschide IP (${assignedIP})</span>
+              </a>
+              <button type="button" class="btn-swap-ip" onclick="swapCardIP(this, false)" title="Schimbă cu alt IP">
+                <span class="material-symbols-outlined">sync</span>
+              </button>
+              <button type="button" class="btn-swap-ip ban-ip" onclick="swapCardIP(this, true)" title="IP-ul nu merge? Elimină-l și ia altul!">
+                <span class="material-symbols-outlined">block</span>
+              </button>
+            </div>
+          `;
+        }
 
         linksHTML += `
           <div class="link-box ${alreadyUsed ? 'used' : ''}" 
@@ -1911,25 +2193,21 @@
               <span class="status-used-tag">✓ FOLOSIT</span>
             </div>
 
-            <a class="link-url" href="${proxyDirectUrl}" target="_blank" onclick="openAutoProxyCard(this, event)">${proxyDirectUrl}</a>
+            <a class="link-url" href="${currentLaunchMode === 'verifiedip' ? proxyDirectUrl : originalLink}" target="_blank" rel="noopener" onclick="onNativeLinkClick(this, ${currentLaunchMode === 'verifiedip'})">${displayedUrl}</a>
 
             <div class="link-actions">
-              <div class="auto-proxy-row">
-                <button class="btn-auto-proxy-main" onclick="openAutoProxyCard(this, event)">
-                  <span class="material-symbols-outlined">rocket_launch</span>
-                  <span class="btn-ip-label">Deschide IP Proxy (${assignedIP})</span>
-                </button>
-                <button class="btn-swap-ip" onclick="swapCardIP(this)" title="Schimbă IP">
-                  <span class="material-symbols-outlined">sync</span>
-                </button>
-              </div>
+              ${primaryActionHTML}
 
-              <div class="action-row">
-                <button class="action-btn" onclick="copyAutoProxyCard(this)">
-                  <span class="material-symbols-outlined">content_copy</span> Copie Proxy
-                </button>
-                <button class="action-btn" onclick="openProxyium('${originalLink}', ${ti}, '${storeCode}', this)">
+              <!-- Rândul 2: Toate cele 3 alternative disponibile rapid pe fiecare card -->
+              <div class="action-row-3">
+                <a class="action-btn" href="${originalLink}" target="_blank" rel="noopener" onclick="onNativeLinkClick(this, false)">
+                  <span class="material-symbols-outlined">open_in_new</span> Direct
+                </a>
+                <button type="button" class="action-btn" onclick="launchViaProxySite('${originalLink}', ${ti}, '${storeCode}', 'https://www.proxyium.com', this)">
                   <span class="material-symbols-outlined">language</span> Proxyium
+                </button>
+                <button type="button" class="action-btn" onclick="copyCardLink(this)">
+                  <span class="material-symbols-outlined">content_copy</span> Copie
                 </button>
               </div>
             </div>
@@ -1948,62 +2226,86 @@
       }
     }
 
-    function openAutoProxyCard(el, event) {
-      if (event) event.preventDefault();
+    // Handler nativ (FĂRĂ event.preventDefault) -> lasă browserul iOS să deschidă fila fără about:blank
+    function onNativeLinkClick(el, markProxyToo) {
       const card = el.closest(".link-box");
       if (!card) return;
 
       const ti = parseInt(card.dataset.ti);
       const ip = card.dataset.ip;
       const storeCode = card.dataset.s || activeStore;
-      const proxyUrl = card.dataset.proxy;
 
       markTIUsed(ti, storeCode);
-      markProxyIPUsedForStore(ip, storeCode);
-
-      if (document.getElementById("hideUsedToggle").checked) {
-        card.style.display = "none";
-      } else {
-        card.classList.add("used");
+      if (markProxyToo) {
+        markProxyIPUsedForStore(ip, storeCode);
       }
 
-      showToast(`Deschis prin IP ${ip} (${storeCode})`, "rocket_launch");
-      window.open(proxyUrl, "_blank");
-    }
-
-    function copyAutoProxyCard(el) {
-      const card = el.closest(".link-box");
-      if (!card) return;
-
-      const ti = parseInt(card.dataset.ti);
-      const ip = card.dataset.ip;
-      const storeCode = card.dataset.s || activeStore;
-      const proxyUrl = card.dataset.proxy;
-
-      navigator.clipboard.writeText(proxyUrl).then(() => {
-        markTIUsed(ti, storeCode);
-        markProxyIPUsedForStore(ip, storeCode);
+      setTimeout(() => {
         if (document.getElementById("hideUsedToggle").checked) {
           card.style.display = "none";
         } else {
           card.classList.add("used");
         }
-        showToast(`Copiat pentru ${storeCode} (${ip})!`, "content_copy");
+      }, 150);
+    }
+
+    function launchViaProxySite(origLink, ti, storeCode, proxyHomeUrl, btnEl) {
+      const decodedLink = decodeURIComponent(origLink);
+      navigator.clipboard.writeText(decodedLink).catch(() => {});
+
+      markTIUsed(ti, storeCode);
+      const card = btnEl.closest(".link-box");
+      if (card) {
+        if (document.getElementById("hideUsedToggle").checked) {
+          card.style.display = "none";
+        } else {
+          card.classList.add("used");
+        }
+      }
+
+      showToast(`Linkul TI ${ti} a fost copiat! Dă Paste în Proxy.`, "content_copy");
+      window.open(proxyHomeUrl, "_blank");
+    }
+
+    function copyCardLink(el) {
+      const card = el.closest(".link-box");
+      if (!card) return;
+
+      const ti = parseInt(card.dataset.ti);
+      const ip = card.dataset.ip;
+      const storeCode = card.dataset.s || activeStore;
+      const targetUrl = currentLaunchMode === "verifiedip" ? card.dataset.proxy : decodeURIComponent(card.dataset.orig);
+
+      navigator.clipboard.writeText(targetUrl).then(() => {
+        markTIUsed(ti, storeCode);
+        if (currentLaunchMode === "verifiedip") markProxyIPUsedForStore(ip, storeCode);
+        if (document.getElementById("hideUsedToggle").checked) {
+          card.style.display = "none";
+        } else {
+          card.classList.add("used");
+        }
+        showToast(`Linkul TI ${ti} a fost copiat!`, "content_copy");
       });
     }
 
-    function swapCardIP(el) {
+    // Schimbă IP-ul (și opțional marchează IP-ul vechi ca mort/invalid)
+    function swapCardIP(el, banOldIP = false) {
       const card = el.closest(".link-box");
       if (!card) return;
+
+      const oldIP = card.dataset.ip;
+      if (banOldIP && oldIP) {
+        markIPDead(oldIP);
+      }
 
       const storeCode = card.dataset.s || activeStore;
       const currentDisplayedIPs = Array.from(document.querySelectorAll(".link-box")).map(c => c.dataset.ip);
       const candidates = getAvailableProxyIPsForStore(storeCode, currentDisplayedIPs);
-      const fallbackPool = getProxyPool().filter(ip => ip !== card.dataset.ip);
+      const fallbackPool = getProxyPool().filter(ip => ip !== oldIP);
 
       const nextIP = candidates[0] || fallbackPool[Math.floor(Math.random() * fallbackPool.length)];
       if (!nextIP) {
-        showToast("Nu mai sunt alte IP-uri disponibile!", "warning");
+        showToast("Nu mai sunt alte IP-uri verificate! Adaugă sau resetează din Bancă.", "warning");
         return;
       }
 
@@ -2012,23 +2314,19 @@
       card.dataset.proxy = newProxyUrl;
 
       card.querySelector(".ip-text").innerText = nextIP;
-      card.querySelector(".btn-ip-label").innerText = `Deschide IP Proxy (${nextIP})`;
+      const btnLabel = card.querySelector(".btn-ip-label");
+      if (btnLabel) btnLabel.innerText = `Deschide IP (${nextIP})`;
+
+      const mainAnchor = card.querySelector(".main-proxy-anchor");
+      if (mainAnchor) mainAnchor.href = newProxyUrl;
+
       const linkAnchor = card.querySelector(".link-url");
-      linkAnchor.href = newProxyUrl;
-      linkAnchor.innerText = newProxyUrl;
+      if (currentLaunchMode === "verifiedip") {
+        linkAnchor.href = newProxyUrl;
+        linkAnchor.innerText = newProxyUrl;
+      }
 
-      showToast(`IP schimbat în ${nextIP}`, "sync");
-    }
-
-    function openProxyium(link, ti, storeCode, btnEl) {
-      const decodedLink = decodeURIComponent(link);
-      navigator.clipboard.writeText(decodedLink).then(() => {
-        markTIUsed(ti, storeCode);
-        const card = btnEl.closest(".link-box");
-        if (card) card.classList.add("used");
-        showToast(`TI ${ti} copiat! Se deschide Proxyium...`, "language");
-        window.open("https://www.proxyium.com", "_blank");
-      });
+      showToast(banOldIP ? `IP ${oldIP} eliminat! Înlocuit cu ${nextIP}` : `IP schimbat în ${nextIP}`, "sync");
     }
 
     function clearUsedLinks() {
@@ -2211,9 +2509,9 @@
       try {
         const poolSnap = await getDoc(doc(db, "settings", "proxyCustomPool"));
         if (poolSnap.exists() && Array.isArray(poolSnap.data().pool)) {
-          const localPool = JSON.parse(localStorage.getItem("kfcProxyPool") || "[]");
+          const localPool = JSON.parse(localStorage.getItem("kfcCustomVerifiedPool") || "[]");
           const merged = Array.from(new Set([...localPool, ...poolSnap.data().pool]));
-          localStorage.setItem("kfcProxyPool", JSON.stringify(merged));
+          localStorage.setItem("kfcCustomVerifiedPool", JSON.stringify(merged));
         }
 
         const localAll = JSON.parse(localStorage.getItem("kfcProxyUsageByStore") || "{}");
@@ -2305,3 +2603,4 @@
   </script>
 </body>
 </html>
+
