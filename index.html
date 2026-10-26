@@ -71,7 +71,7 @@
       z-index: 1000;
       background: rgba(255, 255, 255, 0.94);
       backdrop-filter: blur(12px);
-      padding: 12px 24px;
+      padding: 12px 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -87,7 +87,7 @@
     .brand-wrap {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
     }
 
     .kfc-logo-badge {
@@ -96,9 +96,9 @@
       font-family: 'Fraunces', serif;
       font-style: italic;
       font-weight: 900;
-      font-size: 26px;
+      font-size: 25px;
       letter-spacing: -1px;
-      padding: 4px 12px 4px 10px;
+      padding: 4px 11px 4px 9px;
       border-radius: 10px;
       line-height: 1;
       user-select: none;
@@ -109,7 +109,7 @@
       font-family: 'Montserrat', sans-serif;
       font-style: italic;
       font-weight: 900;
-      font-size: 19px;
+      font-size: 18px;
       text-transform: uppercase;
       letter-spacing: -0.5px;
       margin: 0;
@@ -123,7 +123,7 @@
 
     .header-title p {
       margin: 2px 0 0 0;
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.8px;
@@ -133,20 +133,30 @@
     .header-right {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
+      position: relative;
     }
 
+    /* === PASTILA UTILIZATOR + CONTOR ONLINE === */
     .user-pill {
       display: none;
       align-items: center;
-      gap: 6px;
+      gap: 7px;
       background: var(--kfc-cream);
-      border: 1px solid var(--kfc-border);
+      border: 1.5px solid var(--kfc-border);
       padding: 6px 12px;
       border-radius: 999px;
       font-size: 13px;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--kfc-black);
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.2s ease;
+    }
+
+    .user-pill:hover {
+      border-color: var(--kfc-red);
+      background: var(--kfc-white);
     }
 
     .user-pill.visible {
@@ -154,10 +164,127 @@
     }
 
     .user-pill .dot {
-      width: 8px;
-      height: 8px;
+      width: 9px;
+      height: 9px;
       background: #16a34a;
       border-radius: 50%;
+      box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.2);
+      animation: pulseGreen 2s infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes pulseGreen {
+      0% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.45); }
+      70% { box-shadow: 0 0 0 6px rgba(22, 163, 74, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0); }
+    }
+
+    .online-count-badge {
+      background: var(--kfc-black);
+      color: var(--kfc-white);
+      font-size: 11px;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 999px;
+    }
+
+    /* === DROPDOWN CINE E ONLINE / OFFLINE === */
+    .presence-dropdown {
+      display: none;
+      position: absolute;
+      top: calc(100% + 12px);
+      right: 0;
+      width: 300px;
+      background: var(--kfc-white);
+      border-radius: 16px;
+      border: 1.5px solid var(--kfc-border);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.14);
+      padding: 16px;
+      z-index: 2000;
+    }
+
+    .presence-dropdown.open {
+      display: block;
+      animation: toastIn 0.18s ease forwards;
+    }
+
+    .presence-section-title {
+      font-family: 'Montserrat', sans-serif;
+      font-style: italic;
+      font-weight: 900;
+      font-size: 11.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--kfc-gray);
+      margin: 0 0 8px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .presence-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      max-height: 240px;
+      overflow-y: auto;
+      margin-bottom: 12px;
+    }
+
+    .presence-list:last-child {
+      margin-bottom: 0;
+    }
+
+    .presence-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 10px;
+      border-radius: 10px;
+      background: var(--kfc-cream);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .presence-user-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow: hidden;
+    }
+
+    .presence-user-left span.name {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 155px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .status-dot.online {
+      background: #16a34a;
+      box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.18);
+    }
+
+    .status-dot.offline {
+      background: #9ca3af;
+    }
+
+    .presence-time {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--kfc-gray);
+      flex-shrink: 0;
+    }
+
+    .presence-time.live {
+      color: #16a34a;
     }
 
     .auth-btn {
@@ -172,6 +299,7 @@
       justify-content: center;
       cursor: pointer;
       transition: all 0.2s ease;
+      flex-shrink: 0;
     }
 
     .auth-btn:hover {
@@ -180,7 +308,7 @@
       transform: translateY(-1px);
     }
 
-    /* === ECRAN AUTENTIFICARE (CÂND NU EȘTI LOGAT) === */
+    /* === ECRAN AUTENTIFICARE === */
     #login-screen {
       max-width: 460px;
       margin: 60px auto;
@@ -250,7 +378,7 @@
     main {
       max-width: 740px;
       width: 100%;
-      margin: 28px auto 60px auto;
+      margin: 24px auto 60px auto;
       padding: 0 16px;
     }
 
@@ -258,9 +386,9 @@
     .hero-banner {
       background: var(--kfc-red);
       color: var(--kfc-white);
-      padding: 24px 28px;
+      padding: 22px 24px;
       border-radius: var(--radius-lg);
-      margin-bottom: 22px;
+      margin-bottom: 20px;
       position: relative;
       overflow: hidden;
       box-shadow: var(--shadow-red);
@@ -300,7 +428,7 @@
       font-family: 'Fraunces', serif;
       font-style: italic;
       font-weight: 900;
-      font-size: 28px;
+      font-size: 26px;
       margin: 0;
       letter-spacing: -0.5px;
       line-height: 1.1;
@@ -318,7 +446,7 @@
     .control-card {
       background: var(--kfc-white);
       border-radius: var(--radius-lg);
-      padding: 24px;
+      padding: 22px;
       box-shadow: var(--shadow-md);
       border: 1px solid var(--kfc-border);
     }
@@ -356,7 +484,8 @@
     input[type="text"],
     input[type="date"],
     input[type="time"],
-    input[type="number"] {
+    input[type="number"],
+    textarea {
       width: 100%;
       height: 50px;
       padding: 0 14px;
@@ -372,7 +501,15 @@
       -webkit-appearance: none;
     }
 
-    input:focus {
+    textarea {
+      height: 90px;
+      padding: 12px 14px;
+      resize: vertical;
+      font-size: 13px;
+    }
+
+    input:focus,
+    textarea:focus {
       outline: none;
       background: var(--kfc-white);
       border-color: var(--kfc-red);
@@ -459,7 +596,7 @@
     }
 
     .material-symbols-outlined {
-      font-size: 24px;
+      font-size: 22px;
       line-height: 1;
       user-select: none;
     }
@@ -540,7 +677,7 @@
 
     .generate-cta {
       height: 50px;
-      padding: 0 22px;
+      padding: 0 20px;
       border-radius: var(--radius-md);
       border: none;
       background: var(--kfc-red);
@@ -565,6 +702,109 @@
       transform: translateY(-2px);
     }
 
+    /* === PANOU BANCĂ DE IP-URI PROXY (30 ZILE) === */
+    .proxy-bank-bar {
+      margin-top: 18px;
+      padding: 14px 16px;
+      background: var(--kfc-cream);
+      border-radius: 14px;
+      border: 1.5px solid var(--kfc-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .proxy-bank-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .proxy-stat-pill {
+      font-size: 12px;
+      font-weight: 800;
+      padding: 5px 10px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .proxy-stat-pill.available {
+      background: rgba(22, 163, 74, 0.14);
+      color: #15803d;
+    }
+
+    .proxy-stat-pill.cooldown {
+      background: rgba(228, 0, 43, 0.1);
+      color: var(--kfc-red);
+    }
+
+    .manage-proxy-btn {
+      background: var(--kfc-black);
+      color: var(--kfc-white);
+      border: none;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .manage-proxy-btn:hover {
+      background: var(--kfc-red);
+    }
+
+    .proxy-manager-drawer {
+      display: none;
+      margin-top: 12px;
+      padding: 16px;
+      background: var(--kfc-white);
+      border: 1.5px dashed var(--kfc-red);
+      border-radius: 14px;
+    }
+
+    .proxy-manager-drawer.open {
+      display: block;
+    }
+
+    .proxy-manager-drawer h4 {
+      margin: 0 0 6px 0;
+      font-family: 'Montserrat', sans-serif;
+      font-style: italic;
+      font-weight: 900;
+      font-size: 14px;
+      text-transform: uppercase;
+    }
+
+    .proxy-manager-drawer p {
+      margin: 0 0 10px 0;
+      font-size: 12px;
+      color: var(--kfc-gray);
+    }
+
+    .proxy-drawer-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+
+    .proxy-drawer-actions button {
+      padding: 9px 14px;
+      border-radius: 8px;
+      border: none;
+      font-weight: 700;
+      font-size: 12.5px;
+      cursor: pointer;
+    }
+
     /* Bara de opțiuni automatizare */
     .automation-bar {
       display: flex;
@@ -572,8 +812,8 @@
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 10px;
-      margin-top: 18px;
-      padding-top: 16px;
+      margin-top: 14px;
+      padding-top: 14px;
       border-top: 1px dashed var(--kfc-border);
       font-size: 13px;
       font-weight: 600;
@@ -666,7 +906,7 @@
     .badge-group {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       flex-wrap: wrap;
     }
 
@@ -688,7 +928,6 @@
       font-size: 12px;
       padding: 4px 10px;
       border-radius: 6px;
-      letter-spacing: 0.3px;
     }
 
     .time-badge {
@@ -697,7 +936,17 @@
       border: 1px solid var(--kfc-border);
       font-weight: 700;
       font-size: 12px;
-      padding: 4px 10px;
+      padding: 4px 9px;
+      border-radius: 6px;
+    }
+
+    .ip-badge {
+      background: rgba(228, 0, 43, 0.1);
+      color: var(--kfc-red);
+      border: 1px solid rgba(228, 0, 43, 0.22);
+      font-weight: 800;
+      font-size: 11.5px;
+      padding: 4px 9px;
       border-radius: 6px;
       display: inline-flex;
       align-items: center;
@@ -722,16 +971,17 @@
     }
 
     .link-url {
-      color: var(--kfc-gray);
-      font-size: 12.5px;
-      font-weight: 500;
+      color: var(--kfc-black);
+      font-size: 12px;
+      font-weight: 600;
       text-decoration: none;
       word-break: break-all;
       display: block;
-      margin-bottom: 14px;
-      padding: 8px 10px;
+      margin-bottom: 12px;
+      padding: 9px 11px;
       background: var(--kfc-cream);
       border-radius: 8px;
+      border: 1px solid var(--kfc-border);
       transition: color 0.15s;
     }
 
@@ -745,6 +995,58 @@
       gap: 8px;
     }
 
+    /* Butonul Principal: Deschide Direct cu IP Proxy Generat Automat */
+    .auto-proxy-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-auto-proxy-main {
+      flex: 1;
+      padding: 13px 16px;
+      border-radius: 11px;
+      border: none;
+      background: var(--kfc-red);
+      color: var(--kfc-white);
+      font-family: 'Montserrat', sans-serif;
+      font-style: italic;
+      font-weight: 900;
+      font-size: 13.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 6px 16px rgba(228, 0, 43, 0.25);
+      transition: all 0.18s ease;
+    }
+
+    .btn-auto-proxy-main:hover {
+      background: var(--kfc-red-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-swap-ip {
+      width: 46px;
+      border-radius: 11px;
+      border: 1.5px solid var(--kfc-border);
+      background: var(--kfc-cream);
+      color: var(--kfc-black);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+    }
+
+    .btn-swap-ip:hover {
+      border-color: var(--kfc-red);
+      color: var(--kfc-red);
+      background: var(--kfc-white);
+    }
+
     .action-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -752,11 +1054,11 @@
     }
 
     .action-btn {
-      padding: 11px 14px;
+      padding: 10px 12px;
       border-radius: 10px;
       border: none;
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 13.5px;
+      font-size: 13px;
       font-weight: 700;
       cursor: pointer;
       display: flex;
@@ -776,7 +1078,7 @@
     }
 
     .action-row.primary .action-btn:hover {
-      background: var(--kfc-red);
+      background: #333;
     }
 
     .action-row.secondary .action-btn {
@@ -864,7 +1166,7 @@
       background: var(--kfc-red-hover);
     }
 
-    /* === TOAST NOTIFICATIONS (ÎNLOCUIEȘTE ALERT-UL) === */
+    /* === TOAST NOTIFICATIONS === */
     #toast-container {
       position: fixed;
       bottom: 22px;
@@ -895,20 +1197,24 @@
     }
 
     @keyframes toastIn {
-      from { opacity: 0; transform: translateY(12px); }
+      from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
     /* === RESPONSIVE MOBILE === */
     @media (max-width: 600px) {
       header {
-        padding: 10px 16px;
+        padding: 10px 14px;
       }
       .user-pill span.user-name-text {
-        max-width: 110px;
+        max-width: 95px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+      }
+      .presence-dropdown {
+        right: -8px;
+        width: 285px;
       }
       .hero-banner {
         padding: 18px 20px;
@@ -917,7 +1223,7 @@
         font-size: 22px;
       }
       .control-card {
-        padding: 18px;
+        padding: 16px;
       }
       .datetime-row {
         grid-template-columns: 1fr 1fr;
@@ -947,10 +1253,29 @@
     </div>
 
     <div class="header-right">
-      <div class="user-pill" id="nicknamePill">
+      <!-- Pastila cu numele + Click pentru lista Online / Offline -->
+      <div class="user-pill" id="nicknamePill" onclick="togglePresenceDropdown(event)" title="Vezi cine este Online / Offline">
         <span class="dot"></span>
         <span class="user-name-text" id="nickname">Neautentificat</span>
+        <span class="online-count-badge" id="onlineCountBadge">1 online</span>
+        <span class="material-symbols-outlined" style="font-size:18px;">expand_more</span>
       </div>
+
+      <!-- Dropdown Live cu Utilizatori Online & Offline -->
+      <div class="presence-dropdown" id="presenceDropdown" onclick="event.stopPropagation()">
+        <div class="presence-section-title">
+          <span>🟢 Online Acum</span>
+          <span id="dropdownOnlineCount">0</span>
+        </div>
+        <div class="presence-list" id="onlineUsersList"></div>
+
+        <div class="presence-section-title" style="margin-top:8px;">
+          <span>⚪ Offline</span>
+          <span id="dropdownOfflineCount">0</span>
+        </div>
+        <div class="presence-list" id="offlineUsersList"></div>
+      </div>
+
       <button id="loginBtn" class="auth-btn" title="Autentificare cu Google">
         <span class="material-symbols-outlined">login</span>
       </button>
@@ -979,7 +1304,7 @@
       <div class="hero-banner">
         <span class="tag">AUTO-GENERATOR 2026</span>
         <h2>Generează Linkuri Feedback</h2>
-        <p>Scanează QR-ul sau lipește linkul — data, ora și bonurile se calculează automat.</p>
+        <p>Fiecare link primește automat propriul IP Proxy unic (valabil 1 dată pe lună).</p>
       </div>
 
       <!-- Card Principal Controale -->
@@ -1056,6 +1381,30 @@
           </div>
         </div>
 
+        <!-- BANCĂ DE IP-URI PROXY (COOLDOWN 30 ZILE) -->
+        <div class="proxy-bank-bar">
+          <div class="proxy-bank-info">
+            <span class="proxy-stat-pill available" id="availProxiesBadge">🟢 0 IP Libere luna asta</span>
+            <span class="proxy-stat-pill cooldown" id="usedProxiesBadge">⏳ 0 IP Folosite (30 zile)</span>
+          </div>
+          <button type="button" class="manage-proxy-btn" onclick="toggleProxyDrawer()">
+            <span class="material-symbols-outlined" style="font-size:16px;">dns</span>
+            Bancă IP Proxy
+          </button>
+        </div>
+
+        <!-- Sertar Adăugare IP-uri Proxy Noi -->
+        <div class="proxy-manager-drawer" id="proxyDrawer">
+          <h4>➕ Adaugă Linkuri sau IP-uri Proxy Noi</h4>
+          <p>Lipește mai jos orice linkuri complete de Proxyium/CroxyProxy (sau direct IP-uri). Site-ul extrage automat doar IP-urile și le adaugă în bancă:</p>
+          <textarea id="bulkProxyInput" placeholder="Exemplu: https://51.38.132.86/jfe/form/... sau 185.16.38.114"></textarea>
+          <div class="proxy-drawer-actions">
+            <button class="btn-danger" onclick="addBulkProxies()">Salvează IP-urile</button>
+            <button class="btn-secondary" onclick="resetProxyCooldowns()">Resetează Cooldown 30 Zile</button>
+            <button class="btn-secondary" onclick="toggleProxyDrawer()">Închide</button>
+          </div>
+        </div>
+
         <!-- Opțiuni Automatizare -->
         <div class="automation-bar">
           <label class="toggle-label">
@@ -1069,7 +1418,7 @@
 
       <!-- Header Rezultate -->
       <div class="results-header" id="resultsHeader">
-        <h3 class="results-title">Linkuri Pregătite</h3>
+        <h3 class="results-title">Linkuri cu IP Proxy Unic</h3>
         <span class="results-stats" id="resultsStats">0 linkuri</span>
       </div>
 
@@ -1099,11 +1448,45 @@
   <!-- Librărie QR -->
   <script src="https://unpkg.com/html5-qrcode"></script>
 
-  <!-- Script Principal Automatizare -->
+  <!-- Script Principal Automatizare + IP Proxy Engine -->
   <script>
     let qrDetected = false;
     let dateFromLink = false;
     let html5QrCode = null;
+
+    // Cheia Base64 standard CroxyProxy / Proxyium pentru https://customer.kfc-listens.com
+    const CPO_KEY = "aHR0cHM6Ly9jdXN0b21lci5rZmMtbGlzdGVucy5jb20";
+    const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
+
+    // Baza inițială de IP-uri Proxy (inclusiv cele testate de tine + noduri din aceleași subrețele Croxy/Proxyium)
+    const DEFAULT_PROXY_IPS = [
+      "185.16.38.103",
+      "185.16.38.230",
+      "51.38.132.86",
+      "185.16.38.114",
+      "51.38.134.54",
+      "185.16.38.101",
+      "185.16.38.102",
+      "185.16.38.104",
+      "185.16.38.105",
+      "185.16.38.106",
+      "185.16.38.108",
+      "185.16.38.110",
+      "185.16.38.112",
+      "185.16.38.115",
+      "185.16.38.118",
+      "185.16.38.120",
+      "185.16.38.220",
+      "185.16.38.225",
+      "185.16.38.228",
+      "185.16.38.232",
+      "51.38.132.84",
+      "51.38.132.85",
+      "51.38.132.88",
+      "51.38.134.52",
+      "51.38.134.55",
+      "51.38.134.58"
+    ];
 
     const scannedResultEl = document.getElementById("scannedResult");
     const selectedDateEl = document.getElementById("selectedDate");
@@ -1111,7 +1494,7 @@
     const endTimeEl = document.getElementById("endTime");
     const linkCountEl = document.getElementById("linkCount");
 
-    // === NOTIFICĂRI RAPIDE (FĂRĂ ALERT BLOCANT) ===
+    // === NOTIFICĂRI RAPIDE ===
     function showToast(message, icon = "check_circle") {
       const container = document.getElementById("toast-container");
       const toast = document.createElement("div");
@@ -1124,6 +1507,113 @@
         toast.style.transition = "opacity 0.25s ease";
         setTimeout(() => toast.remove(), 250);
       }, 2200);
+    }
+
+    // === DROPDOWN UTILIZATORI ONLINE / OFFLINE ===
+    function togglePresenceDropdown(e) {
+      e.stopPropagation();
+      document.getElementById("presenceDropdown").classList.toggle("open");
+    }
+
+    document.addEventListener("click", () => {
+      const dd = document.getElementById("presenceDropdown");
+      if (dd) dd.classList.remove("open");
+    });
+
+    // === GESTIONARE BANCĂ IP PROXY & REGULĂ 30 ZILE ===
+    function getProxyPool() {
+      const saved = JSON.parse(localStorage.getItem("kfcProxyPool") || "[]");
+      const merged = Array.from(new Set([...DEFAULT_PROXY_IPS, ...saved]));
+      return merged;
+    }
+
+    function getProxyUsageMap() {
+      const raw = JSON.parse(localStorage.getItem("kfcProxyUsage") || "{}");
+      const now = Date.now();
+      const cleaned = {};
+      for (const [ip, ts] of Object.entries(raw)) {
+        if (now - ts < THIRTY_DAYS_MS) {
+          cleaned[ip] = ts;
+        }
+      }
+      localStorage.setItem("kfcProxyUsage", JSON.stringify(cleaned));
+      return cleaned;
+    }
+
+    function isProxyAvailable(ip) {
+      const usage = getProxyUsageMap();
+      return !usage[ip];
+    }
+
+    function getAvailableProxyIPs(excludeList = []) {
+      const pool = getProxyPool();
+      const usage = getProxyUsageMap();
+      return pool.filter(ip => !usage[ip] && !excludeList.includes(ip));
+    }
+
+    function markProxyIPUsed(ip) {
+      if (!ip) return;
+      const usage = getProxyUsageMap();
+      usage[ip] = Date.now();
+      localStorage.setItem("kfcProxyUsage", JSON.stringify(usage));
+      updateProxyStatsUI();
+
+      // Sincronizăm și în Firebase dacă este conectat
+      if (window.syncProxyToCloud) {
+        window.syncProxyToCloud(ip, usage[ip]);
+      }
+    }
+
+    function updateProxyStatsUI() {
+      const pool = getProxyPool();
+      const usage = getProxyUsageMap();
+      const usedCount = Object.keys(usage).length;
+      const availCount = Math.max(0, pool.length - usedCount);
+
+      document.getElementById("availProxiesBadge").innerText = `🟢 ${availCount} IP Libere luna asta`;
+      document.getElementById("usedProxiesBadge").innerText = `⏳ ${usedCount} IP Folosite (30 zile)`;
+    }
+
+    function toggleProxyDrawer() {
+      document.getElementById("proxyDrawer").classList.toggle("open");
+    }
+
+    function addBulkProxies() {
+      const text = document.getElementById("bulkProxyInput").value;
+      const ipRegex = /\b(?:\d{1,3}\.){3}\d{1,3}\b/g;
+      const found = text.match(ipRegex) || [];
+
+      if (found.length === 0) {
+        showToast("Nu am găsit niciun IP valid în text!", "warning");
+        return;
+      }
+
+      const current = getProxyPool();
+      const updated = Array.from(new Set([...current, ...found]));
+      localStorage.setItem("kfcProxyPool", JSON.stringify(updated));
+
+      if (window.syncPoolToCloud) {
+        window.syncPoolToCloud(updated);
+      }
+
+      document.getElementById("bulkProxyInput").value = "";
+      updateProxyStatsUI();
+      generateLinks(true);
+      showToast(`S-au adăugat ${found.length} IP-uri în bancă!`, "dns");
+    }
+
+    function resetProxyCooldowns() {
+      localStorage.removeItem("kfcProxyUsage");
+      if (window.clearCloudProxyUsage) {
+        window.clearCloudProxyUsage();
+      }
+      updateProxyStatsUI();
+      generateLinks(true);
+      showToast("Toate IP-urile Proxy sunt din nou libere!", "restart_alt");
+    }
+
+    function buildProxyDirectUrl(ip, s, encodedDateTime, ti, lang) {
+      return `https://${ip}/jfe/form/SV_7WmLtfIDJuM3Vn8?S=${s}&D=${encodedDateTime}&TI=${ti}&Q_Language=${lang}&__cpo=${CPO_KEY}`;
     }
 
     // === GESTIONARE BONURI (TI) FOLOSITE ===
@@ -1172,6 +1662,7 @@
 
     function restoreAppState() {
       updateUsedCounterUI();
+      updateProxyStatsUI();
       const saved = localStorage.getItem("appState");
       if (!saved) {
         setDefaultDateTime();
@@ -1252,7 +1743,6 @@
         dateFromLink = true;
         updateReceiptBadge(link);
         saveAppState();
-        // Generăm automat linkurile imediat după scanare/lipire!
         generateLinks(true);
       } catch {}
     }
@@ -1335,7 +1825,7 @@
       });
     });
 
-    // === GENERARE AUTOMATĂ LINKURI ===
+    // === GENERARE AUTOMATĂ LINKURI CU IP PROXY UNIC PENTRU FIECARE ===
     function generateLinks(silent = false) {
       const link = scannedResultEl.value.trim();
       const date = selectedDateEl.value;
@@ -1373,6 +1863,11 @@
       }
 
       saveAppState();
+      updateProxyStatsUI();
+
+      // Luăm lista de IP-uri disponibile luna aceasta (fără cooldown)
+      const availableIPs = getAvailableProxyIPs();
+      const allPoolIPs = getProxyPool();
 
       const diff = (end - start) / count;
       let linksHTML = "";
@@ -1383,6 +1878,9 @@
         const alreadyUsed = isTIUsed(ti);
 
         if (hideUsed && alreadyUsed) continue;
+
+        // Alocăm câte un IP diferit fiecărui link generat
+        const assignedIP = availableIPs[visibleCount] || allPoolIPs[i % allPoolIPs.length];
         visibleCount++;
 
         const time = new Date(start.getTime() + diff * i);
@@ -1394,37 +1892,53 @@
 
         const readableDateTime = `${dd}/${mm}/${yyyy} ${hh}:${mi}`;
         const encodedDateTime = encodeURIComponent(readableDateTime);
-        const fullLink = `${base}?S=${data.S}&D=${encodedDateTime}&TI=${ti}&Q_Language=${data.lang}`;
+
+        // Linkul original KFC
+        const originalLink = `${base}?S=${data.S}&D=${encodedDateTime}&TI=${ti}&Q_Language=${data.lang}`;
+        // Linkul de Proxy generat automat (cu IP unic + __cpo)
+        const proxyDirectUrl = buildProxyDirectUrl(assignedIP, data.S, encodedDateTime, ti, data.lang);
 
         linksHTML += `
-          <div class="link-box ${alreadyUsed ? 'used' : ''}" data-ti="${ti}">
+          <div class="link-box ${alreadyUsed ? 'used' : ''}" 
+               data-ti="${ti}" 
+               data-ip="${assignedIP}"
+               data-s="${data.S}"
+               data-d="${encodedDateTime}"
+               data-lang="${data.lang}"
+               data-orig="${originalLink}"
+               data-proxy="${proxyDirectUrl}">
             <div class="link-top-meta">
               <div class="badge-group">
                 <span class="idx-badge">#${i + 1}</span>
                 <span class="ti-badge">TI: ${ti}</span>
-                <span class="time-badge">🕒 ${hh}:${mi} (${dd}.${mm})</span>
+                <span class="time-badge">🕒 ${hh}:${mi}</span>
+                <span class="ip-badge">🌐 IP: <span class="ip-text">${assignedIP}</span></span>
               </div>
               <span class="status-used-tag">✓ FOLOSIT</span>
             </div>
 
-            <a class="link-url" href="${fullLink}" target="_blank" onclick="markCardAsUsed(${ti}, this)">${decodeURIComponent(fullLink)}</a>
+            <!-- Afișăm direct linkul cu IP Proxy și __cpo exact ca în exemplul tău -->
+            <a class="link-url" href="${proxyDirectUrl}" target="_blank" onclick="openAutoProxyCard(this, event)">${proxyDirectUrl}</a>
 
             <div class="link-actions">
-              <div class="action-row primary">
-                <button class="action-btn" onclick="openProxyium('${fullLink}', ${ti}, this)">
-                  <span class="material-symbols-outlined">language</span> VPN Proxyium
+              <!-- Rândul 1: Butonul Principal care creează și deschide singur IP Proxy -->
+              <div class="auto-proxy-row">
+                <button class="btn-auto-proxy-main" onclick="openAutoProxyCard(this, event)">
+                  <span class="material-symbols-outlined">rocket_launch</span>
+                  <span class="btn-ip-label">Deschide IP Proxy (${assignedIP})</span>
                 </button>
-                <button class="action-btn" onclick="openCroxy('${fullLink}', ${ti}, this)">
-                  <span class="material-symbols-outlined">shield</span> VPN Croxy
+                <button class="btn-swap-ip" onclick="swapCardIP(this)" title="Schimbă cu alt IP Proxy liber">
+                  <span class="material-symbols-outlined">sync</span>
                 </button>
               </div>
 
+              <!-- Rândul 2: Opțiuni clasice (Copiere / Proxyium / Croxy) -->
               <div class="action-row secondary">
-                <button class="action-btn" onclick="openAndMark('${fullLink}', ${ti}, this)">
-                  <span class="material-symbols-outlined">open_in_new</span> Deschide Direct
+                <button class="action-btn" onclick="copyAutoProxyCard(this)">
+                  <span class="material-symbols-outlined">content_copy</span> Copie Link Proxy
                 </button>
-                <button class="action-btn" onclick="copyAndMark('${fullLink}', ${ti}, this)">
-                  <span class="material-symbols-outlined">content_copy</span> Copiază Link
+                <button class="action-btn" onclick="openProxyium('${originalLink}', ${ti}, this)">
+                  <span class="material-symbols-outlined">language</span> Site Proxyium
                 </button>
               </div>
             </div>
@@ -1438,11 +1952,82 @@
       document.getElementById("resultsStats").innerText = `${visibleCount} din ${count} afișate`;
 
       if (!silent) {
-        showToast(`S-au generat ${visibleCount} linkuri!`, "bolt");
+        showToast(`S-au generat ${visibleCount} linkuri cu IP Proxy unic!`, "bolt");
       }
     }
 
-    // === ACȚIUNI PE LINKURI (PROXY / COPY / OPEN) ===
+    // === DESCHIDERE DIRECTĂ CU IP PROXY + BLOCARE 30 ZILE ===
+    function openAutoProxyCard(el, event) {
+      if (event) event.preventDefault();
+      const card = el.closest(".link-box");
+      if (!card) return;
+
+      const ti = parseInt(card.dataset.ti);
+      const ip = card.dataset.ip;
+      const proxyUrl = card.dataset.proxy;
+
+      // Marcăm atât TI-ul cât și IP-ul Proxy ca folosite (IP-ul intră în cooldown 30 zile)
+      markTIUsed(ti);
+      markProxyIPUsed(ip);
+
+      if (document.getElementById("hideUsedToggle").checked) {
+        card.style.display = "none";
+      } else {
+        card.classList.add("used");
+      }
+
+      showToast(`Se deschide direct prin IP ${ip} (blocat 30 zile)`, "rocket_launch");
+      window.open(proxyUrl, "_blank");
+    }
+
+    function copyAutoProxyCard(el) {
+      const card = el.closest(".link-box");
+      if (!card) return;
+
+      const ti = parseInt(card.dataset.ti);
+      const ip = card.dataset.ip;
+      const proxyUrl = card.dataset.proxy;
+
+      navigator.clipboard.writeText(proxyUrl).then(() => {
+        markTIUsed(ti);
+        markProxyIPUsed(ip);
+        if (document.getElementById("hideUsedToggle").checked) {
+          card.style.display = "none";
+        } else {
+          card.classList.add("used");
+        }
+        showToast(`Link Proxy (${ip}) copiat!`, "content_copy");
+      });
+    }
+
+    // Schimbă pe loc IP-ul unui card dacă vrei alt server
+    function swapCardIP(el) {
+      const card = el.closest(".link-box");
+      if (!card) return;
+
+      const currentDisplayedIPs = Array.from(document.querySelectorAll(".link-box")).map(c => c.dataset.ip);
+      const candidates = getAvailableProxyIPs(currentDisplayedIPs);
+      const fallbackPool = getProxyPool().filter(ip => ip !== card.dataset.ip);
+
+      const nextIP = candidates[0] || fallbackPool[Math.floor(Math.random() * fallbackPool.length)];
+      if (!nextIP) {
+        showToast("Nu mai sunt alte IP-uri în bancă! Adaugă unele noi.", "warning");
+        return;
+      }
+
+      const newProxyUrl = buildProxyDirectUrl(nextIP, card.dataset.s, card.dataset.d, card.dataset.ti, card.dataset.lang);
+      card.dataset.ip = nextIP;
+      card.dataset.proxy = newProxyUrl;
+
+      card.querySelector(".ip-text").innerText = nextIP;
+      card.querySelector(".btn-ip-label").innerText = `Deschide IP Proxy (${nextIP})`;
+      const linkAnchor = card.querySelector(".link-url");
+      linkAnchor.href = newProxyUrl;
+      linkAnchor.innerText = newProxyUrl;
+
+      showToast(`IP schimbat în ${nextIP}`, "sync");
+    }
+
     function markCardAsUsed(ti, btnEl) {
       markTIUsed(ti);
       const card = btnEl.closest(".link-box");
@@ -1455,36 +2040,12 @@
       }
     }
 
-    function copyAndMark(link, ti, btnEl) {
-      const decoded = decodeURIComponent(link);
-      navigator.clipboard.writeText(decoded).then(() => {
-        markCardAsUsed(ti, btnEl);
-        showToast(`TI ${ti} copiat în clipboard!`, "content_copy");
-      }).catch(() => {
-        showToast("Eroare la copiere!", "error");
-      });
-    }
-
-    function openAndMark(link, ti, btnEl) {
-      markCardAsUsed(ti, btnEl);
-      window.open(decodeURIComponent(link), "_blank");
-    }
-
     function openProxyium(link, ti, btnEl) {
       const decodedLink = decodeURIComponent(link);
       navigator.clipboard.writeText(decodedLink).then(() => {
         markCardAsUsed(ti, btnEl);
         showToast(`TI ${ti} copiat! Se deschide Proxyium...`, "language");
         window.open("https://www.proxyium.com", "_blank");
-      });
-    }
-
-    function openCroxy(link, ti, btnEl) {
-      const decodedLink = decodeURIComponent(link);
-      navigator.clipboard.writeText(decodedLink).then(() => {
-        markCardAsUsed(ti, btnEl);
-        showToast(`TI ${ti} copiat! Se deschide CroxyProxy...`, "shield");
-        window.open("https://www.croxyproxy.com", "_blank");
       });
     }
 
@@ -1522,15 +2083,14 @@
       header.classList.toggle("scrolled", window.scrollY > 4);
     });
 
-    // Inițializare la încărcare
     restoreAppState();
   </script>
 
-  <!-- Script Firebase Autentificare -->
+  <!-- Script Firebase: Autentificare + Prezență Live (Online/Offline) + Sincronizare Proxy -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
     import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
-    import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
+    import { getFirestore, doc, setDoc, getDoc, updateDoc, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyDMO3a9eUai1bjx7K7dHsBP9FWST7uPFwI",
@@ -1545,6 +2105,10 @@
     const auth = getAuth(app);
     const db = getFirestore(app);
     const provider = new GoogleAuthProvider();
+
+    let presenceInterval = null;
+    let unsubscribeUsers = null;
+    let currentUserUid = null;
 
     window.loginWithGoogle = async () => {
       try {
@@ -1563,8 +2127,150 @@
 
     loginBtn.onclick = () => window.loginWithGoogle();
 
+    // Formatăm acum cât timp a fost activ un utilizator offline
+    function formatLastSeen(ms) {
+      if (!ms) return "inactiv";
+      const diffSec = Math.max(0, Math.floor((Date.now() - ms) / 1000));
+      if (diffSec < 90) return "acum";
+      const mins = Math.floor(diffSec / 60);
+      if (mins < 60) return `acum ${mins}m`;
+      const hours = Math.floor(mins / 60);
+      if (hours < 24) return `acum ${hours}h`;
+      const days = Math.floor(hours / 24);
+      return `acum ${days}z`;
+    }
+
+    // Actualizăm statusul Online al utilizatorului curent
+    async function setMyPresence(isOnline) {
+      if (!currentUserUid) return;
+      try {
+        const userRef = doc(db, "users", currentUserUid);
+        await setDoc(userRef, {
+          online: isOnline,
+          lastSeenMs: Date.now()
+        }, { merge: true });
+      } catch (e) {
+        console.warn("Presence update error:", e);
+      }
+    }
+
+    // Ascultăm în timp real cine este Online și cine este Offline
+    function startListeningPresence() {
+      if (unsubscribeUsers) unsubscribeUsers();
+      const usersCol = collection(db, "users");
+
+      unsubscribeUsers = onSnapshot(usersCol, (snapshot) => {
+        const now = Date.now();
+        const onlineUsers = [];
+        const offlineUsers = [];
+
+        snapshot.forEach(docSnap => {
+          const d = docSnap.data();
+          if (d.blocked) return;
+
+          const lastMs = d.lastSeenMs || (d.createdAt?.seconds ? d.createdAt.seconds * 1000 : 0);
+          // Considerăm utilizatorul Online dacă are flag-ul online=true și a trimis ping în ultimele 2 minute
+          const isReallyOnline = (docSnap.id === currentUserUid) || (d.online === true && (now - lastMs < 120000));
+
+          const userObj = {
+            uid: docSnap.id,
+            name: d.name || d.email || "Utilizator",
+            lastMs: lastMs
+          };
+
+          if (isReallyOnline) {
+            onlineUsers.push(userObj);
+          } else {
+            offlineUsers.push(userObj);
+          }
+        });
+
+        // Sortăm după ultima activitate
+        offlineUsers.sort((a, b) => b.lastMs - a.lastMs);
+
+        // Actualizăm badge-ul de sus
+        document.getElementById("onlineCountBadge").innerText = `${onlineUsers.length} online`;
+        document.getElementById("dropdownOnlineCount").innerText = onlineUsers.length;
+        document.getElementById("dropdownOfflineCount").innerText = offlineUsers.length;
+
+        // Randăm lista Online
+        const onlineHTML = onlineUsers.map(u => `
+          <div class="presence-item">
+            <div class="presence-user-left">
+              <span class="status-dot online"></span>
+              <span class="name">${u.name}${u.uid === currentUserUid ? ' (Tu)' : ''}</span>
+            </div>
+            <span class="presence-time live">ONLINE</span>
+          </div>
+        `).join("");
+        document.getElementById("onlineUsersList").innerHTML = onlineHTML || `<div style="font-size:12px;color:#888;">Nimeni online</div>`;
+
+        // Randăm lista Offline
+        const offlineHTML = offlineUsers.map(u => `
+          <div class="presence-item">
+            <div class="presence-user-left">
+              <span class="status-dot offline"></span>
+              <span class="name">${u.name}</span>
+            </div>
+            <span class="presence-time">${formatLastSeen(u.lastMs)}</span>
+          </div>
+        `).join("");
+        document.getElementById("offlineUsersList").innerHTML = offlineHTML || `<div style="font-size:12px;color:#888;">Niciun coleg offline</div>`;
+      });
+    }
+
+    // Sincronizare opțională a IP-urilor folosite în Firestore ca toată echipa să împartă regula de 30 zile
+    window.syncProxyToCloud = async (ip, timestamp) => {
+      try {
+        const ref = doc(db, "settings", "proxyTracker");
+        await setDoc(ref, {
+          usage: { [ip]: timestamp }
+        }, { merge: true });
+      } catch {}
+    };
+
+    window.syncPoolToCloud = async (poolArray) => {
+      try {
+        const ref = doc(db, "settings", "proxyTracker");
+        await setDoc(ref, { pool: poolArray }, { merge: true });
+      } catch {}
+    };
+
+    window.clearCloudProxyUsage = async () => {
+      try {
+        const ref = doc(db, "settings", "proxyTracker");
+        await setDoc(ref, { usage: {} }, { merge: true });
+      } catch {}
+    };
+
+    async function loadCloudProxies() {
+      try {
+        const ref = doc(db, "settings", "proxyTracker");
+        const snap = await getDoc(ref);
+        if (snap.exists()) {
+          const data = snap.data();
+          if (Array.isArray(data.pool)) {
+            const localPool = JSON.parse(localStorage.getItem("kfcProxyPool") || "[]");
+            const merged = Array.from(new Set([...localPool, ...data.pool]));
+            localStorage.setItem("kfcProxyPool", JSON.stringify(merged));
+          }
+          if (data.usage && typeof data.usage === "object") {
+            const localUsage = JSON.parse(localStorage.getItem("kfcProxyUsage") || "{}");
+            const mergedUsage = { ...localUsage, ...data.usage };
+            localStorage.setItem("kfcProxyUsage", JSON.stringify(mergedUsage));
+          }
+          if (window.updateProxyStatsUI) window.updateProxyStatsUI();
+          if (window.generateLinks) window.generateLinks(true);
+        }
+      } catch {}
+    }
+
     onAuthStateChanged(auth, async (user) => {
       if (!user) {
+        currentUserUid = null;
+        if (presenceInterval) clearInterval(presenceInterval);
+        if (unsubscribeUsers) unsubscribeUsers();
+
         nicknamePill.classList.remove("visible");
         protectedContent.style.display = "none";
         loginScreen.style.display = "block";
@@ -1573,6 +2279,7 @@
         return;
       }
 
+      currentUserUid = user.uid;
       const userRef = doc(db, "users", user.uid);
       const snap = await getDoc(userRef);
 
@@ -1581,6 +2288,8 @@
           name: user.displayName,
           email: user.email,
           blocked: false,
+          online: true,
+          lastSeenMs: Date.now(),
           createdAt: new Date()
         });
       } else if (snap.data().blocked === true) {
@@ -1591,7 +2300,17 @@
         logoutBtn.style.display = "none";
         loginBtn.style.display = "inline-flex";
         return;
+      } else {
+        await setMyPresence(true);
       }
+
+      // Pornim ping-ul automat la fiecare 30 secunde pentru statusul Online
+      if (presenceInterval) clearInterval(presenceInterval);
+      presenceInterval = setInterval(() => setMyPresence(true), 30000);
+
+      // Pornim ascultarea live pentru lista Online/Offline și încărcăm IP-urile din Cloud
+      startListeningPresence();
+      loadCloudProxies();
 
       nicknameDiv.innerHTML = `<strong>${user.displayName}</strong>`;
       nicknamePill.classList.add("visible");
@@ -1601,7 +2320,19 @@
       logoutBtn.style.display = "inline-flex";
     });
 
+    // Când închide fila sau iese de pe site, îl trecem imediat Offline
+    window.addEventListener("beforeunload", () => {
+      setMyPresence(false);
+    });
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible") {
+        setMyPresence(true);
+      }
+    });
+
     logoutBtn.onclick = async () => {
+      await setMyPresence(false);
       await signOut(auth);
       nicknamePill.classList.remove("visible");
       protectedContent.style.display = "none";
