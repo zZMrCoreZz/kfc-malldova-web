@@ -41,11 +41,9 @@
       padding: 0;
       width: 100%;
       max-width: 100vw;
-      overflow-x: hidden;
       font-family: 'Plus Jakarta Sans', sans-serif;
       background-color: var(--kfc-cream);
       color: var(--kfc-black);
-      scroll-behavior: smooth;
       -webkit-text-size-adjust: 100%;
     }
 
@@ -53,6 +51,7 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      padding-top: 66px; /* Spațiu pentru header-ul fix */
     }
 
     /* === DUNGILE EMBLEMATICE KFC SUS === */
@@ -72,12 +71,13 @@
       z-index: 1001;
     }
 
-    /* === HEADER PERFECT ALINIAT PE MOBIL & DESKTOP === */
+    /* === HEADER FIXED (BĂTUT ÎN CUIE SUS) === */
     header {
-      position: sticky;
+      position: fixed;
       top: 6px;
+      left: 0;
+      right: 0;
       z-index: 1000;
-      width: 100%;
       background: rgba(255, 255, 255, 0.96);
       backdrop-filter: blur(12px);
       padding: 10px 14px;
@@ -86,12 +86,7 @@
       justify-content: space-between;
       gap: 8px;
       border-bottom: 2px solid var(--kfc-border);
-      transition: all 0.25s ease;
-    }
-
-    header.scrolled {
       box-shadow: var(--shadow-sm);
-      border-bottom-color: var(--kfc-red);
     }
 
     .brand-wrap {
@@ -158,7 +153,7 @@
       flex-shrink: 1;
     }
 
-    /* === PASTILA UTILIZATOR + CONTOR ONLINE PE UN SINGUR RÂND === */
+    /* === PASTILA UTILIZATOR + CONTOR ONLINE === */
     .user-pill {
       display: none;
       align-items: center;
@@ -262,10 +257,6 @@
       max-height: 210px;
       overflow-y: auto;
       margin-bottom: 10px;
-    }
-
-    .presence-list:last-child {
-      margin-bottom: 0;
     }
 
     .presence-item {
@@ -509,42 +500,6 @@
       white-space: nowrap;
     }
 
-    /* === SELECTOR CELE 4 RESTAURANTE (373K1 - 373K4) === */
-    .store-tabs {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-    }
-
-    .store-tab {
-      height: 44px;
-      border-radius: 10px;
-      border: 2px solid var(--kfc-border);
-      background: var(--kfc-cream);
-      color: var(--kfc-black);
-      font-family: 'Montserrat', sans-serif;
-      font-style: italic;
-      font-weight: 900;
-      font-size: 13.5px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-      transition: all 0.15s ease;
-    }
-
-    .store-tab:hover {
-      border-color: var(--kfc-red);
-    }
-
-    .store-tab.active {
-      background: var(--kfc-red);
-      border-color: var(--kfc-red);
-      color: var(--kfc-white);
-      box-shadow: 0 4px 12px rgba(228, 0, 43, 0.25);
-    }
-
     /* Inputuri */
     input[type="text"],
     input[type="date"],
@@ -695,7 +650,7 @@
       gap: 8px;
     }
 
-    /* Rând Generare + Preseturi Mari (10 - 150) */
+    /* Rând Generare + Preseturi */
     .generate-row {
       display: flex;
       gap: 8px;
@@ -1224,7 +1179,7 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* === ADAPTARE ECRANE MICI (IPHONE / ANDROID) === */
+    /* === ADAPTARE ECRANE MICI === */
     @media (max-width: 480px) {
       header {
         padding: 8px 10px;
@@ -1269,18 +1224,17 @@
   <!-- Dungile KFC sus -->
   <div class="kfc-stripes"></div>
 
-  <!-- Header -->
+  <!-- Header Fixed -->
   <header id="pageHeader">
     <div class="brand-wrap">
       <div class="kfc-logo-badge">KFC</div>
       <div class="header-title">
         <h1>FEEDBACK <span>PRO</span></h1>
-        <p>4 Stores Hub</p>
+        <p>Auto-Store Proxy</p>
       </div>
     </div>
 
     <div class="header-right">
-      <!-- Pastila cu numele + Click pentru lista Online / Offline -->
       <div class="user-pill" id="nicknamePill" onclick="togglePresenceDropdown(event)" title="Vezi cine este Online / Offline">
         <span class="dot"></span>
         <span class="user-name-text" id="nickname">...</span>
@@ -1288,7 +1242,6 @@
         <span class="material-symbols-outlined" style="font-size:16px;">expand_more</span>
       </div>
 
-      <!-- Dropdown Live cu Utilizatori Online & Offline -->
       <div class="presence-dropdown" id="presenceDropdown" onclick="event.stopPropagation()">
         <div class="presence-section-title">
           <span>🟢 Online Acum</span>
@@ -1312,11 +1265,11 @@
     </div>
   </header>
 
-  <!-- Ecran afișat când utilizatorul NU este autentificat -->
+  <!-- Ecran Autentificare -->
   <div id="login-screen" style="display:none;">
     <div class="login-hero-logo">KFC</div>
     <h2>Acces Intern</h2>
-    <p>Autentifică-te cu contul Google pentru a accesa generatorul automat pentru cele 4 restaurante (373K1 - 373K4).</p>
+    <p>Autentifică-te cu contul Google pentru a accesa generatorul cu detectare automată a restaurantului din QR.</p>
     <button class="google-login-cta" onclick="loginWithGoogle()">
       <span class="material-symbols-outlined">account_circle</span>
       Continuă cu Google
@@ -1327,56 +1280,36 @@
   <div id="protected-content" style="display:none;">
     <main>
 
-      <!-- Banner KFC Rebrand -->
       <div class="hero-banner">
-        <span class="tag">MULTI-STORE AUTO PROXY</span>
+        <span class="tag">AUTO-STORE & PROXY 2026</span>
         <h2>Generează Linkuri Feedback</h2>
-        <p>200+ IP-uri Proxy per restaurant. Fiecare restaurant (373K1–373K4) poate folosi aceleași IP-uri o dată pe lună.</p>
+        <p>Restaurantul (373K1 – 373K4) se setează <strong>automat</strong> din codul QR sau linkul scanat!</p>
       </div>
 
-      <!-- Card Principal Controale -->
       <div class="control-card">
-
-        <!-- 0. Selector Restaurant (373K1 - 373K4) -->
-        <div class="field-group">
-          <div class="field-label">
-            <span>📍 Restaurant Activ</span>
-            <span class="auto-badge">Cooldown IP separat / restaurant</span>
-          </div>
-          <div class="store-tabs">
-            <button type="button" class="store-tab active" data-store="373K1" onclick="selectStore('373K1')">373K1</button>
-            <button type="button" class="store-tab" data-store="373K2" onclick="selectStore('373K2')">373K2</button>
-            <button type="button" class="store-tab" data-store="373K3" onclick="selectStore('373K3')">373K3</button>
-            <button type="button" class="store-tab" data-store="373K4" onclick="selectStore('373K4')">373K4</button>
-          </div>
-        </div>
 
         <!-- 1. Link / QR -->
         <div class="field-group">
           <div class="field-label">
-            <span>1. Link Original / Scanare Bon</span>
-            <span class="auto-badge">⚡ Auto-Paste & Scan</span>
+            <span>1. Scanează QR sau Lipește Bonul</span>
+            <span class="auto-badge">⚡ Restaurant setat automat</span>
           </div>
 
           <div class="scan-input-row">
             <input type="text" id="scannedResult" placeholder="Lipește linkul aici sau scanează QR..." autocomplete="off">
 
-            <!-- Cameră QR -->
             <button class="icon-btn primary" onclick="startQRScanner()" title="Scanează QR cu camera">
               <span class="material-symbols-outlined">qr_code_scanner</span>
             </button>
 
-            <!-- Upload Imagine QR -->
             <label class="icon-btn primary" title="Încarcă poză cu QR" style="margin:0;">
               <span class="material-symbols-outlined">upload_file</span>
               <input type="file" id="imageInput" accept="image/*" hidden>
             </label>
           </div>
 
-          <!-- Chip-uri cu informațiile extrase automat din link -->
           <div id="receiptMeta" class="receipt-meta"></div>
 
-          <!-- Container Cameră QR -->
           <div id="qr-scanner-wrap">
             <div id="qr-scanner"></div>
             <button class="stop-scan-btn" onclick="stopQRScanner()">Închide Camera</button>
@@ -1395,7 +1328,7 @@
           </div>
         </div>
 
-        <!-- 3. Număr de linkuri & Acțiuni (Suport 150+ linkuri) -->
+        <!-- 3. Număr de linkuri -->
         <div class="field-group" style="margin-bottom: 0;">
           <div class="field-label">
             <span>3. Câte linkuri să se genereze</span>
@@ -1415,7 +1348,6 @@
             </button>
           </div>
 
-          <!-- Butoane rapide pentru volum mare -->
           <div class="quick-counts-row">
             <button type="button" class="preset-btn active" onclick="setQuickCount(10)">10</button>
             <button type="button" class="preset-btn" onclick="setQuickCount(25)">25</button>
@@ -1425,34 +1357,32 @@
           </div>
         </div>
 
-        <!-- BANCĂ DE IP-URI PROXY PER RESTAURANT (200+ IP-uri / restaurant) -->
+        <!-- BANCĂ PROXY -->
         <div class="proxy-bank-bar">
           <div class="proxy-bank-top">
-            <span class="proxy-store-indicator">Bancă Proxy pt. <span id="proxyStoreLabel">373K1</span>:</span>
+            <span class="proxy-store-indicator">Restaurant detectat: <span id="proxyStoreLabel">Niciunul</span></span>
             <button type="button" class="manage-proxy-btn" onclick="toggleProxyDrawer()">
               <span class="material-symbols-outlined" style="font-size:15px;">dns</span>
               Bancă IP Proxy
             </button>
           </div>
           <div class="proxy-bank-info">
-            <span class="proxy-stat-pill available" id="availProxiesBadge">🟢 200 IP Libere luna asta</span>
-            <span class="proxy-stat-pill cooldown" id="usedProxiesBadge">⏳ 0 IP Folosite (30 zile)</span>
+            <span class="proxy-stat-pill available" id="availProxiesBadge">🟢 0 IP Libere</span>
+            <span class="proxy-stat-pill cooldown" id="usedProxiesBadge">⏳ 0 Folosite</span>
           </div>
         </div>
 
-        <!-- Sertar Adăugare IP-uri Proxy Noi -->
         <div class="proxy-manager-drawer" id="proxyDrawer">
-          <h4>➕ Bancă IP Proxy (<span id="drawerStoreName">373K1</span>)</h4>
-          <p>Fiecare restaurant (373K1 – 373K4) are propriul istoric lunar! Un IP folosit pe 373K1 rămâne liber pe 373K2, 373K3 și 373K4. Poți lipi și alte IP-uri mai jos:</p>
+          <h4>➕ Bancă IP Proxy (<span id="drawerStoreName">General</span>)</h4>
+          <p>Fiecare restaurant are istoric separat. Poți adăuga IP-uri suplimentare mai jos:</p>
           <textarea id="bulkProxyInput" placeholder="Exemplu: https://51.38.132.86/jfe/form/... sau 185.16.38.114"></textarea>
           <div class="proxy-drawer-actions">
             <button class="btn-danger" onclick="addBulkProxies()">Salvează IP-uri</button>
-            <button class="btn-secondary" onclick="resetProxyCooldowns()">Resetează Luna pt. Restaurantul Activ</button>
+            <button class="btn-secondary" onclick="resetProxyCooldowns()">Resetează Cooldown Restaurant</button>
             <button class="btn-secondary" onclick="toggleProxyDrawer()">Închide</button>
           </div>
         </div>
 
-        <!-- Opțiuni Automatizare -->
         <div class="automation-bar">
           <label class="toggle-label">
             <input type="checkbox" id="hideUsedToggle" onchange="generateLinks(true)">
@@ -1463,24 +1393,21 @@
 
       </div>
 
-      <!-- Header Rezultate -->
       <div class="results-header" id="resultsHeader">
-        <h3 class="results-title" id="resultsTitleText">Linkuri 373K1</h3>
+        <h3 class="results-title" id="resultsTitleText">Linkuri Generate</h3>
         <span class="results-stats" id="resultsStats">0 linkuri</span>
       </div>
 
-      <!-- Lista de linkuri generate -->
       <div id="links" class="link-container"></div>
 
     </main>
   </div>
 
-  <!-- Modal Confirmare Ștergere -->
   <div id="confirmDeleteModal">
     <div class="modal-backdrop" onclick="closeDeleteModal()"></div>
     <div class="modal-box">
       <h3>Curățare Linkuri</h3>
-      <p>Vrei să cureți doar lista afișată acum sau să ștergi tot istoricul bonurilor pentru restaurantul activ?</p>
+      <p>Vrei să cureți doar lista afișată acum sau să ștergi tot istoricul bonurilor pentru restaurantul detectat?</p>
       <div class="modal-actions">
         <button class="btn-secondary" onclick="confirmDelete(false)">Doar lista</button>
         <button class="btn-secondary" onclick="closeDeleteModal()">Anulează</button>
@@ -1489,47 +1416,35 @@
     </div>
   </div>
 
-  <!-- Container Notificări Toast -->
   <div id="toast-container"></div>
 
-  <!-- Librărie QR -->
   <script src="https://unpkg.com/html5-qrcode"></script>
 
-  <!-- Script Principal Automatizare + Multi-Store IP Proxy Engine (200+ IP-uri) -->
   <script>
     let qrDetected = false;
     let dateFromLink = false;
     let html5QrCode = null;
     let activeStore = "373K1";
 
-    const STORES = ["373K1", "373K2", "373K3", "373K4"];
+    const VALID_STORES = ["373K1", "373K2", "373K3", "373K4"];
     const CPO_KEY = "aHR0cHM6Ly9jdXN0b21lci5rZmMtbGlzdGVucy5jb20";
-    const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
+    const FOUR_DAYS_MS = 4 * 24 * 60 * 60 * 1000; // Cooldown optimizat la 4 zile pentru a asigura 150+ linkuri lunar per restaurant
 
-    // Construim o bază masivă de 200+ IP-uri Proxy (nodurile tale prioritare + subrețelele CroxyProxy / Proxyium)
     function buildMasterProxyList() {
-      const priority = [
-        "185.16.38.103", "185.16.38.230", "51.38.132.86", "185.16.38.114", "51.38.134.54"
-      ];
       const generated = [];
-
-      // Clasa 1: 185.16.38.100 -> 185.16.38.245 (146 IP-uri)
-      for (let i = 100; i <= 245; i++) {
+      for (let i = 100; i <= 240; i++) {
         generated.push(`185.16.38.${i}`);
       }
-      // Clasa 2: 51.38.132.40 -> 51.38.132.105 (66 IP-uri)
-      for (let i = 40; i <= 105; i++) {
+      for (let i = 40; i <= 100; i++) {
         generated.push(`51.38.132.${i}`);
       }
-      // Clasa 3: 51.38.134.30 -> 51.38.134.90 (61 IP-uri)
-      for (let i = 30; i <= 90; i++) {
+      for (let i = 30; i <= 85; i++) {
         generated.push(`51.38.134.${i}`);
       }
-
-      return Array.from(new Set([...priority, ...generated]));
+      return Array.from(new Set(generated));
     }
 
-    const DEFAULT_PROXY_IPS = buildMasterProxyList(); // >270 IP-uri unice per restaurant!
+    const DEFAULT_PROXY_IPS = buildMasterProxyList();
 
     const scannedResultEl = document.getElementById("scannedResult");
     const selectedDateEl = document.getElementById("selectedDate");
@@ -1537,7 +1452,6 @@
     const endTimeEl = document.getElementById("endTime");
     const linkCountEl = document.getElementById("linkCount");
 
-    // === NOTIFICĂRI RAPIDE ===
     function showToast(message, icon = "check_circle") {
       const container = document.getElementById("toast-container");
       const toast = document.createElement("div");
@@ -1552,7 +1466,6 @@
       }, 2200);
     }
 
-    // === DROPDOWN UTILIZATORI ONLINE / OFFLINE ===
     function togglePresenceDropdown(e) {
       e.stopPropagation();
       document.getElementById("presenceDropdown").classList.toggle("open");
@@ -1563,58 +1476,34 @@
       if (dd) dd.classList.remove("open");
     });
 
-    // === SELECTARE RESTAURANT (373K1 - 373K4) ===
-    function selectStore(storeCode, skipRegenerate = false) {
-      if (!STORES.includes(storeCode)) storeCode = "373K1";
+    // Setează restaurantul detectat automat
+    function setActiveStoreAuto(storeCode) {
+      if (!VALID_STORES.includes(storeCode)) storeCode = "373K1";
       activeStore = storeCode;
-
-      document.querySelectorAll(".store-tab").forEach(btn => {
-        btn.classList.toggle("active", btn.dataset.store === activeStore);
-      });
 
       document.getElementById("proxyStoreLabel").innerText = activeStore;
       document.getElementById("drawerStoreName").innerText = activeStore;
       document.getElementById("resultsTitleText").innerText = `Linkuri ${activeStore}`;
 
-      // Dacă avem deja un link în input, îi actualizăm parametrul S= cu noul restaurant selectat
-      const currentVal = scannedResultEl.value.trim();
-      if (currentVal.startsWith("http")) {
-        try {
-          const u = new URL(currentVal);
-          if (u.searchParams.get("S") && u.searchParams.get("S") !== activeStore) {
-            u.searchParams.set("S", activeStore);
-            scannedResultEl.value = decodeURIComponent(u.toString());
-            updateReceiptBadge(scannedResultEl.value);
-          }
-        } catch {}
-      }
-
       updateUsedCounterUI();
       updateProxyStatsUI();
-      saveAppState();
-
-      if (!skipRegenerate && scannedResultEl.value.trim()) {
-        generateLinks(true);
-      }
     }
 
-    // === GESTIONARE BANCĂ IP PROXY SEPARAT PE FIECARE RESTAURANT (30 ZILE) ===
     function getProxyPool() {
       const saved = JSON.parse(localStorage.getItem("kfcProxyPool") || "[]");
       return Array.from(new Set([...DEFAULT_PROXY_IPS, ...saved]));
     }
 
-    // Returnează dicționarul complet: { "373K1": { "51.38.132.86": timestamp }, "373K2": { ... } }
     function getAllStoresProxyUsage() {
       const raw = JSON.parse(localStorage.getItem("kfcProxyUsageByStore") || "{}");
       const now = Date.now();
       const cleaned = {};
 
-      STORES.forEach(st => {
+      VALID_STORES.forEach(st => {
         cleaned[st] = {};
         const storeMap = raw[st] || {};
         for (const [ip, ts] of Object.entries(storeMap)) {
-          if (now - ts < THIRTY_DAYS_MS) {
+          if (now - ts < FOUR_DAYS_MS) {
             cleaned[st][ip] = ts;
           }
         }
@@ -1645,7 +1534,6 @@
       localStorage.setItem("kfcProxyUsageByStore", JSON.stringify(all));
       updateProxyStatsUI();
 
-      // Sincronizăm în Firebase pe restaurantul respectiv
       if (window.syncStoreProxyToCloud) {
         window.syncStoreProxyToCloud(storeCode, ip, now);
       }
@@ -1658,7 +1546,7 @@
       const availCount = Math.max(0, pool.length - usedCount);
 
       document.getElementById("availProxiesBadge").innerText = `🟢 ${availCount} IP Libere (${activeStore})`;
-      document.getElementById("usedProxiesBadge").innerText = `⏳ ${usedCount} Folosite (30 zile)`;
+      document.getElementById("usedProxiesBadge").innerText = `⏳ ${usedCount} Folosite`;
     }
 
     function toggleProxyDrawer() {
@@ -1686,7 +1574,7 @@
       document.getElementById("bulkProxyInput").value = "";
       updateProxyStatsUI();
       generateLinks(true);
-      showToast(`S-au adăugat ${found.length} IP-uri pentru toate cele 4 restaurante!`, "dns");
+      showToast(`S-au adăugat ${found.length} IP-uri în bancă!`, "dns");
     }
 
     function resetProxyCooldowns() {
@@ -1707,7 +1595,6 @@
       return `https://${ip}/jfe/form/SV_7WmLtfIDJuM3Vn8?S=${s}&D=${encodedDateTime}&TI=${ti}&Q_Language=${lang}&__cpo=${CPO_KEY}`;
     }
 
-    // === GESTIONARE BONURI (TI) FOLOSITE PER RESTAURANT ===
     function getUsedTIBucket() {
       return JSON.parse(localStorage.getItem("usedTIByStore") || "{}");
     }
@@ -1736,7 +1623,6 @@
       return getUsedTI(storeCode).includes(ti);
     }
 
-    // === SALVARE & RESTAURARE AUTOMATĂ STARE ===
     function saveAppState() {
       const state = {
         store: activeStore,
@@ -1762,7 +1648,7 @@
       const saved = localStorage.getItem("appState");
       if (!saved) {
         setDefaultDateTime();
-        selectStore("373K1", true);
+        setActiveStoreAuto("373K1");
         return;
       }
 
@@ -1775,7 +1661,7 @@
         linkCountEl.value = s.count || 10;
         document.getElementById("hideUsedToggle").checked = !!s.hideUsed;
 
-        selectStore(s.store || "373K1", true);
+        if (s.store) setActiveStoreAuto(s.store);
 
         if (!selectedDateEl.value || !endTimeEl.value) {
           setDefaultDateTime();
@@ -1787,16 +1673,18 @@
         }
       } catch {
         setDefaultDateTime();
-        selectStore("373K1", true);
+        setActiveStoreAuto("373K1");
       }
     }
 
-    // === EXTRAGERE AUTOMATĂ DATE DIN LINK ===
     function parseLinkData(link) {
       const url = new URL(link);
       const params = new URLSearchParams(url.search);
+      let sVal = (params.get("S") || "373K1").toUpperCase();
+      if (!VALID_STORES.includes(sVal)) sVal = "373K1";
+
       return {
-        S: (params.get("S") || activeStore).toUpperCase(),
+        S: sVal,
         dateTime: decodeURIComponent(params.get("D") || ""),
         TI: parseInt(params.get("TI")),
         lang: params.get("Q_Language") || "RO"
@@ -1807,10 +1695,14 @@
       const metaBox = document.getElementById("receiptMeta");
       try {
         const d = parseLinkData(link);
-        if (!d.S || isNaN(d.TI)) {
+        if (isNaN(d.TI)) {
           metaBox.classList.remove("active");
           return false;
         }
+
+        // Setăm automat restaurantul extras din link/QR
+        setActiveStoreAuto(d.S);
+
         metaBox.innerHTML = `
           <span class="meta-chip">📍 Restaurant: <strong>${d.S}</strong></span>
           <span class="meta-chip">🧾 TI Bază: <strong>${d.TI}</strong></span>
@@ -1829,8 +1721,8 @@
       try {
         const url = new URL(link);
         const sParam = (url.searchParams.get("S") || "").toUpperCase();
-        if (STORES.includes(sParam)) {
-          selectStore(sParam, true);
+        if (VALID_STORES.includes(sParam)) {
+          setActiveStoreAuto(sParam);
         }
 
         const dParam = url.searchParams.get("D");
@@ -1852,7 +1744,6 @@
       } catch {}
     }
 
-    // === EVENIMENTE AUTOMATE LA PASTE / MODIFICARE ===
     scannedResultEl.addEventListener("input", () => {
       const val = scannedResultEl.value.trim();
       if (val.startsWith("http")) {
@@ -1883,7 +1774,6 @@
       }
     }
 
-    // === SCANARE QR CAMERĂ & IMAGINE ===
     function startQRScanner() {
       const wrap = document.getElementById("qr-scanner-wrap");
       wrap.style.display = "block";
@@ -1910,7 +1800,7 @@
     function qrCodeSuccess(decodedText) {
       qrDetected = true;
       scannedResultEl.value = decodedText;
-      showToast("Cod QR scanat cu succes!", "qr_code_2");
+      showToast("Cod QR scanat! Restaurant detectat automat.", "qr_code_2");
       stopQRScanner();
       autofillDateTimeFromLink(decodedText);
     }
@@ -1930,7 +1820,6 @@
       });
     });
 
-    // === GENERARE AUTOMATĂ LINKURI CU IP PROXY UNIC PENTRU RESTAURANTUL ACTIV ===
     function generateLinks(silent = false) {
       const link = scannedResultEl.value.trim();
       const date = selectedDateEl.value;
@@ -1953,8 +1842,8 @@
         return;
       }
 
-      // Folosim restaurantul selectat (373K1 - 373K4)
-      const storeCode = activeStore;
+      const storeCode = data.S;
+      setActiveStoreAuto(storeCode);
 
       const base = "https://customer.kfc-listens.com/jfe/form/SV_7WmLtfIDJuM3Vn8";
       const start = new Date(`${date}T${startTime}`);
@@ -1973,7 +1862,6 @@
       saveAppState();
       updateProxyStatsUI();
 
-      // Luăm lista de IP-uri disponibile luna aceasta DOAR pentru restaurantul activ (ex: 373K1)
       const availableIPs = getAvailableProxyIPsForStore(storeCode);
       const allPoolIPs = getProxyPool();
 
@@ -1987,7 +1875,6 @@
 
         if (hideUsed && alreadyUsed) continue;
 
-        // Alocăm câte un IP liber diferit pentru acest restaurant
         const assignedIP = availableIPs[visibleCount] || allPoolIPs[i % allPoolIPs.length];
         visibleCount++;
 
@@ -2032,17 +1919,17 @@
                   <span class="material-symbols-outlined">rocket_launch</span>
                   <span class="btn-ip-label">Deschide IP Proxy (${assignedIP})</span>
                 </button>
-                <button class="btn-swap-ip" onclick="swapCardIP(this)" title="Schimbă cu alt IP Proxy liber pe ${storeCode}">
+                <button class="btn-swap-ip" onclick="swapCardIP(this)" title="Schimbă IP">
                   <span class="material-symbols-outlined">sync</span>
                 </button>
               </div>
 
               <div class="action-row">
                 <button class="action-btn" onclick="copyAutoProxyCard(this)">
-                  <span class="material-symbols-outlined">content_copy</span> Copie Link Proxy
+                  <span class="material-symbols-outlined">content_copy</span> Copie Proxy
                 </button>
                 <button class="action-btn" onclick="openProxyium('${originalLink}', ${ti}, '${storeCode}', this)">
-                  <span class="material-symbols-outlined">language</span> Site Proxyium
+                  <span class="material-symbols-outlined">language</span> Proxyium
                 </button>
               </div>
             </div>
@@ -2061,7 +1948,6 @@
       }
     }
 
-    // === DESCHIDERE DIRECTĂ CU IP PROXY + BLOCARE 30 ZILE DOAR PE RESTAURANTUL CURENT ===
     function openAutoProxyCard(el, event) {
       if (event) event.preventDefault();
       const card = el.closest(".link-box");
@@ -2072,7 +1958,6 @@
       const storeCode = card.dataset.s || activeStore;
       const proxyUrl = card.dataset.proxy;
 
-      // Marcăm TI-ul și IP-ul ca folosite DOAR pentru acest restaurant (rămâne liber pe celelalte 3 restaurante!)
       markTIUsed(ti, storeCode);
       markProxyIPUsedForStore(ip, storeCode);
 
@@ -2082,7 +1967,7 @@
         card.classList.add("used");
       }
 
-      showToast(`Deschis! IP ${ip} folosit pe ${storeCode} (liber pe celelalte)`, "rocket_launch");
+      showToast(`Deschis prin IP ${ip} (${storeCode})`, "rocket_launch");
       window.open(proxyUrl, "_blank");
     }
 
@@ -2146,7 +2031,6 @@
       });
     }
 
-    // === ȘTERGERE / RESETARE ===
     function clearUsedLinks() {
       document.getElementById("confirmDeleteModal").style.display = "block";
     }
@@ -2174,15 +2058,10 @@
       showToast("Lista afișată a fost curățată!", "check");
     }
 
-    window.addEventListener("scroll", () => {
-      const header = document.getElementById("pageHeader");
-      header.classList.toggle("scrolled", window.scrollY > 4);
-    });
-
     restoreAppState();
   </script>
 
-  <!-- Script Firebase: Autentificare + Prezență Live + Sincronizare IP-uri pe cele 4 Restaurante -->
+  <!-- Script Firebase: Autentificare + Prezență Live + Sincronizare IP-uri -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
     import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
@@ -2305,7 +2184,6 @@
       });
     }
 
-    // Sincronizare Cloud separată pe fiecare dintre cele 4 restaurante (373K1 - 373K4)
     window.syncStoreProxyToCloud = async (storeCode, ip, timestamp) => {
       try {
         const ref = doc(db, "settings", `proxyTracker_${storeCode}`);
