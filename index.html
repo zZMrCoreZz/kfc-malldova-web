@@ -2,7 +2,7 @@
 <html lang="ro">
 <head>
   <meta charset="UTF-8">
-  <title>KFC Feedback Generator | Rebrand Pro</title>
+  <title>KFC Feedback Generator | Proxyium Edition</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <link rel="icon" href="https://kfclistenscx.qualtrics.com/CP/Graphic.php?IM=IM_dbC1Qsmkf9X2Bmu">
   
@@ -501,7 +501,7 @@
       white-space: nowrap;
     }
 
-    /* === SELECTOR METODĂ DE CONECTARE (3 MODURI TOP) === */
+    /* === SELECTOR METODĂ DE CONECTARE (1. AUTO-PROXYIUM PRIMUL) === */
     .mode-selector {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -761,7 +761,7 @@
       flex-shrink: 0;
     }
 
-    /* === PANOU BANCĂ DE IP-URI PROXY VERIFICATE === */
+    /* === PANOU BANCĂ DE IP-URI PROXYIUM === */
     .proxy-bank-bar {
       margin-top: 16px;
       padding: 12px;
@@ -1102,11 +1102,13 @@
       gap: 6px;
     }
 
-    /* Link nativ <a> stilizat ca buton pentru a elimina 100% about:blank pe iOS */
-    a.btn-primary-native {
+    /* Aplicat atât pe <a> cât și pe <button> ca să fie mare și roșu peste tot! */
+    .btn-primary-native {
       flex: 1;
+      width: 100%;
       padding: 12px 10px;
       border-radius: 10px;
+      border: none;
       background: var(--kfc-red);
       color: var(--kfc-white);
       font-family: 'Montserrat', sans-serif;
@@ -1116,16 +1118,27 @@
       text-transform: uppercase;
       letter-spacing: 0.3px;
       text-decoration: none;
+      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 6px;
       box-shadow: 0 5px 14px rgba(228, 0, 43, 0.22);
+      transition: all 0.15s ease;
     }
 
-    a.btn-primary-native.green-mode {
+    .btn-primary-native:active {
+      transform: scale(0.98);
+    }
+
+    .btn-primary-native.green-mode {
       background: #15803d;
       box-shadow: 0 5px 14px rgba(21, 128, 61, 0.22);
+    }
+
+    .btn-primary-native.dark-mode {
+      background: var(--kfc-black);
+      box-shadow: 0 4px 12px rgba(17, 17, 17, 0.18);
     }
 
     .btn-swap-ip {
@@ -1325,7 +1338,7 @@
       <div class="kfc-logo-badge">KFC</div>
       <div class="header-title">
         <h1>FEEDBACK <span>PRO</span></h1>
-        <p>Smart Multi-Mode</p>
+        <p>Proxyium Edition</p>
       </div>
     </div>
 
@@ -1364,7 +1377,7 @@
   <div id="login-screen" style="display:none;">
     <div class="login-hero-logo">KFC</div>
     <h2>Acces Intern</h2>
-    <p>Autentifică-te cu contul Google pentru a accesa generatorul multi-mod cu detectare automată din QR.</p>
+    <p>Autentifică-te cu contul Google pentru a accesa generatorul automat optimizat pentru Proxyium.</p>
     <button class="google-login-cta" onclick="loginWithGoogle()">
       <span class="material-symbols-outlined">account_circle</span>
       Continuă cu Google
@@ -1376,37 +1389,37 @@
     <main>
 
       <div class="hero-banner">
-        <span class="tag">3 METODE INTEGRATE • FĂRĂ ERORI</span>
+        <span class="tag">100% PROXYIUM & DIRECT 4G/5G</span>
         <h2>Generează Linkuri Feedback</h2>
-        <p>Restaurantul se ia automat din QR. Alege mai jos modul de deschidere care îți merge cel mai rapid!</p>
+        <p>Restaurantul se ia automat din QR. Fără CroxyProxy — optimizat exclusiv pentru <strong>Proxyium</strong>!</p>
       </div>
 
       <div class="control-card">
 
-        <!-- 0. SELECTORUL CELOR 3 METODE TOP -->
+        <!-- 0. SELECTORUL CELOR 3 METODE (1. AUTO-PROXYIUM PRIMUL, 2. DIRECT 4G/5G AL DOILEA) -->
         <div class="field-group">
           <div class="field-label">
             <span>⚡ Alege Metoda de Deschidere</span>
-            <span class="auto-badge">Schimbă oricând</span>
+            <span class="auto-badge">Doar Proxyium</span>
           </div>
 
           <div class="mode-selector">
-            <button type="button" class="mode-btn active" data-mode="direct4g" onclick="setLaunchMode('direct4g')">
-              <span class="material-symbols-outlined">cell_tower</span>
-              <span>1. Direct 4G/5G</span>
+            <button type="button" class="mode-btn active" data-mode="autoproxy" onclick="setLaunchMode('autoproxy')">
+              <span class="material-symbols-outlined">language</span>
+              <span>1. Auto-Proxyium</span>
             </button>
-            <button type="button" class="mode-btn" data-mode="autoproxy" onclick="setLaunchMode('autoproxy')">
-              <span class="material-symbols-outlined">shield_lock</span>
-              <span>2. Auto-Proxy</span>
+            <button type="button" class="mode-btn" data-mode="direct4g" onclick="setLaunchMode('direct4g')">
+              <span class="material-symbols-outlined">cell_tower</span>
+              <span>2. Direct 4G/5G</span>
             </button>
             <button type="button" class="mode-btn" data-mode="verifiedip" onclick="setLaunchMode('verifiedip')">
               <span class="material-symbols-outlined">dns</span>
-              <span>3. IP Verificat</span>
+              <span>3. IP Proxyium</span>
             </button>
           </div>
 
           <div class="mode-hint-box" id="modeHintBox">
-            ✅ <strong>Mod 1 (Direct 4G/5G - 0% erori):</strong> Deschide linkul oficial KFC instantaneu. Comută <strong>Mod Avion 3 secunde</strong> între bonuri pentru IP nou automat de la operator!
+            🚀 <strong>Mod 1 (Auto-Proxyium):</strong> Copiază automat linkul bonului și deschide direct <strong>Proxyium.com</strong> (sau poți apăsa direct pe butonul cu IP-ul Proxyium de sub el)!
           </div>
         </div>
 
@@ -1479,7 +1492,7 @@
           </div>
         </div>
 
-        <!-- BANCĂ PROXY VERIFICATĂ -->
+        <!-- BANCĂ IP-URI PROXYIUM -->
         <div class="proxy-bank-bar">
           <div class="proxy-bank-top">
             <span class="proxy-store-indicator">Restaurant din QR: <span id="proxyStoreLabel">373K1</span></span>
@@ -1490,23 +1503,23 @@
               </button>
               <button type="button" class="manage-proxy-btn" onclick="toggleProxyDrawer()">
                 <span class="material-symbols-outlined" style="font-size:15px;">dns</span>
-                Bancă IP
+                Bancă Proxyium
               </button>
             </div>
           </div>
           <div class="proxy-bank-info">
-            <span class="proxy-stat-pill available" id="availProxiesBadge">🟢 0 IP Verificate Libere</span>
-            <span class="proxy-stat-pill cooldown" id="usedProxiesBadge">⏳ 0 Folosite azi</span>
+            <span class="proxy-stat-pill available" id="availProxiesBadge">🟢 0 IP Proxyium Libere</span>
+            <span class="proxy-stat-pill cooldown" id="usedProxiesBadge">⏳ 0 Folosite recent</span>
           </div>
         </div>
 
         <div class="proxy-manager-drawer" id="proxyDrawer">
-          <h4>➕ IP-uri Reale Verificate (<span id="drawerStoreName">373K1</span>)</h4>
-          <p>Am eliminat IP-urile false! Mai jos sunt doar IP-urile reale. Apasă pe <strong>Verifică IP-uri</strong> ca să vezi care sunt verzi (Online acum), sau lipește linkuri noi de pe Croxy/Proxyium:</p>
+          <h4>➕ Bancă IP-uri Proxyium (<span id="drawerStoreName">373K1</span>)</h4>
+          <p>Aici sunt salvate doar IP-urile reale de <strong>Proxyium</strong>. Când deschizi un sondaj în Proxyium, poți copia linkul lui sus și să-l lipești aici ca să-i salvezi IP-ul:</p>
           <div class="verified-ip-chips" id="verifiedIpListUI"></div>
-          <textarea id="bulkProxyInput" placeholder="Lipește aici orice link funcțional de Proxyium/CroxyProxy (ex: https://51.38.132.86/jfe/...)"></textarea>
+          <textarea id="bulkProxyInput" placeholder="Lipește aici orice link deschis în Proxyium (ex: https://185.16.38.103/jfe/...)"></textarea>
           <div class="proxy-drawer-actions">
-            <button class="btn-danger" onclick="addBulkProxies()">Adaugă IP-uri</button>
+            <button class="btn-danger" onclick="addBulkProxies()">Adaugă IP Proxyium</button>
             <button class="btn-secondary" onclick="resetProxyCooldowns()">Resetează IP-urile Folosite</button>
             <button class="btn-secondary" onclick="toggleProxyDrawer()">Închide</button>
           </div>
@@ -1554,31 +1567,21 @@
     let dateFromLink = false;
     let html5QrCode = null;
     let activeStore = "373K1";
-    let currentLaunchMode = "direct4g"; // 'direct4g' | 'autoproxy' | 'verifiedip'
-    let liveIpStatus = {}; // { ip: 'online' | 'dead' }
+    // Primul mod implicit este acum 'autoproxy' (Auto-Proxyium), exact cum ai cerut!
+    let currentLaunchMode = "autoproxy"; // 'autoproxy' | 'direct4g' | 'verifiedip'
+    let liveIpStatus = {};
 
     const VALID_STORES = ["373K1", "373K2", "373K3", "373K4"];
     const CPO_KEY = "aHR0cHM6Ly9jdXN0b21lci5rZmMtbGlzdGVucy5jb20";
-    const COOLDOWN_MS = 36 * 60 * 60 * 1000; // 36 ore cooldown pe IP per restaurant ca să poți face 150+ linkuri/lună doar cu IP-uri reale!
+    const COOLDOWN_MS = 36 * 60 * 60 * 1000;
 
-    // DOAR IP-URI REALE CROXYPROXY / PROXYIUM (Fără numere inventate care dau about:blank!)
-    const VERIFIED_PROXY_IPS = [
+    // DOAR IP-URILE PROXYIUM TRIMISE DE TINE (Fără IP-uri de CroxyProxy!)
+    const VERIFIED_PROXYIUM_IPS = [
       "185.16.38.103",
       "185.16.38.230",
       "51.38.132.86",
       "185.16.38.114",
-      "51.38.134.54",
-      "185.16.38.109",
-      "185.16.38.111",
-      "185.16.38.115",
-      "185.16.38.119",
-      "185.16.38.225",
-      "185.16.38.228",
-      "185.16.38.231",
-      "51.38.132.85",
-      "51.38.132.87",
-      "51.38.134.53",
-      "51.38.134.55"
+      "51.38.134.54"
     ];
 
     const scannedResultEl = document.getElementById("scannedResult");
@@ -1611,20 +1614,24 @@
       if (dd) dd.classList.remove("open");
     });
 
-    // === SCHIMBARE MOD DE DESCHIDERE (CONTROL TOTAL PENTRU UTILIZATOR) ===
+    // === SCHIMBARE MOD DE DESCHIDERE (1. Auto-Proxyium | 2. Direct 4G/5G | 3. IP Proxyium) ===
     function setLaunchMode(mode) {
+      if (!["autoproxy", "direct4g", "verifiedip"].includes(mode)) {
+        mode = "autoproxy";
+      }
       currentLaunchMode = mode;
+
       document.querySelectorAll(".mode-btn").forEach(btn => {
         btn.classList.toggle("active", btn.dataset.mode === mode);
       });
 
       const hintBox = document.getElementById("modeHintBox");
-      if (mode === "direct4g") {
-        hintBox.innerHTML = `✅ <strong>Mod 1 (Direct 4G/5G - 0% erori):</strong> Deschide linkul oficial KFC instantaneu. Comută <strong>Mod Avion 3 secunde</strong> între bonuri pentru IP nou automat!`;
-      } else if (mode === "autoproxy") {
-        hintBox.innerHTML = `🚀 <strong>Mod 2 (Auto-Launch Proxy):</strong> Copiază automat bonul și deschide Proxyium/CroxyProxy ca să își creeze singur sesiunea validă (fără erori de host).`;
+      if (mode === "autoproxy") {
+        hintBox.innerHTML = `🚀 <strong>Mod 1 (Auto-Proxyium):</strong> Apasă pe butonul roșu ca să copieze automat linkul și să deschidă <strong>Proxyium.com</strong> (sau apasă pe butonul negru ca să intri direct pe IP-ul Proxyium)!`;
+      } else if (mode === "direct4g") {
+        hintBox.innerHTML = `✅ <strong>Mod 2 (Direct 4G/5G - 0% erori):</strong> Deschide linkul oficial KFC instantaneu. Comută <strong>Mod Avion 2-3 secunde</strong> între bonuri pentru IP nou automat!`;
       } else {
-        hintBox.innerHTML = `🌐 <strong>Mod 3 (IP Verificat Direct):</strong> Construiește linkul direct cu IP-urile tale verificate (<code>__cpo</code>). Dacă un IP a expirat, apasă pe 🚫 de lângă el.`;
+        hintBox.innerHTML = `🌐 <strong>Mod 3 (IP Proxyium Direct):</strong> Construiește linkul direct cu IP-urile tale de Proxyium (<code>__cpo</code>). Dacă sesiunea unui IP a expirat, deschide întâi prin <strong>Auto-Proxyium</strong>!`;
       }
 
       saveAppState();
@@ -1646,16 +1653,15 @@
       renderVerifiedIpChips();
     }
 
-    // === GESTIONARE IP-URI REALE & BAN LIST PENTRU IP-URI MOARTE ===
     function getDeadIPs() {
-      return JSON.parse(localStorage.getItem("kfcDeadIPs") || "[]");
+      return JSON.parse(localStorage.getItem("kfcDeadProxyiumIPs") || "[]");
     }
 
     function markIPDead(ip) {
       const dead = getDeadIPs();
       if (!dead.includes(ip)) {
         dead.push(ip);
-        localStorage.setItem("kfcDeadIPs", JSON.stringify(dead));
+        localStorage.setItem("kfcDeadProxyiumIPs", JSON.stringify(dead));
       }
       liveIpStatus[ip] = "dead";
       updateProxyStatsUI();
@@ -1663,10 +1669,11 @@
     }
 
     function getProxyPool() {
-      const saved = JSON.parse(localStorage.getItem("kfcCustomVerifiedPool") || "[]");
+      const saved = JSON.parse(localStorage.getItem("kfcProxyiumPool") || "[]");
       const dead = getDeadIPs();
-      const merged = Array.from(new Set([...VERIFIED_PROXY_IPS, ...saved]));
-      return merged.filter(ip => !dead.includes(ip));
+      const merged = Array.from(new Set([...VERIFIED_PROXYIUM_IPS, ...saved]));
+      const active = merged.filter(ip => !dead.includes(ip));
+      return active.length > 0 ? active : VERIFIED_PROXYIUM_IPS;
     }
 
     function getAllStoresProxyUsage() {
@@ -1720,7 +1727,7 @@
       const usedCount = Object.keys(storeUsage).filter(ip => pool.includes(ip)).length;
       const availCount = Math.max(0, pool.length - usedCount);
 
-      document.getElementById("availProxiesBadge").innerText = `🟢 ${availCount} IP Verificate (${activeStore})`;
+      document.getElementById("availProxiesBadge").innerText = `🟢 ${availCount} IP Proxyium (${activeStore})`;
       document.getElementById("usedProxiesBadge").innerText = `⏳ ${usedCount} Folosite recent`;
     }
 
@@ -1735,7 +1742,6 @@
       }).join("");
     }
 
-    // === SCANNER LIVE PENTRU VERIFICAREA IP-URILOR ACTIVE ===
     async function pingSingleIP(ip, timeoutMs = 2200) {
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), timeoutMs);
@@ -1753,7 +1759,7 @@
       const btn = document.getElementById("pingBtn");
       btn.disabled = true;
       btn.innerText = "⏳ Se testează...";
-      showToast("Se verifică ce IP-uri răspund live...", "network_check");
+      showToast("Se verifică serverele Proxyium...", "network_check");
 
       const pool = getProxyPool();
       let aliveCount = 0;
@@ -1764,7 +1770,7 @@
           liveIpStatus[ip] = "online";
           aliveCount++;
         } else {
-          markIPDead(ip);
+          liveIpStatus[ip] = "dead";
         }
       }));
 
@@ -1772,8 +1778,7 @@
       btn.innerHTML = `<span class="material-symbols-outlined" style="font-size:15px;">network_check</span> Verifică IP-uri`;
       renderVerifiedIpChips();
       updateProxyStatsUI();
-      if (scannedResultEl.value.trim()) generateLinks(true);
-      showToast(`${aliveCount} IP-uri sunt 100% Online și rapide! Cele moarte au fost eliminate.`, "verified");
+      showToast(`${aliveCount} din ${pool.length} IP-uri Proxyium răspund live!`, "verified");
     }
 
     function toggleProxyDrawer() {
@@ -1791,13 +1796,12 @@
         return;
       }
 
-      // Scoatem IP-urile noi din lista de dead dacă erau acolo
       const dead = getDeadIPs().filter(ip => !found.includes(ip));
-      localStorage.setItem("kfcDeadIPs", JSON.stringify(dead));
+      localStorage.setItem("kfcDeadProxyiumIPs", JSON.stringify(dead));
 
-      const savedCustom = JSON.parse(localStorage.getItem("kfcCustomVerifiedPool") || "[]");
+      const savedCustom = JSON.parse(localStorage.getItem("kfcProxyiumPool") || "[]");
       const updatedCustom = Array.from(new Set([...savedCustom, ...found]));
-      localStorage.setItem("kfcCustomVerifiedPool", JSON.stringify(updatedCustom));
+      localStorage.setItem("kfcProxyiumPool", JSON.stringify(updatedCustom));
 
       if (window.syncPoolToCloud) {
         window.syncPoolToCloud(updatedCustom);
@@ -1807,14 +1811,14 @@
       updateProxyStatsUI();
       renderVerifiedIpChips();
       generateLinks(true);
-      showToast(`S-au adăugat ${found.length} IP-uri verificate!`, "dns");
+      showToast(`S-au adăugat ${found.length} IP-uri Proxyium!`, "dns");
     }
 
     function resetProxyCooldowns() {
       const all = getAllStoresProxyUsage();
       all[activeStore] = {};
       localStorage.setItem("kfcProxyUsageByStore", JSON.stringify(all));
-      localStorage.removeItem("kfcDeadIPs");
+      localStorage.removeItem("kfcDeadProxyiumIPs");
       liveIpStatus = {};
 
       if (window.clearCloudStoreProxyUsage) {
@@ -1824,7 +1828,7 @@
       updateProxyStatsUI();
       renderVerifiedIpChips();
       generateLinks(true);
-      showToast(`Toate IP-urile pentru ${activeStore} au fost resetate!`, "restart_alt");
+      showToast(`Toate IP-urile Proxyium pentru ${activeStore} au fost resetate!`, "restart_alt");
     }
 
     function buildProxyDirectUrl(ip, s, encodedDateTime, ti, lang) {
@@ -1885,6 +1889,7 @@
       const saved = localStorage.getItem("appState");
       if (!saved) {
         setDefaultDateTime();
+        setLaunchMode("autoproxy");
         setActiveStoreAuto("373K1");
         return;
       }
@@ -1898,7 +1903,7 @@
         linkCountEl.value = s.count || 10;
         document.getElementById("hideUsedToggle").checked = !!s.hideUsed;
 
-        if (s.mode) setLaunchMode(s.mode);
+        setLaunchMode(s.mode || "autoproxy");
         if (s.store) setActiveStoreAuto(s.store);
 
         if (!selectedDateEl.value || !endTimeEl.value) {
@@ -1911,6 +1916,7 @@
         }
       } catch {
         setDefaultDateTime();
+        setLaunchMode("autoproxy");
         setActiveStoreAuto("373K1");
       }
     }
@@ -2057,7 +2063,7 @@
       });
     });
 
-    // === GENERARE LINKURI MULTI-MOD ===
+    // === GENERARE LINKURI EXCLUSIV PENTRU PROXYIUM & DIRECT 4G/5G ===
     function generateLinks(silent = false) {
       const link = scannedResultEl.value.trim();
       const date = selectedDateEl.value;
@@ -2129,41 +2135,50 @@
         const originalLink = `${base}?S=${storeCode}&D=${encodedDateTime}&TI=${ti}&Q_Language=${data.lang}`;
         const proxyDirectUrl = buildProxyDirectUrl(assignedIP, storeCode, encodedDateTime, ti, data.lang);
 
-        // Alegem ce link și ce buton principal afișăm în funcție de Modul selectat sus
         let displayedUrl = originalLink;
         let primaryActionHTML = "";
 
-        if (currentLaunchMode === "direct4g") {
+        if (currentLaunchMode === "autoproxy") {
+          // MOD 1 (AUTO-PROXYIUM): Buton mare Roșu pentru lansare Proxyium + Buton pentru IP Proxyium Direct și schimbare IP!
           displayedUrl = decodeURIComponent(originalLink);
           primaryActionHTML = `
             <div class="auto-proxy-row">
-              <!-- Link nativ <a> fără preventDefault = 0% about:blank pe iPhone -->
+              <button type="button" class="btn-primary-native" onclick="launchViaProxyium('${originalLink}', ${ti}, '${storeCode}', this)">
+                <span class="material-symbols-outlined">language</span>
+                <span>Auto-Copie + Deschide Proxyium</span>
+              </button>
+            </div>
+            <div class="auto-proxy-row">
+              <a class="btn-primary-native dark-mode main-proxy-anchor" href="${proxyDirectUrl}" target="_blank" rel="noopener" onclick="onNativeLinkClick(this, true)">
+                <span class="material-symbols-outlined">rocket_launch</span>
+                <span class="btn-ip-label">IP Proxyium Direct (${assignedIP})</span>
+              </a>
+              <button type="button" class="btn-swap-ip" onclick="swapCardIP(this, false)" title="Schimbă cu alt IP Proxyium">
+                <span class="material-symbols-outlined">sync</span>
+              </button>
+            </div>
+          `;
+        } else if (currentLaunchMode === "direct4g") {
+          // MOD 2 (DIRECT 4G/5G)
+          displayedUrl = decodeURIComponent(originalLink);
+          primaryActionHTML = `
+            <div class="auto-proxy-row">
               <a class="btn-primary-native green-mode" href="${originalLink}" target="_blank" rel="noopener" onclick="onNativeLinkClick(this, false)">
                 <span class="material-symbols-outlined">bolt</span>
                 <span>Deschide Direct 4G/5G (Fără Erori)</span>
               </a>
             </div>
           `;
-        } else if (currentLaunchMode === "autoproxy") {
-          displayedUrl = decodeURIComponent(originalLink);
-          primaryActionHTML = `
-            <div class="auto-proxy-row">
-              <button type="button" class="btn-primary-native" style="border:none;cursor:pointer;" onclick="launchViaProxySite('${originalLink}', ${ti}, '${storeCode}', 'https://www.croxyproxy.com', this)">
-                <span class="material-symbols-outlined">shield_lock</span>
-                <span>Auto-Copie + Lansează CroxyProxy</span>
-              </button>
-            </div>
-          `;
         } else {
+          // MOD 3 (IP PROXYIUM DIRECT)
           displayedUrl = proxyDirectUrl;
           primaryActionHTML = `
             <div class="auto-proxy-row">
-              <!-- Link nativ <a> către IP-ul verificat -->
               <a class="btn-primary-native main-proxy-anchor" href="${proxyDirectUrl}" target="_blank" rel="noopener" onclick="onNativeLinkClick(this, true)">
                 <span class="material-symbols-outlined">rocket_launch</span>
-                <span class="btn-ip-label">Deschide IP (${assignedIP})</span>
+                <span class="btn-ip-label">Deschide IP Proxyium (${assignedIP})</span>
               </a>
-              <button type="button" class="btn-swap-ip" onclick="swapCardIP(this, false)" title="Schimbă cu alt IP">
+              <button type="button" class="btn-swap-ip" onclick="swapCardIP(this, false)" title="Schimbă cu alt IP Proxyium">
                 <span class="material-symbols-outlined">sync</span>
               </button>
               <button type="button" class="btn-swap-ip ban-ip" onclick="swapCardIP(this, true)" title="IP-ul nu merge? Elimină-l și ia altul!">
@@ -2198,12 +2213,12 @@
             <div class="link-actions">
               ${primaryActionHTML}
 
-              <!-- Rândul 2: Toate cele 3 alternative disponibile rapid pe fiecare card -->
+              <!-- Rândul de jos: Acțiuni rapide (Direct / Proxyium / Copie) -->
               <div class="action-row-3">
                 <a class="action-btn" href="${originalLink}" target="_blank" rel="noopener" onclick="onNativeLinkClick(this, false)">
                   <span class="material-symbols-outlined">open_in_new</span> Direct
                 </a>
-                <button type="button" class="action-btn" onclick="launchViaProxySite('${originalLink}', ${ti}, '${storeCode}', 'https://www.proxyium.com', this)">
+                <button type="button" class="action-btn" onclick="launchViaProxyium('${originalLink}', ${ti}, '${storeCode}', this)">
                   <span class="material-symbols-outlined">language</span> Proxyium
                 </button>
                 <button type="button" class="action-btn" onclick="copyCardLink(this)">
@@ -2226,7 +2241,6 @@
       }
     }
 
-    // Handler nativ (FĂRĂ event.preventDefault) -> lasă browserul iOS să deschidă fila fără about:blank
     function onNativeLinkClick(el, markProxyToo) {
       const card = el.closest(".link-box");
       if (!card) return;
@@ -2249,7 +2263,8 @@
       }, 150);
     }
 
-    function launchViaProxySite(origLink, ti, storeCode, proxyHomeUrl, btnEl) {
+    // Lansează EXCLUSIV Proxyium.com și copiază automat linkul în clipboard
+    function launchViaProxyium(origLink, ti, storeCode, btnEl) {
       const decodedLink = decodeURIComponent(origLink);
       navigator.clipboard.writeText(decodedLink).catch(() => {});
 
@@ -2263,8 +2278,8 @@
         }
       }
 
-      showToast(`Linkul TI ${ti} a fost copiat! Dă Paste în Proxy.`, "content_copy");
-      window.open(proxyHomeUrl, "_blank");
+      showToast(`TI ${ti} copiat! Lipește-l în Proxyium.`, "language");
+      window.open("https://www.proxyium.com", "_blank");
     }
 
     function copyCardLink(el) {
@@ -2288,7 +2303,6 @@
       });
     }
 
-    // Schimbă IP-ul (și opțional marchează IP-ul vechi ca mort/invalid)
     function swapCardIP(el, banOldIP = false) {
       const card = el.closest(".link-box");
       if (!card) return;
@@ -2305,7 +2319,7 @@
 
       const nextIP = candidates[0] || fallbackPool[Math.floor(Math.random() * fallbackPool.length)];
       if (!nextIP) {
-        showToast("Nu mai sunt alte IP-uri verificate! Adaugă sau resetează din Bancă.", "warning");
+        showToast("Toate IP-urile Proxyium sunt în listă! Adaugă sau resetează din Bancă.", "warning");
         return;
       }
 
@@ -2315,7 +2329,11 @@
 
       card.querySelector(".ip-text").innerText = nextIP;
       const btnLabel = card.querySelector(".btn-ip-label");
-      if (btnLabel) btnLabel.innerText = `Deschide IP (${nextIP})`;
+      if (btnLabel) {
+        btnLabel.innerText = currentLaunchMode === "autoproxy"
+          ? `IP Proxyium Direct (${nextIP})`
+          : `Deschide IP Proxyium (${nextIP})`;
+      }
 
       const mainAnchor = card.querySelector(".main-proxy-anchor");
       if (mainAnchor) mainAnchor.href = newProxyUrl;
@@ -2326,7 +2344,7 @@
         linkAnchor.innerText = newProxyUrl;
       }
 
-      showToast(banOldIP ? `IP ${oldIP} eliminat! Înlocuit cu ${nextIP}` : `IP schimbat în ${nextIP}`, "sync");
+      showToast(banOldIP ? `IP ${oldIP} scos! Înlocuit cu ${nextIP}` : `IP Proxyium schimbat în ${nextIP}`, "sync");
     }
 
     function clearUsedLinks() {
@@ -2359,7 +2377,7 @@
     restoreAppState();
   </script>
 
-  <!-- Script Firebase: Autentificare + Prezență Live + Sincronizare IP-uri -->
+  <!-- Script Firebase: Autentificare + Prezență Live + Sincronizare IP-uri Proxyium -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
     import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
@@ -2493,7 +2511,7 @@
 
     window.syncPoolToCloud = async (poolArray) => {
       try {
-        const ref = doc(db, "settings", "proxyCustomPool");
+        const ref = doc(db, "settings", "proxyiumCustomPool");
         await setDoc(ref, { pool: poolArray }, { merge: true });
       } catch {}
     };
@@ -2507,11 +2525,11 @@
 
     async function loadCloudProxiesForAllStores() {
       try {
-        const poolSnap = await getDoc(doc(db, "settings", "proxyCustomPool"));
+        const poolSnap = await getDoc(doc(db, "settings", "proxyiumCustomPool"));
         if (poolSnap.exists() && Array.isArray(poolSnap.data().pool)) {
-          const localPool = JSON.parse(localStorage.getItem("kfcCustomVerifiedPool") || "[]");
+          const localPool = JSON.parse(localStorage.getItem("kfcProxyiumPool") || "[]");
           const merged = Array.from(new Set([...localPool, ...poolSnap.data().pool]));
-          localStorage.setItem("kfcCustomVerifiedPool", JSON.stringify(merged));
+          localStorage.setItem("kfcProxyiumPool", JSON.stringify(merged));
         }
 
         const localAll = JSON.parse(localStorage.getItem("kfcProxyUsageByStore") || "{}");
@@ -2603,4 +2621,3 @@
   </script>
 </body>
 </html>
-
