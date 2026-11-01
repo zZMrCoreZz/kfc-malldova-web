@@ -560,32 +560,273 @@
       line-height: 1.35;
     }
 
-    /* === SELECTOR RAPID RESTAURANT === */
-    .store-pills-row {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 6px;
-      margin-bottom: 8px;
-    }
-
-    .store-pill-btn {
-      height: 34px;
-      border-radius: 8px;
-      border: 1.5px solid var(--kfc-border);
-      background: var(--kfc-cream);
-      color: var(--kfc-black);
+    /* === MINI-CHAT COLEGII LOGAȚI (FLOATING + PANEL) === */
+    .chat-fab {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      right: 16px;
+      z-index: 9500;
+      height: 52px;
+      padding: 0 18px;
+      border-radius: 999px;
+      background: var(--kfc-red);
+      color: var(--kfc-white);
+      border: 2px solid var(--kfc-white);
+      box-shadow: 0 8px 24px rgba(228, 0, 43, 0.38);
       font-family: 'Montserrat', sans-serif;
-      font-weight: 900;
       font-style: italic;
-      font-size: 11.5px;
+      font-weight: 900;
+      font-size: 13px;
+      text-transform: uppercase;
       cursor: pointer;
-      transition: all 0.15s ease;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.18s ease, background 0.18s ease;
     }
 
-    .store-pill-btn.active {
+    .chat-fab.visible {
+      display: inline-flex;
+    }
+
+    .chat-fab:active {
+      transform: scale(0.95);
+    }
+
+    .chat-unread-badge {
+      display: none;
       background: var(--kfc-black);
-      color: #ff6b88;
-      border-color: var(--kfc-black);
+      color: var(--kfc-white);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-style: normal;
+      font-weight: 800;
+      font-size: 11px;
+      min-width: 20px;
+      height: 20px;
+      padding: 0 6px;
+      border-radius: 999px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .chat-unread-badge.active {
+      display: inline-flex;
+      animation: pulseGreen 1.5s infinite;
+    }
+
+    .chat-panel {
+      display: none;
+      position: fixed;
+      bottom: 82px;
+      right: 16px;
+      width: 350px;
+      max-width: calc(100vw - 24px);
+      height: 460px;
+      max-height: calc(100vh - 160px);
+      background: var(--kfc-white);
+      border-radius: 18px;
+      border: 2px solid var(--kfc-border);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.22);
+      z-index: 9600;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .chat-panel.open {
+      display: flex;
+      animation: toastIn 0.18s ease forwards;
+    }
+
+    .chat-header {
+      background: var(--kfc-black);
+      color: var(--kfc-white);
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 3px solid var(--kfc-red);
+      flex-shrink: 0;
+    }
+
+    .chat-header-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .chat-header-title {
+      font-family: 'Montserrat', sans-serif;
+      font-style: italic;
+      font-weight: 900;
+      font-size: 13.5px;
+      text-transform: uppercase;
+      margin: 0;
+    }
+
+    .chat-header-sub {
+      font-size: 10.5px;
+      color: #9ca3af;
+      font-weight: 600;
+    }
+
+    .chat-header-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .chat-head-btn {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--kfc-white);
+      border: none;
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .chat-head-btn:hover {
+      background: var(--kfc-red);
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: 12px;
+      overflow-y: auto;
+      background: var(--kfc-cream);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .chat-empty {
+      margin: auto;
+      text-align: center;
+      color: var(--kfc-gray);
+      font-size: 12.5px;
+      font-weight: 600;
+      padding: 20px;
+    }
+
+    .chat-msg {
+      max-width: 84%;
+      padding: 8px 11px;
+      border-radius: 13px;
+      font-size: 13px;
+      line-height: 1.35;
+      word-break: break-word;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    }
+
+    .chat-msg.other {
+      align-self: flex-start;
+      background: var(--kfc-white);
+      color: var(--kfc-black);
+      border: 1px solid var(--kfc-border);
+      border-bottom-left-radius: 4px;
+    }
+
+    .chat-msg.mine {
+      align-self: flex-end;
+      background: var(--kfc-red);
+      color: var(--kfc-white);
+      border-bottom-right-radius: 4px;
+    }
+
+    .chat-msg-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 10px;
+      font-weight: 800;
+      opacity: 0.85;
+    }
+
+    .chat-msg.other .chat-msg-author {
+      color: var(--kfc-red);
+    }
+
+    .chat-msg.mine .chat-msg-author {
+      color: #ffe4e8;
+    }
+
+    .chat-msg-text {
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    .chat-emoji-bar {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 10px;
+      background: var(--kfc-white);
+      border-top: 1px solid var(--kfc-border);
+      overflow-x: auto;
+      flex-shrink: 0;
+      scrollbar-width: none;
+    }
+
+    .chat-emoji-bar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .emoji-btn {
+      background: var(--kfc-cream);
+      border: 1px solid transparent;
+      border-radius: 8px;
+      font-size: 17px;
+      padding: 4px 7px;
+      cursor: pointer;
+      flex-shrink: 0;
+      line-height: 1;
+      transition: transform 0.12s ease, background 0.12s ease;
+    }
+
+    .emoji-btn:hover,
+    .emoji-btn:active {
+      background: var(--kfc-red-soft);
+      border-color: var(--kfc-red);
+      transform: scale(1.12);
+    }
+
+    .chat-input-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 10px;
+      background: var(--kfc-white);
+      border-top: 1px solid var(--kfc-border);
+      flex-shrink: 0;
+    }
+
+    .chat-input-row input[type="text"] {
+      height: 40px;
+      font-size: 13.5px;
+      border-radius: 10px;
+      flex: 1;
+    }
+
+    .chat-send-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      border: none;
+      background: var(--kfc-red);
+      color: var(--kfc-white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      box-shadow: 0 4px 10px rgba(228, 0, 43, 0.22);
     }
 
     /* Inputuri */
@@ -1563,27 +1804,15 @@
           </div>
         </div>
 
-        <!-- 1. Link / QR / TI Rapid -->
+        <!-- 1. Link / QR -->
         <div class="field-group">
           <div class="field-label">
-            <span>1. Scanează QR, Lipește Link sau Scrie TI</span>
-            <span class="auto-badge">📍 Auto-Restaurant + Auto-IP</span>
-          </div>
-
-          <!-- Selector rapid de restaurant (pentru generare doar cu număr TI sau schimbare rapidă) -->
-          <div class="store-pills-row">
-            <button type="button" class="store-pill-btn active" data-store="373K1" onclick="selectStoreManual('373K1')">373K1</button>
-            <button type="button" class="store-pill-btn" data-store="373K2" onclick="selectStoreManual('373K2')">373K2</button>
-            <button type="button" class="store-pill-btn" data-store="373K3" onclick="selectStoreManual('373K3')">373K3</button>
-            <button type="button" class="store-pill-btn" data-store="373K4" onclick="selectStoreManual('373K4')">373K4</button>
+            <span>1. Scanează QR sau Lipește Bonul</span>
+            <span class="auto-badge">📍 Auto-Restaurant</span>
           </div>
 
           <div class="scan-input-row">
-            <input type="text" id="scannedResult" placeholder="Lipește link (KFC / Proxyium) sau scrie direct TI (ex: 4520)..." autocomplete="off">
-
-            <button class="icon-btn dark" onclick="pasteFromClipboard()" title="Lipește rapid din Clipboard">
-              <span class="material-symbols-outlined">content_paste</span>
-            </button>
+            <input type="text" id="scannedResult" placeholder="Lipește linkul aici sau scanează QR..." autocomplete="off">
 
             <button class="icon-btn primary" onclick="startQRScanner()" title="Scanează QR cu camera">
               <span class="material-symbols-outlined">qr_code_scanner</span>
@@ -1732,6 +1961,59 @@
     </main>
   </div>
 
+  <!-- MINI-CHAT COLEGII LOGAȚI (FLOATING BUTTON + CHAT WINDOW) -->
+  <button type="button" class="chat-fab" id="chatFabBtn" onclick="toggleTeamChat()">
+    <span class="material-symbols-outlined">chat</span>
+    <span>Chat Colegi</span>
+    <span class="chat-unread-badge" id="chatUnreadBadge">0</span>
+  </button>
+
+  <div class="chat-panel" id="teamChatPanel">
+    <div class="chat-header">
+      <div class="chat-header-left">
+        <span class="material-symbols-outlined" style="color:#E4002B;">forum</span>
+        <div>
+          <h4 class="chat-header-title">Chat Colegi KFC</h4>
+          <div class="chat-header-sub" id="chatHeaderSub">Sincronizat live</div>
+        </div>
+      </div>
+      <div class="chat-header-actions">
+        <button type="button" class="chat-head-btn" onclick="clearTeamChatHistory()" title="Șterge istoricul conversației">
+          <span class="material-symbols-outlined" style="font-size:17px;">delete_sweep</span>
+        </button>
+        <button type="button" class="chat-head-btn" onclick="toggleTeamChat()" title="Închide Chat">
+          <span class="material-symbols-outlined" style="font-size:18px;">close</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="chat-messages" id="chatMessagesBox">
+      <div class="chat-empty">Niciun mesaj încă. Salută-ți colegii! 👋</div>
+    </div>
+
+    <div class="chat-emoji-bar">
+      <button type="button" class="emoji-btn" onclick="insertChatEmoji('👍')">👍</button>
+      <button type="button" class="emoji-btn" onclick="insertChatEmoji('🔥')">🔥</button>
+      <button type="button" class="emoji-btn" onclick="insertChatEmoji('🍗')">🍗</button>
+      <button type="button" class="emoji-btn" onclick="insertChatEmoji('✅')">✅</button>
+      <button type="button" class="emoji-btn" onclick="insertChatEmoji('🚀')">🚀</button>
+      <button type="button" class="emoji-btn" onclick="insertChatEmoji('😂')">😂</button>
+      <button type="button" class="emoji-btn" onclick="insertChatEmoji('❤️')">❤️</button>
+      <button type="button" class="emoji-btn" onclick="insertChatEmoji('⏳')">⏳</button>
+      <button type="button" class="emoji-btn" onclick="insertChatEmoji('🙏')">🙏</button>
+      <button type="button" class="emoji-btn" onclick="insertChatEmoji('👀')">👀</button>
+      <button type="button" class="emoji-btn" onclick="insertChatEmoji('💪')">💪</button>
+      <button type="button" class="emoji-btn" onclick="insertChatEmoji('🎉')">🎉</button>
+    </div>
+
+    <form class="chat-input-row" onsubmit="sendTeamChatMessage(event)">
+      <input type="text" id="chatInputText" placeholder="Scrie un mesaj colegilor..." maxlength="300" autocomplete="off">
+      <button type="submit" class="chat-send-btn" title="Trimite mesaj">
+        <span class="material-symbols-outlined" style="font-size:19px;">send</span>
+      </button>
+    </form>
+  </div>
+
   <div id="confirmDeleteModal">
     <div class="modal-backdrop" onclick="closeDeleteModal()"></div>
     <div class="modal-box">
@@ -1841,26 +2123,6 @@
       }
     }
 
-    function selectStoreManual(storeCode) {
-      setActiveStoreAuto(storeCode);
-      const rawInput = scannedResultEl.value.trim();
-      // Dacă în input avem deja un link, îi actualizăm parametrul S= cu noul restaurant
-      if (rawInput.startsWith("http")) {
-        try {
-          const u = new URL(rawInput);
-          if (u.searchParams.has("S")) {
-            u.searchParams.set("S", storeCode);
-            scannedResultEl.value = u.toString();
-            updateReceiptBadge(scannedResultEl.value);
-          }
-        } catch {}
-      } else if (/^\d+$/.test(rawInput)) {
-        updateReceiptBadge(rawInput);
-      }
-      saveAppState();
-      if (rawInput) generateLinks(true);
-    }
-
     function setActiveStoreAuto(storeCode) {
       if (!VALID_STORES.includes(storeCode)) storeCode = "373K1";
       activeStore = storeCode;
@@ -1868,10 +2130,6 @@
       document.getElementById("proxyStoreLabel").innerText = activeStore;
       document.getElementById("drawerStoreName").innerText = activeStore;
       document.getElementById("resultsTitleText").innerText = `Linkuri ${activeStore}`;
-
-      document.querySelectorAll(".store-pill-btn").forEach(btn => {
-        btn.classList.toggle("active", btn.dataset.store === activeStore);
-      });
 
       updateUsedCounterUI();
       updateProxyStatsUI();
@@ -2241,29 +2499,13 @@
       }
     }
 
-    // Suportă atât link complet KFC / Proxyium, cât și doar număr TI scris direct (ex: "4520")
+    // Extrage automat restaurantul (S), data/ora (D) și TI-ul direct din linkul bonului / QR
     function parseLinkData(inputStr) {
       const trimmed = inputStr.trim();
-
-      // Cazul 1: Utilizatorul a scris direct doar numărul TI (ex: 4520)
-      if (/^\d{2,10}$/.test(trimmed)) {
-        const dParts = (selectedDateEl.value || getLocalDateISO()).split("-");
-        const formattedDate = dParts.length === 3 ? `${dParts[2]}/${dParts[1]}/${dParts[0]}` : "01/01/2026";
-        const tPart = endTimeEl.value || "12:00";
-        return {
-          S: activeStore,
-          dateTime: `${formattedDate} ${tPart}`,
-          TI: parseInt(trimmed, 10),
-          lang: "RO",
-          discoveredIP: null
-        };
-      }
-
-      // Cazul 2: Link complet (KFC sau Proxyium)
       const url = new URL(trimmed);
       const params = new URLSearchParams(url.search);
-      let sVal = (params.get("S") || activeStore || "373K1").toUpperCase();
-      if (!VALID_STORES.includes(sVal)) sVal = activeStore || "373K1";
+      let sVal = (params.get("S") || "373K1").toUpperCase();
+      if (!VALID_STORES.includes(sVal)) sVal = "373K1";
 
       // Verificăm dacă linkul lipit conține un IP de Proxyium în hostname
       let discoveredIP = null;
@@ -2298,7 +2540,7 @@
         metaBox.innerHTML = `
           <span class="meta-chip">📍 Restaurant: <strong>${d.S}</strong></span>
           <span class="meta-chip">🧾 TI Bază: <strong>${d.TI}</strong></span>
-          <span class="meta-chip">🕒 Bon: <strong>${d.dateTime || 'Setat manual'}</strong></span>
+          <span class="meta-chip">🕒 Bon: <strong>${d.dateTime}</strong></span>
           <span class="meta-chip">🌐 Limbă: <strong>${d.lang}</strong></span>
         `;
         metaBox.classList.add("active");
@@ -2312,13 +2554,6 @@
     function autofillDateTimeFromLink(link) {
       try {
         const trimmed = link.trim();
-        if (/^\d{2,10}$/.test(trimmed)) {
-          updateReceiptBadge(trimmed);
-          saveAppState();
-          generateLinks(true);
-          return;
-        }
-
         const url = new URL(trimmed);
         if (/^(?:\d{1,3}\.){3}\d{1,3}$/.test(url.hostname)) {
           registerDiscoveredProxyIP(url.hostname, false);
@@ -2350,25 +2585,9 @@
       } catch {}
     }
 
-    async function pasteFromClipboard() {
-      try {
-        const text = await navigator.clipboard.readText();
-        if (!text || !text.trim()) {
-          showToast("Clipboard-ul este gol!", "warning");
-          return;
-        }
-        scannedResultEl.value = text.trim();
-        autofillDateTimeFromLink(text.trim());
-        showToast("Lipit din Clipboard și procesat automat!", "content_paste");
-      } catch {
-        scannedResultEl.focus();
-        showToast("Apasă lung în căsuță și alege Lipește (Paste).", "info");
-      }
-    }
-
     scannedResultEl.addEventListener("input", () => {
       const val = scannedResultEl.value.trim();
-      if (val.startsWith("http") || /^\d{2,10}$/.test(val)) {
+      if (val.startsWith("http")) {
         autofillDateTimeFromLink(val);
       } else {
         document.getElementById("receiptMeta").classList.remove("active");
@@ -2916,8 +3135,147 @@
     let presenceInterval = null;
     let unsubscribeUsers = null;
     let unsubscribePool = null;
+    let unsubscribeChat = null;
     let unsubscribeStoreListeners = [];
     let currentUserUid = null;
+    let currentUserName = "Coleg";
+    let chatMessagesCache = [];
+    let unreadChatCount = 0;
+    let initialChatLoaded = false;
+
+    function escapeChatHtml(str) {
+      return String(str || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    function formatChatTime(ts) {
+      if (!ts) return "";
+      const d = new Date(ts);
+      const hh = String(d.getHours()).padStart(2, "0");
+      const mm = String(d.getMinutes()).padStart(2, "0");
+      return `${hh}:${mm}`;
+    }
+
+    window.toggleTeamChat = () => {
+      const panel = document.getElementById("teamChatPanel");
+      const badge = document.getElementById("chatUnreadBadge");
+      const isOpen = panel.classList.toggle("open");
+      if (isOpen) {
+        unreadChatCount = 0;
+        badge.classList.remove("active");
+        badge.innerText = "0";
+        const box = document.getElementById("chatMessagesBox");
+        setTimeout(() => {
+          box.scrollTop = box.scrollHeight;
+          document.getElementById("chatInputText")?.focus();
+        }, 50);
+      }
+    };
+
+    window.insertChatEmoji = (emoji) => {
+      const input = document.getElementById("chatInputText");
+      if (!input) return;
+      input.value += emoji;
+      input.focus();
+    };
+
+    window.sendTeamChatMessage = async (e) => {
+      if (e) e.preventDefault();
+      if (!currentUserUid) return;
+
+      const input = document.getElementById("chatInputText");
+      const text = (input.value || "").trim();
+      if (!text) return;
+
+      input.value = "";
+      const newMsg = {
+        id: `${Date.now()}_${Math.random().toString(36).slice(2, 7)}`,
+        uid: currentUserUid,
+        name: currentUserName,
+        store: typeof activeStore !== "undefined" ? activeStore : "KFC",
+        text: text.slice(0, 300),
+        ts: Date.now()
+      };
+
+      const updated = [...chatMessagesCache, newMsg].slice(-60);
+      chatMessagesCache = updated;
+      renderTeamChatMessages(updated);
+
+      try {
+        const ref = doc(db, "settings", "teamChat");
+        await setDoc(ref, { messages: updated }, { merge: true });
+      } catch {
+        showToast("Nu s-a putut trimite mesajul!", "error");
+      }
+    };
+
+    window.clearTeamChatHistory = async () => {
+      if (!currentUserUid) return;
+      try {
+        chatMessagesCache = [];
+        renderTeamChatMessages([]);
+        const ref = doc(db, "settings", "teamChat");
+        await setDoc(ref, { messages: [] });
+        showToast("Istoricul chat-ului a fost șters!", "delete_sweep");
+      } catch {}
+    };
+
+    function renderTeamChatMessages(messages) {
+      const box = document.getElementById("chatMessagesBox");
+      if (!box) return;
+
+      if (!messages || messages.length === 0) {
+        box.innerHTML = `<div class="chat-empty">Niciun mesaj încă. Salută-ți colegii! 👋</div>`;
+        return;
+      }
+
+      box.innerHTML = messages.map(m => {
+        const isMine = m.uid === currentUserUid;
+        const authorLabel = isMine ? "Tu" : escapeChatHtml(m.name || "Coleg");
+        const storeTag = m.store ? ` • ${escapeChatHtml(m.store)}` : "";
+        return `
+          <div class="chat-msg ${isMine ? 'mine' : 'other'}">
+            <div class="chat-msg-meta">
+              <span class="chat-msg-author">${authorLabel}${storeTag}</span>
+              <span>${formatChatTime(m.ts)}</span>
+            </div>
+            <div class="chat-msg-text">${escapeChatHtml(m.text)}</div>
+          </div>
+        `;
+      }).join("");
+
+      box.scrollTop = box.scrollHeight;
+    }
+
+    function startListeningTeamChat() {
+      if (unsubscribeChat) unsubscribeChat();
+      initialChatLoaded = false;
+
+      unsubscribeChat = onSnapshot(doc(db, "settings", "teamChat"), (snap) => {
+        const prevLastId = chatMessagesCache.length > 0 ? chatMessagesCache[chatMessagesCache.length - 1].id : null;
+        const list = (snap.exists() && Array.isArray(snap.data().messages)) ? snap.data().messages : [];
+        chatMessagesCache = list;
+        renderTeamChatMessages(list);
+
+        if (initialChatLoaded && list.length > 0) {
+          const newest = list[list.length - 1];
+          const isPanelOpen = document.getElementById("teamChatPanel")?.classList.contains("open");
+          if (newest.id !== prevLastId && newest.uid !== currentUserUid && !isPanelOpen) {
+            unreadChatCount++;
+            const badge = document.getElementById("chatUnreadBadge");
+            if (badge) {
+              badge.innerText = unreadChatCount;
+              badge.classList.add("active");
+            }
+            showToast(`💬 ${newest.name || 'Coleg'}: ${newest.text.slice(0, 40)}`, "chat");
+          }
+        }
+        initialChatLoaded = true;
+      });
+    }
 
     // Verificăm rezultatul redirect-ului pe mobil
     getRedirectResult(auth).catch(() => {});
@@ -3001,6 +3359,8 @@
         document.getElementById("onlineCountBadge").innerText = `${onlineUsers.length} online`;
         document.getElementById("dropdownOnlineCount").innerText = onlineUsers.length;
         document.getElementById("dropdownOfflineCount").innerText = offlineUsers.length;
+        const chatSub = document.getElementById("chatHeaderSub");
+        if (chatSub) chatSub.innerText = `🟢 ${onlineUsers.length} colegi online acum`;
 
         const onlineHTML = onlineUsers.map(u => `
           <div class="presence-item">
@@ -3152,8 +3512,11 @@
         if (presenceInterval) clearInterval(presenceInterval);
         if (unsubscribeUsers) unsubscribeUsers();
         if (unsubscribePool) unsubscribePool();
+        if (unsubscribeChat) unsubscribeChat();
         unsubscribeStoreListeners.forEach(unsub => unsub());
 
+        document.getElementById("chatFabBtn")?.classList.remove("visible");
+        document.getElementById("teamChatPanel")?.classList.remove("open");
         nicknamePill.classList.remove("visible");
         protectedContent.style.display = "none";
         loginScreen.style.display = "block";
@@ -3163,6 +3526,7 @@
       }
 
       currentUserUid = user.uid;
+      currentUserName = user.displayName || user.email || "Coleg";
       const userRef = doc(db, "users", user.uid);
       const snap = await getDoc(userRef);
 
@@ -3192,7 +3556,9 @@
 
       startListeningPresence();
       startRealtimeCloudSync();
+      startListeningTeamChat();
 
+      document.getElementById("chatFabBtn")?.classList.add("visible");
       nicknameDiv.innerHTML = `<strong>${user.displayName}</strong>`;
       nicknamePill.classList.add("visible");
       loginScreen.style.display = "none";
