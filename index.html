@@ -37,6 +37,42 @@
       --radius-sm: 8px;
     }
 
+    body.dark-theme {
+      --kfc-black: #F3F4F6;
+      --kfc-dark: #18181B;
+      --kfc-cream: #121215;
+      --kfc-white: #1C1C21;
+      --kfc-gray: #9CA3AF;
+      --kfc-border: #2E2E36;
+      --shadow-sm: 0 4px 14px rgba(0, 0, 0, 0.35);
+      --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.5);
+    }
+
+    body.dark-theme header {
+      background: rgba(28, 28, 33, 0.96);
+    }
+
+    body.dark-theme .link-box.used {
+      background: #16161a;
+    }
+
+    body.dark-theme .online-count-badge,
+    body.dark-theme .meta-chip,
+    body.dark-theme .ti-badge,
+    body.dark-theme .store-mini-badge,
+    body.dark-theme .manage-proxy-btn:not(.red-accent),
+    body.dark-theme .icon-btn:not(.primary) {
+      background: #2A2A32;
+      color: #F3F4F6;
+    }
+
+    body.dark-theme .autopilot-bar,
+    body.dark-theme .chat-header,
+    body.dark-theme .toast {
+      background: #23232B;
+      color: #FFFFFF;
+    }
+
     * {
       box-sizing: border-box;
       -webkit-tap-highlight-color: transparent;
@@ -269,11 +305,250 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 7px 10px;
+      padding: 8px 10px;
       border-radius: 10px;
       background: var(--kfc-cream);
       font-size: 12.5px;
       font-weight: 600;
+      cursor: pointer;
+      border: 1.5px solid transparent;
+      transition: all 0.15s ease;
+    }
+
+    .presence-item:hover {
+      border-color: var(--kfc-red);
+      transform: translateX(2px);
+    }
+
+    .presence-hint-note {
+      font-size: 10.5px;
+      color: var(--kfc-gray);
+      text-align: center;
+      margin-top: 4px;
+      font-weight: 600;
+    }
+
+    /* === MODAL PROFIL COLEG + COPIERE ULTIMUL BON SCANAT === */
+    #colleagueProfileModal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+    }
+
+    .colleague-modal-box {
+      position: relative;
+      background: var(--kfc-white);
+      color: var(--kfc-black);
+      max-width: 400px;
+      width: calc(100% - 24px);
+      margin: 12vh auto;
+      padding: 20px 18px;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      border-top: 6px solid var(--kfc-red);
+      animation: toastIn 0.18s ease forwards;
+    }
+
+    .colleague-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .colleague-avatar-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .colleague-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: var(--kfc-red);
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+      font-style: italic;
+      font-weight: 900;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .colleague-title-info h3 {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      font-style: italic;
+      font-weight: 900;
+      font-size: 16px;
+      text-transform: uppercase;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .colleague-title-info p {
+      margin: 2px 0 0 0;
+      font-size: 11.5px;
+      color: var(--kfc-gray);
+      font-weight: 600;
+    }
+
+    .colleague-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .colleague-stat-card {
+      background: var(--kfc-cream);
+      border: 1px solid var(--kfc-border);
+      border-radius: 10px;
+      padding: 8px;
+      text-align: center;
+    }
+
+    .colleague-stat-card .val {
+      font-family: 'Montserrat', sans-serif;
+      font-style: italic;
+      font-weight: 900;
+      font-size: 16px;
+      color: var(--kfc-red);
+      display: block;
+    }
+
+    .colleague-stat-card .lbl {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--kfc-gray);
+    }
+
+    .colleague-receipt-box {
+      background: var(--kfc-cream);
+      border: 1.5px solid var(--kfc-border);
+      border-left: 4px solid var(--kfc-red);
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 14px;
+    }
+
+    .colleague-receipt-box h4 {
+      margin: 0 0 8px 0;
+      font-family: 'Montserrat', sans-serif;
+      font-style: italic;
+      font-weight: 900;
+      font-size: 12px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .colleague-receipt-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .colleague-receipt-actions {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .colleague-receipt-actions button {
+      flex: 1;
+      padding: 10px 10px;
+      border-radius: 9px;
+      border: none;
+      font-weight: 800;
+      font-size: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+    }
+
+    /* === DETECTOR IP 4G/5G (MOD AVION CHECKER) === */
+    .ip-4g-checker {
+      display: none;
+      margin-top: 8px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: var(--kfc-cream);
+      border: 1.5px solid var(--kfc-border);
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .ip-4g-checker.visible {
+      display: flex;
+    }
+
+    .ip-4g-status {
+      font-size: 11.5px;
+      font-weight: 700;
+      display: flex;
+       flex-direction: column;
+      gap: 2px;
+    }
+
+    .ip-4g-status .sub {
+      font-size: 10.5px;
+      font-weight: 600;
+      color: var(--kfc-gray);
+    }
+
+    /* === CLASAMENT & STATISTICI ZILNICE === */
+    .leaderboard-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .store-stat-box {
+      background: var(--kfc-cream);
+      border: 1px solid var(--kfc-border);
+      border-radius: 9px;
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .leader-list {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      max-height: 160px;
+      overflow-y: auto;
+    }
+
+    .leader-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--kfc-cream);
+      padding: 7px 10px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
     }
 
     .presence-user-left {
@@ -1743,8 +2018,12 @@
           <span id="dropdownOfflineCount">0</span>
         </div>
         <div class="presence-list" id="offlineUsersList"></div>
+        <div class="presence-hint-note">👆 Apasă pe un coleg pentru profil & ultimul bon scanat</div>
       </div>
 
+      <button id="themeToggleBtn" class="auth-btn" onclick="toggleDarkTheme()" title="Comută Mod Întunecat / Luminos">
+        <span class="material-symbols-outlined" id="themeToggleIcon">dark_mode</span>
+      </button>
       <button id="loginBtn" class="auth-btn" title="Autentificare cu Google">
         <span class="material-symbols-outlined">login</span>
       </button>
@@ -1801,6 +2080,18 @@
 
           <div class="mode-hint-box" id="modeHintBox">
             🚀 <strong>Mod 1 (Auto-Proxyium):</strong> Copiază automat linkul bonului și deschide direct <strong>Proxyium.com</strong> (sau poți apăsa direct pe butonul cu IP-ul Proxyium de sub el)!
+          </div>
+
+          <!-- DETECTOR LIVE IP 4G/5G PENTRU MOD AVION -->
+          <div class="ip-4g-checker" id="ip4gChecker">
+            <div class="ip-4g-status">
+              <span id="ip4gMainText">📶 IP-ul tău 4G/5G: <strong>Se verifică...</strong></span>
+              <span class="sub" id="ip4gSubText">Comută Mod Avion 2-3 secunde între bonuri</span>
+            </div>
+            <button type="button" class="manage-proxy-btn" onclick="checkMobile4GIP(true)">
+              <span class="material-symbols-outlined" style="font-size:15px;">refresh</span>
+              Verifică IP
+            </button>
           </div>
         </div>
 
@@ -1886,6 +2177,10 @@
                 <span class="material-symbols-outlined" style="font-size:15px;">dns</span>
                 Bancă IP
               </button>
+              <button type="button" class="manage-proxy-btn" onclick="toggleLeaderboardDrawer()">
+                <span class="material-symbols-outlined" style="font-size:15px;">emoji_events</span>
+                Clasament
+              </button>
               <button type="button" class="manage-proxy-btn red-accent" onclick="toggleAutoFillDrawer()">
                 <span class="material-symbols-outlined" style="font-size:15px;">magic_button</span>
                 Auto-Fill Sondaj
@@ -1908,6 +2203,18 @@
             <button class="btn-danger" onclick="addBulkProxies()">Adaugă IP Proxyium</button>
             <button class="btn-secondary" onclick="resetProxyCooldowns()">Resetează IP-urile Folosite</button>
             <button class="btn-secondary" onclick="toggleProxyDrawer()">Închide</button>
+          </div>
+        </div>
+
+        <!-- SERTAR CLASAMENT & STATISTICI ZILNICE -->
+        <div class="proxy-manager-drawer" id="leaderboardDrawer">
+          <h4>🏆 Clasament & Statistici Live</h4>
+          <p>Situația bonurilor (TI) înregistrate pe fiecare restaurant și clasamentul colegilor de azi:</p>
+          <div class="leaderboard-grid" id="storeStatsGridUI"></div>
+          <h4 style="margin-top:10px;">🥇 Top Colegi Azi (Apasă pe coleg pt. detalii)</h4>
+          <div class="leader-list" id="colleagueLeaderboardUI"></div>
+          <div class="proxy-drawer-actions">
+            <button class="btn-secondary" onclick="toggleLeaderboardDrawer()">Închide</button>
           </div>
         </div>
 
@@ -2014,6 +2321,67 @@
     </form>
   </div>
 
+  <!-- MODAL INFORMAȚII COLEG & COPIERE ULTIMUL BON SCANAT -->
+  <div id="colleagueProfileModal">
+    <div class="modal-backdrop" onclick="closeColleagueProfileModal()"></div>
+    <div class="colleague-modal-box">
+      <div class="colleague-head">
+        <div class="colleague-avatar-wrap">
+          <div class="colleague-avatar" id="colleagueAvatar">K</div>
+          <div class="colleague-title-info">
+            <h3 id="colleagueModalName">Coleg</h3>
+            <p id="colleagueModalStatus">🟢 Online acum</p>
+          </div>
+        </div>
+        <button type="button" class="auth-btn" onclick="closeColleagueProfileModal()" title="Închide">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+
+      <div class="colleague-stats-grid">
+        <div class="colleague-stat-card">
+          <span class="val" id="colleagueStatStore">373K1</span>
+          <span class="lbl">Restaurant</span>
+        </div>
+        <div class="colleague-stat-card">
+          <span class="val" id="colleagueStatToday">0</span>
+          <span class="lbl">Bonuri Azi</span>
+        </div>
+        <div class="colleague-stat-card">
+          <span class="val" id="colleagueStatTotal">0</span>
+          <span class="lbl">Total Lucrate</span>
+        </div>
+      </div>
+
+      <div class="colleague-receipt-box">
+        <h4>
+          <span>🧾 Ultimul Bon Scanat</span>
+          <span id="colleagueReceiptTimeAgo" style="font-size:10.5px;color:var(--kfc-gray);font-style:normal;">—</span>
+        </h4>
+        <div class="colleague-receipt-meta" id="colleagueReceiptMetaUI">
+          <span style="font-size:12px;color:var(--kfc-gray);">Acest coleg nu a scanat niciun bon recent.</span>
+        </div>
+        <div class="colleague-receipt-actions" id="colleagueReceiptActionsUI" style="display:none;">
+          <button type="button" class="btn-danger" onclick="copyColleagueLastReceipt(false)">
+            <span class="material-symbols-outlined" style="font-size:17px;">content_copy</span>
+            Copiază Ultimul Bon
+          </button>
+          <button type="button" class="btn-secondary" onclick="copyColleagueLastReceipt(true)">
+            <span class="material-symbols-outlined" style="font-size:17px;">bolt</span>
+            Pune în Generator
+          </button>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn-secondary" id="colleagueBlockToggleBtn" style="display:none;" onclick="toggleBlockSelectedColleague()">
+          Blochează Accesul
+        </button>
+        <button type="button" class="btn-secondary" onclick="closeColleagueProfileModal()">Închide</button>
+      </div>
+    </div>
+  </div>
+
   <div id="confirmDeleteModal">
     <div class="modal-backdrop" onclick="closeDeleteModal()"></div>
     <div class="modal-box">
@@ -2039,7 +2407,9 @@
     let activeStore = "373K1";
     let currentLaunchMode = "autoproxy"; // 'autoproxy' | 'direct4g' | 'verifiedip'
     let liveIpStatus = {};
+    let liveIpLatency = {};
     let jitterCache = {}; // Păstrează minutele generate per TI ca să nu sară la fiecare filtrare
+    let currentDetected4GIP = null;
 
     const VALID_STORES = ["373K1", "373K2", "373K3", "373K4"];
     const CPO_KEY = "aHR0cHM6Ly9jdXN0b21lci5rZmMtbGlzdGVucy5jb20";
@@ -2064,6 +2434,88 @@
     const linkCountEl = document.getElementById("linkCount");
 
     document.getElementById("autoFillScriptBox").value = QUALTRICS_AUTOFILL_SCRIPT;
+
+    function triggerHaptic(ms = 25) {
+      try {
+        if (navigator.vibrate) navigator.vibrate(ms);
+      } catch {}
+    }
+
+    function playSoftPing() {
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+        const ctx = new AudioCtx();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(740, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(980, ctx.currentTime + 0.09);
+        gain.gain.setValueAtTime(0.06, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.14);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.15);
+      } catch {}
+    }
+
+    function toggleDarkTheme() {
+      const isDark = document.body.classList.toggle("dark-theme");
+      localStorage.setItem("kfcDarkTheme", isDark ? "1" : "0");
+      const icon = document.getElementById("themeToggleIcon");
+      if (icon) icon.innerText = isDark ? "light_mode" : "dark_mode";
+      triggerHaptic(20);
+    }
+
+    function initDarkTheme() {
+      if (localStorage.getItem("kfcDarkTheme") === "1") {
+        document.body.classList.add("dark-theme");
+        const icon = document.getElementById("themeToggleIcon");
+        if (icon) icon.innerText = "light_mode";
+      }
+    }
+    initDarkTheme();
+
+    // === VERIFICATOR LIVE IP 4G/5G (PENTRU MOD AVION) ===
+    async function checkMobile4GIP(showFeedback = false) {
+      const mainEl = document.getElementById("ip4gMainText");
+      const subEl = document.getElementById("ip4gSubText");
+      if (!mainEl || !subEl) return;
+
+      if (showFeedback) {
+        mainEl.innerHTML = `📶 IP-ul tău 4G/5G: <strong>Se verifică...</strong>`;
+      }
+
+      try {
+        const res = await fetch("https://api.ipify.org?format=json", { cache: "no-store" });
+        const data = await res.json();
+        const ip = data.ip;
+        currentDetected4GIP = ip;
+
+        const lastUsed4G = localStorage.getItem("kfcLastUsed4GIP") || "";
+        if (lastUsed4G && lastUsed4G === ip) {
+          mainEl.innerHTML = `🔴 IP 4G/5G: <strong style="color:#E4002B">${ip}</strong> (Neschimbat!)`;
+          subEl.innerHTML = `⚠️ Ai același IP ca la bonul trecut! Mai comută <strong>Mod Avion 3 secunde</strong>.`;
+        } else {
+          mainEl.innerHTML = `🟢 IP 4G/5G: <strong style="color:#16a34a">${ip}</strong> (IP Nou!)`;
+          subEl.innerHTML = `✅ IP curat confirmat — poți deschide bonul fără erori!`;
+        }
+        if (showFeedback) {
+          triggerHaptic(25);
+          showToast(`IP actual: ${ip}`, "cell_tower");
+        }
+      } catch {
+        mainEl.innerHTML = `📶 IP 4G/5G: <strong>Verifică conexiunea</strong>`;
+        subEl.innerHTML = `Comută Mod Avion 2-3 secunde între bonuri.`;
+      }
+    }
+
+    window.addEventListener("online", () => {
+      if (currentLaunchMode === "direct4g") {
+        setTimeout(() => checkMobile4GIP(true), 800);
+      }
+    });
 
     function showToast(message, icon = "check_circle") {
       const container = document.getElementById("toast-container");
@@ -2109,12 +2561,19 @@
       });
 
       const hintBox = document.getElementById("modeHintBox");
+      const ip4gBox = document.getElementById("ip4gChecker");
       if (mode === "autoproxy") {
         hintBox.innerHTML = `🚀 <strong>Mod 1 (Auto-Proxyium):</strong> Apasă pe butonul roșu ca să copieze automat linkul și să deschidă <strong>Proxyium.com</strong> (sau apasă pe butonul negru ca să intri direct pe IP-ul Proxyium)!`;
+        if (ip4gBox) ip4gBox.classList.remove("visible");
       } else if (mode === "direct4g") {
         hintBox.innerHTML = `✅ <strong>Mod 2 (Direct 4G/5G - 0% erori):</strong> Deschide linkul oficial KFC instantaneu. Comută <strong>Mod Avion 2-3 secunde</strong> între bonuri pentru IP nou automat!`;
+        if (ip4gBox) {
+          ip4gBox.classList.add("visible");
+          checkMobile4GIP(false);
+        }
       } else {
         hintBox.innerHTML = `🌐 <strong>Mod 3 (IP Proxyium Direct):</strong> Construiește linkul direct cu IP-urile tale de Proxyium (<code>__cpo</code>). Dacă sesiunea unui IP a expirat, deschide întâi prin <strong>Auto-Proxyium</strong>!`;
+        if (ip4gBox) ip4gBox.classList.remove("visible");
       }
 
       saveAppState();
@@ -2209,7 +2668,13 @@
     function getAvailableProxyIPsForStore(storeCode = activeStore, excludeList = []) {
       const pool = getProxyPool();
       const storeUsage = getStoreProxyUsageMap(storeCode);
-      return pool.filter(ip => !storeUsage[ip] && !excludeList.includes(ip));
+      const avail = pool.filter(ip => !storeUsage[ip] && !excludeList.includes(ip));
+      // Sortăm automat astfel încât IP-urile online cu cel mai mic ping (ms) să fie primele
+      return avail.sort((a, b) => {
+        const latA = liveIpLatency[a] || 9999;
+        const latB = liveIpLatency[b] || 9999;
+        return latA - latB;
+      });
     }
 
     function markProxyIPUsedForStore(ip, storeCode = activeStore) {
@@ -2246,9 +2711,10 @@
         const isDead = dead.includes(ip);
         const st = isDead ? "dead" : (liveIpStatus[ip] || "");
         const icon = isDead ? "🔴" : (st === "online" ? "🟢" : "🌐");
+        const msText = (!isDead && liveIpLatency[ip]) ? ` (${liveIpLatency[ip]}ms)` : "";
         const actionSymbol = isDead ? "↺" : "✕";
         return `<span class="verified-ip-chip ${st}">
-          ${icon} ${ip}
+          ${icon} ${ip}${msText}
           <button type="button" class="chip-action-x" onclick="toggleIPDeadState('${ip}')" title="${isDead ? 'Reactivează IP' : 'Dezactivează IP'}">${actionSymbol}</button>
         </span>`;
       }).join("");
@@ -2257,21 +2723,26 @@
     async function pingSingleIP(ip, timeoutMs = 2200) {
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), timeoutMs);
+      const t0 = performance.now();
       try {
         await fetch(`https://${ip}/`, { mode: "no-cors", signal: controller.signal });
         clearTimeout(timer);
+        liveIpLatency[ip] = Math.round(performance.now() - t0);
         return true;
       } catch {
         clearTimeout(timer);
+        delete liveIpLatency[ip];
         return false;
       }
     }
 
-    async function pingAllVerifiedIPs() {
+    async function pingAllVerifiedIPs(silent = false) {
       const btn = document.getElementById("pingBtn");
-      btn.disabled = true;
-      btn.innerText = "⏳ Se testează...";
-      showToast("Se verifică serverele Proxyium...", "network_check");
+      if (btn && !silent) {
+        btn.disabled = true;
+        btn.innerText = "⏳ Se testează...";
+        showToast("Se măsoară viteza serverelor Proxyium...", "network_check");
+      }
 
       const pool = getProxyPool();
       let aliveCount = 0;
@@ -2286,22 +2757,36 @@
         }
       }));
 
-      btn.disabled = false;
-      btn.innerHTML = `<span class="material-symbols-outlined" style="font-size:15px;">network_check</span> Verifică IP-uri`;
+      if (btn && !silent) {
+        btn.disabled = false;
+        btn.innerHTML = `<span class="material-symbols-outlined" style="font-size:15px;">network_check</span> Verifică IP-uri`;
+      }
       renderVerifiedIpChips();
       updateProxyStatsUI();
-      showToast(`${aliveCount} din ${pool.length} IP-uri Proxyium răspund live!`, "verified");
+      if (scannedResultEl.value.trim()) generateLinks(true);
+      if (!silent) {
+        showToast(`${aliveCount} din ${pool.length} IP-uri online (sortate după viteză)!`, "verified");
+      }
     }
 
     function toggleProxyDrawer() {
       document.getElementById("autoFillDrawer").classList.remove("open");
+      document.getElementById("leaderboardDrawer")?.classList.remove("open");
       renderVerifiedIpChips();
       document.getElementById("proxyDrawer").classList.toggle("open");
     }
 
     function toggleAutoFillDrawer() {
       document.getElementById("proxyDrawer").classList.remove("open");
+      document.getElementById("leaderboardDrawer")?.classList.remove("open");
       document.getElementById("autoFillDrawer").classList.toggle("open");
+    }
+
+    function toggleLeaderboardDrawer() {
+      document.getElementById("proxyDrawer").classList.remove("open");
+      document.getElementById("autoFillDrawer").classList.remove("open");
+      if (window.renderLeaderboardStatsUI) window.renderLeaderboardStatsUI();
+      document.getElementById("leaderboardDrawer")?.classList.toggle("open");
     }
 
     function copyAutoFillBookmarklet() {
@@ -2396,6 +2881,7 @@
     function markTIUsed(ti, storeCode = activeStore) {
       const numTi = parseInt(ti);
       if (isNaN(numTi)) return;
+      triggerHaptic(25);
       const bucket = getUsedTIBucket();
       if (!bucket[storeCode]) bucket[storeCode] = [];
       if (!bucket[storeCode].includes(numTi)) {
@@ -2404,6 +2890,9 @@
         updateUsedCounterUI();
         if (window.syncUsedTIToCloud) {
           window.syncUsedTIToCloud(storeCode, bucket[storeCode]);
+        }
+        if (window.incrementMyCompletedCount) {
+          window.incrementMyCompletedCount(storeCode);
         }
       }
       updateAutopilotBarUI();
@@ -2536,6 +3025,12 @@
         }
 
         setActiveStoreAuto(d.S);
+
+        // Salvăm silențios în profilul tău ultimul bon scanat (vizibil când un coleg apasă pe numele tău în listă)
+        if (window.syncMyLastScannedReceipt) {
+          const cleanOrig = `https://customer.kfc-listens.com/jfe/form/SV_7WmLtfIDJuM3Vn8?S=${d.S}&D=${encodeURIComponent(d.dateTime)}&TI=${d.TI}&Q_Language=${d.lang}`;
+          window.syncMyLastScannedReceipt(cleanOrig, d);
+        }
 
         metaBox.innerHTML = `
           <span class="meta-chip">📍 Restaurant: <strong>${d.S}</strong></span>
@@ -2979,6 +3474,9 @@
       markTIUsed(ti, storeCode);
       if (markProxyToo) {
         markProxyIPUsedForStore(ip, storeCode);
+      } else if (currentLaunchMode === "direct4g" && currentDetected4GIP) {
+        localStorage.setItem("kfcLastUsed4GIP", currentDetected4GIP);
+        checkMobile4GIP(false);
       }
 
       setTimeout(() => {
@@ -3110,6 +3608,7 @@
     }
 
     restoreAppState();
+    setTimeout(() => pingAllVerifiedIPs(true), 1200);
   </script>
 
   <!-- Script Firebase: Autentificare + Prezență Live + Sincronizare Live TI & IP-uri Proxyium -->
@@ -3142,6 +3641,8 @@
     let chatMessagesCache = [];
     let unreadChatCount = 0;
     let initialChatLoaded = false;
+    let allUsersCache = {};
+    let selectedColleagueUid = null;
 
     function escapeChatHtml(str) {
       return String(str || "")
@@ -3270,6 +3771,8 @@
               badge.innerText = unreadChatCount;
               badge.classList.add("active");
             }
+            playSoftPing();
+            triggerHaptic(40);
             showToast(`💬 ${newest.name || 'Coleg'}: ${newest.text.slice(0, 40)}`, "chat");
           }
         }
@@ -3320,10 +3823,177 @@
         const userRef = doc(db, "users", currentUserUid);
         await setDoc(userRef, {
           online: isOnline,
-          lastSeenMs: Date.now()
+          lastSeenMs: Date.now(),
+          activeStore: typeof activeStore !== "undefined" ? activeStore : "373K1"
         }, { merge: true });
       } catch {}
     }
+
+    // Salvăm silențios în profilul colegului ultimul bon scanat (fără nicio notificare pe ecranul celorlalți)
+    window.syncMyLastScannedReceipt = async (cleanLink, parsedData) => {
+      if (!currentUserUid || !parsedData) return;
+      try {
+        const userRef = doc(db, "users", currentUserUid);
+        await setDoc(userRef, {
+          activeStore: parsedData.S,
+          lastReceiptLink: cleanLink,
+          lastReceiptStore: parsedData.S,
+          lastReceiptTI: parsedData.TI,
+          lastReceiptDate: parsedData.dateTime || "",
+          lastReceiptScannedAt: Date.now()
+        }, { merge: true });
+      } catch {}
+    };
+
+    // Incrementăm contorul de bonuri lucrate Azi & Total pentru colegul curent
+    window.incrementMyCompletedCount = async (storeCode) => {
+      if (!currentUserUid) return;
+      try {
+        const todayStr = getLocalDateISO(new Date());
+        const me = allUsersCache[currentUserUid] || {};
+        const prevToday = me.todayDate === todayStr ? (me.todayCount || 0) : 0;
+        const prevTotal = me.totalCount || 0;
+
+        const userRef = doc(db, "users", currentUserUid);
+        await setDoc(userRef, {
+          activeStore: storeCode || "373K1",
+          todayDate: todayStr,
+          todayCount: prevToday + 1,
+          totalCount: prevTotal + 1,
+          lastSeenMs: Date.now()
+        }, { merge: true });
+      } catch {}
+    };
+
+    // === FEREASTRĂ PROFIL COLEG + COPIERE ULTIMUL BON SCANAT ===
+    window.openColleagueProfile = (uid) => {
+      const u = allUsersCache[uid];
+      if (!u) return;
+      selectedColleagueUid = uid;
+      triggerHaptic(20);
+
+      document.getElementById("presenceDropdown")?.classList.remove("open");
+
+      const initials = (u.name || "C").trim().charAt(0).toUpperCase();
+      document.getElementById("colleagueAvatar").innerText = initials;
+      document.getElementById("colleagueModalName").innerText = u.name + (u.uid === currentUserUid ? " (Tu)" : "");
+      document.getElementById("colleagueModalStatus").innerText = u.isReallyOnline
+        ? `🟢 Online acum • ${u.email || ''}`
+        : `⚪ Văzut ${formatLastSeen(u.lastMs)} • ${u.email || ''}`;
+
+      const todayStr = getLocalDateISO(new Date());
+      const todayCount = u.todayDate === todayStr ? (u.todayCount || 0) : 0;
+      document.getElementById("colleagueStatStore").innerText = u.activeStore || u.lastReceiptStore || "373K1";
+      document.getElementById("colleagueStatToday").innerText = todayCount;
+      document.getElementById("colleagueStatTotal").innerText = u.totalCount || todayCount;
+
+      const metaUI = document.getElementById("colleagueReceiptMetaUI");
+      const actionsUI = document.getElementById("colleagueReceiptActionsUI");
+      const timeAgoEl = document.getElementById("colleagueReceiptTimeAgo");
+
+      if (u.lastReceiptLink && u.lastReceiptTI) {
+        timeAgoEl.innerText = u.lastReceiptScannedAt ? `Scanat ${formatLastSeen(u.lastReceiptScannedAt)}` : "Recent";
+        metaUI.innerHTML = `
+          <span class="meta-chip">📍 Restaurant: <strong>${u.lastReceiptStore || '373K1'}</strong></span>
+          <span class="meta-chip">🧾 TI Bază: <strong>${u.lastReceiptTI}</strong></span>
+          <span class="meta-chip">🕒 Bon: <strong>${u.lastReceiptDate || '—'}</strong></span>
+        `;
+        actionsUI.style.display = "flex";
+      } else {
+        timeAgoEl.innerText = "—";
+        metaUI.innerHTML = `<span style="font-size:12px;color:var(--kfc-gray);">Acest coleg nu a scanat niciun bon recent.</span>`;
+        actionsUI.style.display = "none";
+      }
+
+      const blockBtn = document.getElementById("colleagueBlockToggleBtn");
+      if (blockBtn) {
+        if (uid !== currentUserUid) {
+          blockBtn.style.display = "inline-block";
+          blockBtn.innerText = u.blocked ? "🔓 Deblochează Colegul" : "🚫 Blochează Accesul";
+          blockBtn.style.color = u.blocked ? "#16a34a" : "#E4002B";
+        } else {
+          blockBtn.style.display = "none";
+        }
+      }
+
+      document.getElementById("colleagueProfileModal").style.display = "block";
+    };
+
+    window.closeColleagueProfileModal = () => {
+      document.getElementById("colleagueProfileModal").style.display = "none";
+      selectedColleagueUid = null;
+    };
+
+    window.copyColleagueLastReceipt = (loadIntoGenerator = false) => {
+      if (!selectedColleagueUid) return;
+      const u = allUsersCache[selectedColleagueUid];
+      if (!u || !u.lastReceiptLink) {
+        showToast("Acest coleg nu are niciun bon salvat!", "warning");
+        return;
+      }
+
+      triggerHaptic(30);
+      navigator.clipboard.writeText(u.lastReceiptLink).catch(() => {});
+
+      if (loadIntoGenerator) {
+        scannedResultEl.value = u.lastReceiptLink;
+        autofillDateTimeFromLink(u.lastReceiptLink);
+        window.closeColleagueProfileModal();
+        showToast(`Bonul lui ${u.name} (${u.lastReceiptStore} • TI ${u.lastReceiptTI}) a fost încărcat!`, "bolt");
+      } else {
+        showToast(`Bonul lui ${u.name} (TI ${u.lastReceiptTI}) a fost copiat!`, "content_copy");
+      }
+    };
+
+    window.toggleBlockSelectedColleague = async () => {
+      if (!selectedColleagueUid || selectedColleagueUid === currentUserUid) return;
+      const u = allUsersCache[selectedColleagueUid];
+      if (!u) return;
+
+      const newBlockedState = !u.blocked;
+      try {
+        await setDoc(doc(db, "users", selectedColleagueUid), { blocked: newBlockedState }, { merge: true });
+        showToast(newBlockedState ? `Accesul lui ${u.name} a fost blocat!` : `${u.name} a fost deblocat!`, "security");
+        window.closeColleagueProfileModal();
+      } catch {
+        showToast("Eroare la modificarea accesului!", "error");
+      }
+    };
+
+    window.renderLeaderboardStatsUI = () => {
+      const storeGrid = document.getElementById("storeStatsGridUI");
+      const leaderBox = document.getElementById("colleagueLeaderboardUI");
+      if (!storeGrid || !leaderBox) return;
+
+      const bucket = getUsedTIBucket();
+      storeGrid.innerHTML = ["373K1", "373K2", "373K3", "373K4"].map(st => {
+        const cnt = (bucket[st] || []).length;
+        return `<div class="store-stat-box">
+          <span>📍 ${st}</span>
+          <span style="color:var(--kfc-red);">${cnt} TI folosite</span>
+        </div>`;
+      }).join("");
+
+      const todayStr = getLocalDateISO(new Date());
+      const colleagues = Object.values(allUsersCache).map(u => ({
+        ...u,
+        activeToday: u.todayDate === todayStr ? (u.todayCount || 0) : 0
+      })).sort((a, b) => (b.activeToday - a.activeToday) || ((b.totalCount || 0) - (a.totalCount || 0)));
+
+      if (colleagues.length === 0) {
+        leaderBox.innerHTML = `<div style="font-size:12px;color:#888;">Niciun coleg înregistrat</div>`;
+        return;
+      }
+
+      const medals = ["🥇", "🥈", "🥉"];
+      leaderBox.innerHTML = colleagues.map((u, idx) => {
+        const medal = medals[idx] || `#${idx + 1}`;
+        return `<div class="leader-row" onclick="openColleagueProfile('${u.uid}')">
+          <span>${medal} ${escapeChatHtml(u.name)}${u.uid === currentUserUid ? ' (Tu)' : ''}</span>
+          <span style="color:var(--kfc-red);">${u.activeToday} azi • ${u.totalCount || u.activeToday} total</span>
+        </div>`;
+      }).join("");
+    };
 
     function startListeningPresence() {
       if (unsubscribeUsers) unsubscribeUsers();
@@ -3333,19 +4003,33 @@
         const now = Date.now();
         const onlineUsers = [];
         const offlineUsers = [];
+        allUsersCache = {};
 
         snapshot.forEach(docSnap => {
           const d = docSnap.data();
-          if (d.blocked) return;
-
           const lastMs = d.lastSeenMs || (d.createdAt?.seconds ? d.createdAt.seconds * 1000 : 0);
-          const isReallyOnline = (docSnap.id === currentUserUid) || (d.online === true && (now - lastMs < 120000));
+          const isReallyOnline = !d.blocked && ((docSnap.id === currentUserUid) || (d.online === true && (now - lastMs < 120000)));
 
           const userObj = {
             uid: docSnap.id,
             name: d.name || d.email || "Utilizator",
-            lastMs: lastMs
+            email: d.email || "",
+            blocked: !!d.blocked,
+            lastMs: lastMs,
+            isReallyOnline: isReallyOnline,
+            activeStore: d.activeStore || d.lastReceiptStore || "373K1",
+            todayDate: d.todayDate || "",
+            todayCount: d.todayCount || 0,
+            totalCount: d.totalCount || 0,
+            lastReceiptLink: d.lastReceiptLink || "",
+            lastReceiptStore: d.lastReceiptStore || "",
+            lastReceiptTI: d.lastReceiptTI || "",
+            lastReceiptDate: d.lastReceiptDate || "",
+            lastReceiptScannedAt: d.lastReceiptScannedAt || 0
           };
+
+          allUsersCache[docSnap.id] = userObj;
+          if (d.blocked) return;
 
           if (isReallyOnline) {
             onlineUsers.push(userObj);
@@ -3362,27 +4046,38 @@
         const chatSub = document.getElementById("chatHeaderSub");
         if (chatSub) chatSub.innerText = `🟢 ${onlineUsers.length} colegi online acum`;
 
-        const onlineHTML = onlineUsers.map(u => `
-          <div class="presence-item">
-            <div class="presence-user-left">
-              <span class="status-dot online"></span>
-              <span class="name">${u.name}${u.uid === currentUserUid ? ' (Tu)' : ''}</span>
+        const onlineHTML = onlineUsers.map(u => {
+          const receiptHint = u.lastReceiptTI ? ` • 🧾 ${u.lastReceiptStore || ''}` : "";
+          return `
+            <div class="presence-item" onclick="openColleagueProfile('${u.uid}')" title="Apasă pentru detalii coleg și ultimul bon scanat">
+              <div class="presence-user-left">
+                <span class="status-dot online"></span>
+                <span class="name">${escapeChatHtml(u.name)}${u.uid === currentUserUid ? ' (Tu)' : ''}${receiptHint}</span>
+              </div>
+              <span class="presence-time live">ONLINE ›</span>
             </div>
-            <span class="presence-time live">ONLINE</span>
-          </div>
-        `).join("");
+          `;
+        }).join("");
         document.getElementById("onlineUsersList").innerHTML = onlineHTML || `<div style="font-size:12px;color:#888;">Nimeni online</div>`;
 
-        const offlineHTML = offlineUsers.map(u => `
-          <div class="presence-item">
-            <div class="presence-user-left">
-              <span class="status-dot offline"></span>
-              <span class="name">${u.name}</span>
+        const offlineHTML = offlineUsers.map(u => {
+          const receiptHint = u.lastReceiptTI ? ` • 🧾` : "";
+          return `
+            <div class="presence-item" onclick="openColleagueProfile('${u.uid}')" title="Apasă pentru detalii coleg și ultimul bon scanat">
+              <div class="presence-user-left">
+                <span class="status-dot offline"></span>
+                <span class="name">${escapeChatHtml(u.name)}${receiptHint}</span>
+              </div>
+              <span class="presence-time">${formatLastSeen(u.lastMs)} ›</span>
             </div>
-            <span class="presence-time">${formatLastSeen(u.lastMs)}</span>
-          </div>
-        `).join("");
+          `;
+        }).join("");
         document.getElementById("offlineUsersList").innerHTML = offlineHTML || `<div style="font-size:12px;color:#888;">Niciun coleg offline</div>`;
+
+        if (window.renderLeaderboardStatsUI) window.renderLeaderboardStatsUI();
+        if (selectedColleagueUid && document.getElementById("colleagueProfileModal")?.style.display === "block") {
+          window.openColleagueProfile(selectedColleagueUid);
+        }
       });
     }
 
