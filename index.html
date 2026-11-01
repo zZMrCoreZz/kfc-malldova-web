@@ -4,7 +4,12 @@
   <meta charset="UTF-8">
   <title>KFC Feedback Generator | Proxyium Edition</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#E4002B">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="KFC Feedback Pro">
   <link rel="icon" href="https://kfclistenscx.qualtrics.com/CP/Graphic.php?IM=IM_dbC1Qsmkf9X2Bmu">
+  <link rel="apple-touch-icon" href="https://kfclistenscx.qualtrics.com/CP/Graphic.php?IM=IM_dbC1Qsmkf9X2Bmu">
   
   <!-- Fonturi KFC Rebrand 2026: Kentucky Fried Serif & Sans + Material Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -397,7 +402,7 @@
     main {
       max-width: 680px;
       width: 100%;
-      margin: 14px auto 50px auto;
+      margin: 14px auto 60px auto;
       padding: 0 12px;
     }
 
@@ -501,7 +506,7 @@
       white-space: nowrap;
     }
 
-    /* === SELECTOR METODĂ DE CONECTARE (1. AUTO-PROXYIUM PRIMUL) === */
+    /* === SELECTOR METODĂ DE CONECTARE === */
     .mode-selector {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -555,6 +560,34 @@
       line-height: 1.35;
     }
 
+    /* === SELECTOR RAPID RESTAURANT === */
+    .store-pills-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .store-pill-btn {
+      height: 34px;
+      border-radius: 8px;
+      border: 1.5px solid var(--kfc-border);
+      background: var(--kfc-cream);
+      color: var(--kfc-black);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-style: italic;
+      font-size: 11.5px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .store-pill-btn.active {
+      background: var(--kfc-black);
+      color: #ff6b88;
+      border-color: var(--kfc-black);
+    }
+
     /* Inputuri */
     input[type="text"],
     input[type="date"],
@@ -594,7 +627,7 @@
 
     .scan-input-row {
       display: flex;
-      gap: 8px;
+      gap: 6px;
       align-items: center;
     }
 
@@ -653,6 +686,10 @@
     .icon-btn.primary {
       background-color: var(--kfc-red);
       box-shadow: 0 4px 12px rgba(228, 0, 43, 0.22);
+    }
+
+    .icon-btn.dark {
+      background-color: var(--kfc-black);
     }
 
     .icon-btn.danger {
@@ -761,7 +798,7 @@
       flex-shrink: 0;
     }
 
-    /* === PANOU BANCĂ DE IP-URI PROXYIUM === */
+    /* === PANOU BANCĂ DE IP-URI PROXYIUM + AUTO-FILL === */
     .proxy-bank-bar {
       margin-top: 16px;
       padding: 12px;
@@ -821,6 +858,11 @@
       color: var(--kfc-red);
     }
 
+    .proxy-stat-pill.cloud-sync {
+      background: rgba(17, 17, 17, 0.08);
+      color: var(--kfc-black);
+    }
+
     .manage-proxy-btn {
       background: var(--kfc-black);
       color: var(--kfc-white);
@@ -833,6 +875,10 @@
       display: inline-flex;
       align-items: center;
       gap: 4px;
+    }
+
+    .manage-proxy-btn.red-accent {
+      background: var(--kfc-red);
     }
 
     .proxy-manager-drawer {
@@ -861,6 +907,7 @@
       margin: 0 0 8px 0;
       font-size: 11.5px;
       color: var(--kfc-gray);
+      line-height: 1.4;
     }
 
     .verified-ip-chips {
@@ -895,6 +942,21 @@
       text-decoration: line-through;
     }
 
+    .chip-action-x {
+      background: none;
+      border: none;
+      color: inherit;
+      font-weight: 900;
+      font-size: 12px;
+      padding: 0 2px;
+      cursor: pointer;
+      opacity: 0.7;
+    }
+
+    .chip-action-x:hover {
+      opacity: 1;
+    }
+
     .proxy-drawer-actions {
       display: flex;
       gap: 6px;
@@ -917,13 +979,19 @@
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 10px;
       margin-top: 12px;
       padding-top: 12px;
       border-top: 1px dashed var(--kfc-border);
       font-size: 12px;
       font-weight: 600;
       color: var(--kfc-gray);
+    }
+
+    .toggles-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
     }
 
     .toggle-label {
@@ -940,6 +1008,70 @@
       width: 16px;
       height: 16px;
       cursor: pointer;
+    }
+
+    /* === BARĂ AUTOPILOT "DESCHIDE URMĂTORUL DISPONIBIL" === */
+    .autopilot-bar {
+      display: none;
+      margin-top: 16px;
+      background: var(--kfc-black);
+      color: var(--kfc-white);
+      padding: 12px 14px;
+      border-radius: 14px;
+      box-shadow: var(--shadow-md);
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      border-left: 5px solid var(--kfc-red);
+    }
+
+    .autopilot-bar.visible {
+      display: flex;
+    }
+
+    .autopilot-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .autopilot-info strong {
+      font-family: 'Montserrat', sans-serif;
+      font-style: italic;
+      font-weight: 900;
+      font-size: 13px;
+      text-transform: uppercase;
+      color: #ff6b88;
+    }
+
+    .autopilot-info span {
+      font-size: 11.5px;
+      color: #d1d5db;
+      font-weight: 600;
+    }
+
+    .autopilot-cta {
+      background: var(--kfc-red);
+      color: var(--kfc-white);
+      border: none;
+      padding: 11px 16px;
+      border-radius: 10px;
+      font-family: 'Montserrat', sans-serif;
+      font-style: italic;
+      font-weight: 900;
+      font-size: 12.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: var(--shadow-red);
+      transition: transform 0.15s ease;
+    }
+
+    .autopilot-cta:active {
+      transform: scale(0.97);
     }
 
     /* === HEADER REZULTATE === */
@@ -991,7 +1123,7 @@
     }
 
     .link-box.used {
-      opacity: 0.45;
+      opacity: 0.5;
       border-left-color: #888;
       background: #fafafa;
     }
@@ -1069,12 +1201,17 @@
       text-transform: uppercase;
       color: var(--green-ok);
       background: rgba(22, 163, 74, 0.12);
-      padding: 3px 7px;
+      border: 1px solid rgba(22, 163, 74, 0.3);
+      padding: 3px 8px;
       border-radius: 6px;
+      cursor: pointer;
+      user-select: none;
     }
 
     .link-box.used .status-used-tag {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
     }
 
     .link-url {
@@ -1102,7 +1239,6 @@
       gap: 6px;
     }
 
-    /* Aplicat atât pe <a> cât și pe <button> ca să fie mare și roșu peste tot! */
     .btn-primary-native {
       flex: 1;
       width: 100%;
@@ -1324,6 +1460,10 @@
       .datetime-row input[type="date"] {
         grid-column: span 2;
       }
+      .autopilot-cta {
+        width: 100%;
+        justify-content: center;
+      }
     }
   </style>
 </head>
@@ -1338,7 +1478,7 @@
       <div class="kfc-logo-badge">KFC</div>
       <div class="header-title">
         <h1>FEEDBACK <span>PRO</span></h1>
-        <p>Proxyium Edition</p>
+        <p>Proxyium Cloud Edition</p>
       </div>
     </div>
 
@@ -1377,7 +1517,7 @@
   <div id="login-screen" style="display:none;">
     <div class="login-hero-logo">KFC</div>
     <h2>Acces Intern</h2>
-    <p>Autentifică-te cu contul Google pentru a accesa generatorul automat optimizat pentru Proxyium.</p>
+    <p>Autentifică-te cu contul Google pentru a accesa generatorul automat cu sincronizare live între colegi.</p>
     <button class="google-login-cta" onclick="loginWithGoogle()">
       <span class="material-symbols-outlined">account_circle</span>
       Continuă cu Google
@@ -1389,18 +1529,18 @@
     <main>
 
       <div class="hero-banner">
-        <span class="tag">100% PROXYIUM & DIRECT 4G/5G</span>
+        <span class="tag">☁️ CLOUD SYNC LIVE + AUTOPILOT</span>
         <h2>Generează Linkuri Feedback</h2>
-        <p>Restaurantul se ia automat din QR. Fără CroxyProxy — optimizat exclusiv pentru <strong>Proxyium</strong>!</p>
+        <p>Bonurile (TI) și IP-urile Proxyium se sincronizează în timp real între toți colegii online!</p>
       </div>
 
       <div class="control-card">
 
-        <!-- 0. SELECTORUL CELOR 3 METODE (1. AUTO-PROXYIUM PRIMUL, 2. DIRECT 4G/5G AL DOILEA) -->
+        <!-- 0. SELECTORUL CELOR 3 METODE -->
         <div class="field-group">
           <div class="field-label">
             <span>⚡ Alege Metoda de Deschidere</span>
-            <span class="auto-badge">Doar Proxyium</span>
+            <span class="auto-badge">Doar Proxyium & 4G</span>
           </div>
 
           <div class="mode-selector">
@@ -1423,15 +1563,27 @@
           </div>
         </div>
 
-        <!-- 1. Link / QR -->
+        <!-- 1. Link / QR / TI Rapid -->
         <div class="field-group">
           <div class="field-label">
-            <span>1. Scanează QR sau Lipește Bonul</span>
-            <span class="auto-badge">📍 Auto-Restaurant</span>
+            <span>1. Scanează QR, Lipește Link sau Scrie TI</span>
+            <span class="auto-badge">📍 Auto-Restaurant + Auto-IP</span>
+          </div>
+
+          <!-- Selector rapid de restaurant (pentru generare doar cu număr TI sau schimbare rapidă) -->
+          <div class="store-pills-row">
+            <button type="button" class="store-pill-btn active" data-store="373K1" onclick="selectStoreManual('373K1')">373K1</button>
+            <button type="button" class="store-pill-btn" data-store="373K2" onclick="selectStoreManual('373K2')">373K2</button>
+            <button type="button" class="store-pill-btn" data-store="373K3" onclick="selectStoreManual('373K3')">373K3</button>
+            <button type="button" class="store-pill-btn" data-store="373K4" onclick="selectStoreManual('373K4')">373K4</button>
           </div>
 
           <div class="scan-input-row">
-            <input type="text" id="scannedResult" placeholder="Lipește linkul aici sau scanează QR..." autocomplete="off">
+            <input type="text" id="scannedResult" placeholder="Lipește link (KFC / Proxyium) sau scrie direct TI (ex: 4520)..." autocomplete="off">
+
+            <button class="icon-btn dark" onclick="pasteFromClipboard()" title="Lipește rapid din Clipboard">
+              <span class="material-symbols-outlined">content_paste</span>
+            </button>
 
             <button class="icon-btn primary" onclick="startQRScanner()" title="Scanează QR cu camera">
               <span class="material-symbols-outlined">qr_code_scanner</span>
@@ -1477,7 +1629,7 @@
               <span class="material-symbols-outlined">delete</span>
             </button>
 
-            <button class="generate-cta" onclick="generateLinks()">
+            <button class="generate-cta" onclick="generateLinks(false, true)">
               <span>Generează</span>
               <span class="material-symbols-outlined">bolt</span>
             </button>
@@ -1492,18 +1644,22 @@
           </div>
         </div>
 
-        <!-- BANCĂ IP-URI PROXYIUM -->
+        <!-- BANCĂ IP-URI PROXYIUM & SCRIPT AUTO-FILL -->
         <div class="proxy-bank-bar">
           <div class="proxy-bank-top">
-            <span class="proxy-store-indicator">Restaurant din QR: <span id="proxyStoreLabel">373K1</span></span>
-            <div style="display:flex;gap:6px;">
+            <span class="proxy-store-indicator">Restaurant Activ: <span id="proxyStoreLabel">373K1</span></span>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;">
               <button type="button" class="manage-proxy-btn" onclick="pingAllVerifiedIPs()" id="pingBtn">
                 <span class="material-symbols-outlined" style="font-size:15px;">network_check</span>
                 Verifică IP-uri
               </button>
               <button type="button" class="manage-proxy-btn" onclick="toggleProxyDrawer()">
                 <span class="material-symbols-outlined" style="font-size:15px;">dns</span>
-                Bancă Proxyium
+                Bancă IP
+              </button>
+              <button type="button" class="manage-proxy-btn red-accent" onclick="toggleAutoFillDrawer()">
+                <span class="material-symbols-outlined" style="font-size:15px;">magic_button</span>
+                Auto-Fill Sondaj
               </button>
             </div>
           </div>
@@ -1513,9 +1669,10 @@
           </div>
         </div>
 
+        <!-- SERTAR BANCĂ IP-URI PROXYIUM -->
         <div class="proxy-manager-drawer" id="proxyDrawer">
           <h4>➕ Bancă IP-uri Proxyium (<span id="drawerStoreName">373K1</span>)</h4>
-          <p>Aici sunt salvate doar IP-urile reale de <strong>Proxyium</strong>. Când deschizi un sondaj în Proxyium, poți copia linkul lui sus și să-l lipești aici ca să-i salvezi IP-ul:</p>
+          <p>IP-urile de mai jos sunt sincronizate în Cloud cu toți colegii. Poți apăsa pe <strong>✕</strong> lângă un IP pentru a-l dezactiva/reactiva, sau lipește orice link deschis în Proxyium ca să-i extragem automat IP-ul:</p>
           <div class="verified-ip-chips" id="verifiedIpListUI"></div>
           <textarea id="bulkProxyInput" placeholder="Lipește aici orice link deschis în Proxyium (ex: https://185.16.38.103/jfe/...)"></textarea>
           <div class="proxy-drawer-actions">
@@ -1525,14 +1682,44 @@
           </div>
         </div>
 
+        <!-- SERTAR AUTO-FILL CHESTIONAR QUALTRICS -->
+        <div class="proxy-manager-drawer" id="autoFillDrawer">
+          <h4>⚡ Auto-Completare Chestionar KFC (1-Click)</h4>
+          <p>Nu mai pierde timp bifând manual fiecare pagină din sondajul KFC! Folosește scriptul de mai jos: când ești pe pagina sondajului (în Proxyium sau 4G), lipește-l în bara de adrese (sau salvează-l ca <strong>Bookmark / Favorit</strong> în browser) și va bifa automat <strong>„Foarte mulțumit” / „Nu”</strong> până la final!</p>
+          <textarea id="autoFillScriptBox" readonly onclick="this.select()"></textarea>
+          <div class="proxy-drawer-actions">
+            <button class="btn-danger" onclick="copyAutoFillBookmarklet()">📋 Copiază Scriptul Auto-Fill</button>
+            <button class="btn-secondary" onclick="toggleAutoFillDrawer()">Închide</button>
+          </div>
+        </div>
+
+        <!-- OPȚIUNI AUTOMATIZARE -->
         <div class="automation-bar">
-          <label class="toggle-label">
-            <input type="checkbox" id="hideUsedToggle" onchange="generateLinks(true)">
-            <span>Ascunde bonurile (TI) deja folosite</span>
-          </label>
+          <div class="toggles-wrap">
+            <label class="toggle-label">
+              <input type="checkbox" id="hideUsedToggle" onchange="generateLinks(true)">
+              <span>Ascunde bonurile (TI) deja folosite</span>
+            </label>
+            <label class="toggle-label">
+              <input type="checkbox" id="naturalJitterToggle" checked onchange="generateLinks(true, true)">
+              <span>🎲 Ore naturale (variație aleatorie ±1–3 min)</span>
+            </label>
+          </div>
           <span id="usedCountInfo">0 TI folosite</span>
         </div>
 
+      </div>
+
+      <!-- BARA AUTOPILOT: DESCHIDE URMĂTORUL DISPONIBIL CU 1 SINGUR CLICK -->
+      <div class="autopilot-bar" id="autopilotBar">
+        <div class="autopilot-info">
+          <strong id="autopilotNextTitle">🚀 Autopilot Pregătit</strong>
+          <span id="autopilotNextSub">Apasă pentru a deschide primul bon nefolosit</span>
+        </div>
+        <button type="button" class="autopilot-cta" onclick="launchNextAvailableLink()">
+          <span class="material-symbols-outlined">play_arrow</span>
+          <span>Deschide Următorul</span>
+        </button>
       </div>
 
       <div class="results-header" id="resultsHeader">
@@ -1549,7 +1736,7 @@
     <div class="modal-backdrop" onclick="closeDeleteModal()"></div>
     <div class="modal-box">
       <h3>Curățare Linkuri</h3>
-      <p>Vrei să cureți doar lista afișată acum sau să ștergi tot istoricul bonurilor pentru restaurantul detectat?</p>
+      <p>Vrei să cureți doar lista afișată acum sau să ștergi tot istoricul bonurilor (inclusiv din Cloud) pentru restaurantul selectat?</p>
       <div class="modal-actions">
         <button class="btn-secondary" onclick="confirmDelete(false)">Doar lista</button>
         <button class="btn-secondary" onclick="closeDeleteModal()">Anulează</button>
@@ -1566,16 +1753,17 @@
     let qrDetected = false;
     let dateFromLink = false;
     let html5QrCode = null;
+    let isScannerRunning = false;
     let activeStore = "373K1";
-    // Primul mod implicit este acum 'autoproxy' (Auto-Proxyium), exact cum ai cerut!
     let currentLaunchMode = "autoproxy"; // 'autoproxy' | 'direct4g' | 'verifiedip'
     let liveIpStatus = {};
+    let jitterCache = {}; // Păstrează minutele generate per TI ca să nu sară la fiecare filtrare
 
     const VALID_STORES = ["373K1", "373K2", "373K3", "373K4"];
     const CPO_KEY = "aHR0cHM6Ly9jdXN0b21lci5rZmMtbGlzdGVucy5jb20";
     const COOLDOWN_MS = 36 * 60 * 60 * 1000;
 
-    // DOAR IP-URILE PROXYIUM TRIMISE DE TINE (Fără IP-uri de CroxyProxy!)
+    // IP-URILE PROXYIUM VERIFICATE
     const VERIFIED_PROXYIUM_IPS = [
       "185.16.38.103",
       "185.16.38.230",
@@ -1584,11 +1772,16 @@
       "51.38.134.54"
     ];
 
+    // BOOKMARKLET / SCRIPT AUTO-COMPLETARE SONDAJ QUALTRICS KFC
+    const QUALTRICS_AUTOFILL_SCRIPT = `javascript:(function(){const t=setInterval(()=>{try{const r=document.querySelectorAll('tr.ChoiceRow,div.QuestionBody');r.forEach(row=>{const rads=row.querySelectorAll('input[type="radio"],span.q-radio');if(rads.length>0){const first=rads[0];if(!first.checked)first.click();}});const allRads=document.querySelectorAll('input[type="radio"]');if(allRads.length===2){allRads[1].click();}const next=document.getElementById('NextButton')||document.querySelector('input#NextButton,button#NextButton,.NextButton');if(next&&!next.disabled){next.click();}else if(!next){clearInterval(t);}}catch(e){}},650);})();`;
+
     const scannedResultEl = document.getElementById("scannedResult");
     const selectedDateEl = document.getElementById("selectedDate");
     const startTimeEl = document.getElementById("startTime");
     const endTimeEl = document.getElementById("endTime");
     const linkCountEl = document.getElementById("linkCount");
+
+    document.getElementById("autoFillScriptBox").value = QUALTRICS_AUTOFILL_SCRIPT;
 
     function showToast(message, icon = "check_circle") {
       const container = document.getElementById("toast-container");
@@ -1601,7 +1794,7 @@
         toast.style.opacity = "0";
         toast.style.transition = "opacity 0.25s ease";
         setTimeout(() => toast.remove(), 250);
-      }, 2200);
+      }, 2400);
     }
 
     function togglePresenceDropdown(e) {
@@ -1614,7 +1807,15 @@
       if (dd) dd.classList.remove("open");
     });
 
-    // === SCHIMBARE MOD DE DESCHIDERE (1. Auto-Proxyium | 2. Direct 4G/5G | 3. IP Proxyium) ===
+    // === FORMATARE DATĂ LOCALĂ (FĂRĂ BUG-UL UTC DUPĂ MIEZUL NOPȚII) ===
+    function getLocalDateISO(d = new Date()) {
+      const yyyy = d.getFullYear();
+      const mm = String(d.getMonth() + 1).padStart(2, "0");
+      const dd = String(d.getDate()).padStart(2, "0");
+      return `${yyyy}-${mm}-${dd}`;
+    }
+
+    // === SCHIMBARE MOD DE DESCHIDERE ===
     function setLaunchMode(mode) {
       if (!["autoproxy", "direct4g", "verifiedip"].includes(mode)) {
         mode = "autoproxy";
@@ -1640,6 +1841,26 @@
       }
     }
 
+    function selectStoreManual(storeCode) {
+      setActiveStoreAuto(storeCode);
+      const rawInput = scannedResultEl.value.trim();
+      // Dacă în input avem deja un link, îi actualizăm parametrul S= cu noul restaurant
+      if (rawInput.startsWith("http")) {
+        try {
+          const u = new URL(rawInput);
+          if (u.searchParams.has("S")) {
+            u.searchParams.set("S", storeCode);
+            scannedResultEl.value = u.toString();
+            updateReceiptBadge(scannedResultEl.value);
+          }
+        } catch {}
+      } else if (/^\d+$/.test(rawInput)) {
+        updateReceiptBadge(rawInput);
+      }
+      saveAppState();
+      if (rawInput) generateLinks(true);
+    }
+
     function setActiveStoreAuto(storeCode) {
       if (!VALID_STORES.includes(storeCode)) storeCode = "373K1";
       activeStore = storeCode;
@@ -1647,6 +1868,10 @@
       document.getElementById("proxyStoreLabel").innerText = activeStore;
       document.getElementById("drawerStoreName").innerText = activeStore;
       document.getElementById("resultsTitleText").innerText = `Linkuri ${activeStore}`;
+
+      document.querySelectorAll(".store-pill-btn").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.store === activeStore);
+      });
 
       updateUsedCounterUI();
       updateProxyStatsUI();
@@ -1662,16 +1887,39 @@
       if (!dead.includes(ip)) {
         dead.push(ip);
         localStorage.setItem("kfcDeadProxyiumIPs", JSON.stringify(dead));
+        if (window.syncDeadIPsToCloud) window.syncDeadIPsToCloud(dead);
       }
       liveIpStatus[ip] = "dead";
       updateProxyStatsUI();
       renderVerifiedIpChips();
     }
 
-    function getProxyPool() {
+    function toggleIPDeadState(ip) {
+      let dead = getDeadIPs();
+      if (dead.includes(ip)) {
+        dead = dead.filter(item => item !== ip);
+        delete liveIpStatus[ip];
+        showToast(`IP-ul ${ip} a fost reactivat!`, "check_circle");
+      } else {
+        dead.push(ip);
+        liveIpStatus[ip] = "dead";
+        showToast(`IP-ul ${ip} a fost dezactivat!`, "block");
+      }
+      localStorage.setItem("kfcDeadProxyiumIPs", JSON.stringify(dead));
+      if (window.syncDeadIPsToCloud) window.syncDeadIPsToCloud(dead);
+      updateProxyStatsUI();
+      renderVerifiedIpChips();
+      if (scannedResultEl.value.trim()) generateLinks(true);
+    }
+
+    function getAllKnownIPs() {
       const saved = JSON.parse(localStorage.getItem("kfcProxyiumPool") || "[]");
+      return Array.from(new Set([...VERIFIED_PROXYIUM_IPS, ...saved]));
+    }
+
+    function getProxyPool() {
+      const merged = getAllKnownIPs();
       const dead = getDeadIPs();
-      const merged = Array.from(new Set([...VERIFIED_PROXYIUM_IPS, ...saved]));
       const active = merged.filter(ip => !dead.includes(ip));
       return active.length > 0 ? active : VERIFIED_PROXYIUM_IPS;
     }
@@ -1734,11 +1982,17 @@
     function renderVerifiedIpChips() {
       const box = document.getElementById("verifiedIpListUI");
       if (!box) return;
-      const pool = getProxyPool();
-      box.innerHTML = pool.map(ip => {
-        const st = liveIpStatus[ip] || "";
-        const icon = st === "online" ? "🟢" : (st === "dead" ? "🔴" : "🌐");
-        return `<span class="verified-ip-chip ${st}">${icon} ${ip}</span>`;
+      const allIPs = getAllKnownIPs();
+      const dead = getDeadIPs();
+      box.innerHTML = allIPs.map(ip => {
+        const isDead = dead.includes(ip);
+        const st = isDead ? "dead" : (liveIpStatus[ip] || "");
+        const icon = isDead ? "🔴" : (st === "online" ? "🟢" : "🌐");
+        const actionSymbol = isDead ? "↺" : "✕";
+        return `<span class="verified-ip-chip ${st}">
+          ${icon} ${ip}
+          <button type="button" class="chip-action-x" onclick="toggleIPDeadState('${ip}')" title="${isDead ? 'Reactivează IP' : 'Dezactivează IP'}">${actionSymbol}</button>
+        </span>`;
       }).join("");
     }
 
@@ -1782,8 +2036,46 @@
     }
 
     function toggleProxyDrawer() {
+      document.getElementById("autoFillDrawer").classList.remove("open");
       renderVerifiedIpChips();
       document.getElementById("proxyDrawer").classList.toggle("open");
+    }
+
+    function toggleAutoFillDrawer() {
+      document.getElementById("proxyDrawer").classList.remove("open");
+      document.getElementById("autoFillDrawer").classList.toggle("open");
+    }
+
+    function copyAutoFillBookmarklet() {
+      navigator.clipboard.writeText(QUALTRICS_AUTOFILL_SCRIPT).then(() => {
+        showToast("Script Auto-Fill copiat! Lipește-l în pagina sondajului.", "magic_button");
+      }).catch(() => {
+        const box = document.getElementById("autoFillScriptBox");
+        box.select();
+        document.execCommand("copy");
+        showToast("Script Auto-Fill copiat!", "magic_button");
+      });
+    }
+
+    function registerDiscoveredProxyIP(ip, silent = false) {
+      if (!/^(?:\d{1,3}\.){3}\d{1,3}$/.test(ip)) return false;
+      const dead = getDeadIPs().filter(item => item !== ip);
+      localStorage.setItem("kfcDeadProxyiumIPs", JSON.stringify(dead));
+
+      const savedCustom = JSON.parse(localStorage.getItem("kfcProxyiumPool") || "[]");
+      const isNew = !savedCustom.includes(ip) && !VERIFIED_PROXYIUM_IPS.includes(ip);
+      const updatedCustom = Array.from(new Set([...savedCustom, ip]));
+      localStorage.setItem("kfcProxyiumPool", JSON.stringify(updatedCustom));
+
+      if (window.syncPoolToCloud) {
+        window.syncPoolToCloud(updatedCustom);
+      }
+      updateProxyStatsUI();
+      renderVerifiedIpChips();
+      if (isNew && !silent) {
+        showToast(`IP Proxyium nou (${ip}) salvat automat în Bancă!`, "dns");
+      }
+      return isNew;
     }
 
     function addBulkProxies() {
@@ -1796,22 +2088,13 @@
         return;
       }
 
-      const dead = getDeadIPs().filter(ip => !found.includes(ip));
-      localStorage.setItem("kfcDeadProxyiumIPs", JSON.stringify(dead));
-
-      const savedCustom = JSON.parse(localStorage.getItem("kfcProxyiumPool") || "[]");
-      const updatedCustom = Array.from(new Set([...savedCustom, ...found]));
-      localStorage.setItem("kfcProxyiumPool", JSON.stringify(updatedCustom));
-
-      if (window.syncPoolToCloud) {
-        window.syncPoolToCloud(updatedCustom);
-      }
+      found.forEach(ip => registerDiscoveredProxyIP(ip, true));
 
       document.getElementById("bulkProxyInput").value = "";
       updateProxyStatsUI();
       renderVerifiedIpChips();
       generateLinks(true);
-      showToast(`S-au adăugat ${found.length} IP-uri Proxyium!`, "dns");
+      showToast(`S-au adăugat ${found.length} IP-uri Proxyium în Cloud!`, "dns");
     }
 
     function resetProxyCooldowns() {
@@ -1823,6 +2106,9 @@
 
       if (window.clearCloudStoreProxyUsage) {
         window.clearCloudStoreProxyUsage(activeStore);
+      }
+      if (window.syncDeadIPsToCloud) {
+        window.syncDeadIPsToCloud([]);
       }
 
       updateProxyStatsUI();
@@ -1850,17 +2136,45 @@
     }
 
     function markTIUsed(ti, storeCode = activeStore) {
+      const numTi = parseInt(ti);
+      if (isNaN(numTi)) return;
       const bucket = getUsedTIBucket();
       if (!bucket[storeCode]) bucket[storeCode] = [];
-      if (!bucket[storeCode].includes(ti)) {
-        bucket[storeCode].push(ti);
+      if (!bucket[storeCode].includes(numTi)) {
+        bucket[storeCode].push(numTi);
         localStorage.setItem("usedTIByStore", JSON.stringify(bucket));
         updateUsedCounterUI();
+        if (window.syncUsedTIToCloud) {
+          window.syncUsedTIToCloud(storeCode, bucket[storeCode]);
+        }
       }
+      updateAutopilotBarUI();
+    }
+
+    function unmarkTIUsed(ti, storeCode = activeStore, event) {
+      if (event) event.stopPropagation();
+      const numTi = parseInt(ti);
+      const bucket = getUsedTIBucket();
+      if (!bucket[storeCode]) return;
+      bucket[storeCode] = bucket[storeCode].filter(item => item !== numTi);
+      localStorage.setItem("usedTIByStore", JSON.stringify(bucket));
+      updateUsedCounterUI();
+
+      if (window.syncUsedTIToCloud) {
+        window.syncUsedTIToCloud(storeCode, bucket[storeCode]);
+      }
+
+      const card = document.querySelector(`.link-box[data-ti="${numTi}"]`);
+      if (card) {
+        card.classList.remove("used");
+        card.style.display = "";
+      }
+      updateAutopilotBarUI();
+      showToast(`Bonul TI ${numTi} a fost reactivat (Undo)!`, "undo");
     }
 
     function isTIUsed(ti, storeCode = activeStore) {
-      return getUsedTI(storeCode).includes(ti);
+      return getUsedTI(storeCode).includes(parseInt(ti));
     }
 
     function saveAppState() {
@@ -1872,7 +2186,8 @@
         start: startTimeEl.value,
         end: endTimeEl.value,
         count: linkCountEl.value,
-        hideUsed: document.getElementById("hideUsedToggle").checked
+        hideUsed: document.getElementById("hideUsedToggle").checked,
+        naturalJitter: document.getElementById("naturalJitterToggle").checked
       };
       localStorage.setItem("appState", JSON.stringify(state));
     }
@@ -1880,9 +2195,11 @@
     function setDefaultDateTime() {
       if (dateFromLink) return;
       const now = new Date();
-      selectedDateEl.valueAsDate = now;
-      startTimeEl.value = "10:00";
-      endTimeEl.value = now.toTimeString().slice(0, 5);
+      selectedDateEl.value = getLocalDateISO(now);
+      const currentHHMM = now.toTimeString().slice(0, 5);
+      endTimeEl.value = currentHHMM;
+      // Dacă e între 00:00 și 10:00 dimineața, punem startTime 00:01 ca să nu fie după endTime
+      startTimeEl.value = currentHHMM < "10:00" ? "00:01" : "10:00";
     }
 
     function restoreAppState() {
@@ -1902,6 +2219,9 @@
         endTimeEl.value = s.end || "";
         linkCountEl.value = s.count || 10;
         document.getElementById("hideUsedToggle").checked = !!s.hideUsed;
+        if (typeof s.naturalJitter === "boolean") {
+          document.getElementById("naturalJitterToggle").checked = s.naturalJitter;
+        }
 
         setLaunchMode(s.mode || "autoproxy");
         if (s.store) setActiveStoreAuto(s.store);
@@ -1921,17 +2241,42 @@
       }
     }
 
-    function parseLinkData(link) {
-      const url = new URL(link);
+    // Suportă atât link complet KFC / Proxyium, cât și doar număr TI scris direct (ex: "4520")
+    function parseLinkData(inputStr) {
+      const trimmed = inputStr.trim();
+
+      // Cazul 1: Utilizatorul a scris direct doar numărul TI (ex: 4520)
+      if (/^\d{2,10}$/.test(trimmed)) {
+        const dParts = (selectedDateEl.value || getLocalDateISO()).split("-");
+        const formattedDate = dParts.length === 3 ? `${dParts[2]}/${dParts[1]}/${dParts[0]}` : "01/01/2026";
+        const tPart = endTimeEl.value || "12:00";
+        return {
+          S: activeStore,
+          dateTime: `${formattedDate} ${tPart}`,
+          TI: parseInt(trimmed, 10),
+          lang: "RO",
+          discoveredIP: null
+        };
+      }
+
+      // Cazul 2: Link complet (KFC sau Proxyium)
+      const url = new URL(trimmed);
       const params = new URLSearchParams(url.search);
-      let sVal = (params.get("S") || "373K1").toUpperCase();
-      if (!VALID_STORES.includes(sVal)) sVal = "373K1";
+      let sVal = (params.get("S") || activeStore || "373K1").toUpperCase();
+      if (!VALID_STORES.includes(sVal)) sVal = activeStore || "373K1";
+
+      // Verificăm dacă linkul lipit conține un IP de Proxyium în hostname
+      let discoveredIP = null;
+      if (/^(?:\d{1,3}\.){3}\d{1,3}$/.test(url.hostname)) {
+        discoveredIP = url.hostname;
+      }
 
       return {
         S: sVal,
         dateTime: decodeURIComponent(params.get("D") || ""),
-        TI: parseInt(params.get("TI")),
-        lang: params.get("Q_Language") || "RO"
+        TI: parseInt(params.get("TI"), 10),
+        lang: params.get("Q_Language") || "RO",
+        discoveredIP
       };
     }
 
@@ -1944,12 +2289,16 @@
           return false;
         }
 
+        if (d.discoveredIP) {
+          registerDiscoveredProxyIP(d.discoveredIP, false);
+        }
+
         setActiveStoreAuto(d.S);
 
         metaBox.innerHTML = `
           <span class="meta-chip">📍 Restaurant: <strong>${d.S}</strong></span>
           <span class="meta-chip">🧾 TI Bază: <strong>${d.TI}</strong></span>
-          <span class="meta-chip">🕒 Bon: <strong>${d.dateTime}</strong></span>
+          <span class="meta-chip">🕒 Bon: <strong>${d.dateTime || 'Setat manual'}</strong></span>
           <span class="meta-chip">🌐 Limbă: <strong>${d.lang}</strong></span>
         `;
         metaBox.classList.add("active");
@@ -1962,34 +2311,64 @@
 
     function autofillDateTimeFromLink(link) {
       try {
-        const url = new URL(link);
+        const trimmed = link.trim();
+        if (/^\d{2,10}$/.test(trimmed)) {
+          updateReceiptBadge(trimmed);
+          saveAppState();
+          generateLinks(true);
+          return;
+        }
+
+        const url = new URL(trimmed);
+        if (/^(?:\d{1,3}\.){3}\d{1,3}$/.test(url.hostname)) {
+          registerDiscoveredProxyIP(url.hostname, false);
+        }
+
         const sParam = (url.searchParams.get("S") || "").toUpperCase();
         if (VALID_STORES.includes(sParam)) {
           setActiveStoreAuto(sParam);
         }
 
         const dParam = url.searchParams.get("D");
-        if (!dParam) return;
+        if (dParam) {
+          const decoded = decodeURIComponent(dParam);
+          const [datePart, timePart] = decoded.split(" ");
+          if (datePart && timePart) {
+            const [dd, mm, yyyy] = datePart.split("/");
+            selectedDateEl.value = `${yyyy}-${mm}-${dd}`;
+            endTimeEl.value = timePart;
+            if (!startTimeEl.value || startTimeEl.value > timePart) {
+              startTimeEl.value = timePart < "10:00" ? "00:01" : "10:00";
+            }
+            dateFromLink = true;
+          }
+        }
 
-        const decoded = decodeURIComponent(dParam);
-        const [datePart, timePart] = decoded.split(" ");
-        if (!datePart || !timePart) return;
-
-        const [dd, mm, yyyy] = datePart.split("/");
-        selectedDateEl.value = `${yyyy}-${mm}-${dd}`;
-        endTimeEl.value = timePart;
-        if (!startTimeEl.value) startTimeEl.value = "10:00";
-
-        dateFromLink = true;
-        updateReceiptBadge(link);
+        updateReceiptBadge(trimmed);
         saveAppState();
         generateLinks(true);
       } catch {}
     }
 
+    async function pasteFromClipboard() {
+      try {
+        const text = await navigator.clipboard.readText();
+        if (!text || !text.trim()) {
+          showToast("Clipboard-ul este gol!", "warning");
+          return;
+        }
+        scannedResultEl.value = text.trim();
+        autofillDateTimeFromLink(text.trim());
+        showToast("Lipit din Clipboard și procesat automat!", "content_paste");
+      } catch {
+        scannedResultEl.focus();
+        showToast("Apasă lung în căsuță și alege Lipește (Paste).", "info");
+      }
+    }
+
     scannedResultEl.addEventListener("input", () => {
       const val = scannedResultEl.value.trim();
-      if (val.startsWith("http")) {
+      if (val.startsWith("http") || /^\d{2,10}$/.test(val)) {
         autofillDateTimeFromLink(val);
       } else {
         document.getElementById("receiptMeta").classList.remove("active");
@@ -2017,27 +2396,40 @@
       }
     }
 
-    function startQRScanner() {
+    // === SCANNER QR OPTIMIZAT (FĂRĂ INSTANȚE DUBLE + RESIZE IMAGINE MARE) ===
+    async function startQRScanner() {
       const wrap = document.getElementById("qr-scanner-wrap");
       wrap.style.display = "block";
-      html5QrCode = new Html5Qrcode("qr-scanner");
-      html5QrCode.start(
-        { facingMode: "environment" },
-        { fps: 10, qrbox: 250 },
-        qrCodeSuccess
-      ).catch(err => showToast("Eroare cameră: " + err, "error"));
+
+      if (isScannerRunning && html5QrCode) {
+        return;
+      }
+
+      try {
+        if (!html5QrCode) {
+          html5QrCode = new Html5Qrcode("qr-scanner");
+        }
+        isScannerRunning = true;
+        await html5QrCode.start(
+          { facingMode: "environment" },
+          { fps: 12, qrbox: { width: 250, height: 250 } },
+          qrCodeSuccess
+        );
+      } catch (err) {
+        isScannerRunning = false;
+        showToast("Eroare cameră: " + err, "error");
+      }
     }
 
-    function stopQRScanner() {
-      if (html5QrCode) {
-        html5QrCode.stop().then(() => {
-          document.getElementById("qr-scanner-wrap").style.display = "none";
-        }).catch(() => {
-          document.getElementById("qr-scanner-wrap").style.display = "none";
-        });
-      } else {
-        document.getElementById("qr-scanner-wrap").style.display = "none";
+    async function stopQRScanner() {
+      const wrap = document.getElementById("qr-scanner-wrap");
+      if (html5QrCode && isScannerRunning) {
+        try {
+          await html5QrCode.stop();
+        } catch {}
+        isScannerRunning = false;
       }
+      wrap.style.display = "none";
     }
 
     function qrCodeSuccess(decodedText) {
@@ -2048,12 +2440,44 @@
       autofillDateTimeFromLink(decodedText);
     }
 
-    document.getElementById("imageInput").addEventListener("change", function () {
-      const file = this.files[0];
-      if (!file) return;
-      const qr = new Html5Qrcode("qr-scanner");
+    // Redimensionează pozele de 12MP+ de pe telefon ca să fie citite instantaneu
+    function resizeImageForQR(file, maxDim = 1400) {
+      return new Promise((resolve) => {
+        const img = new Image();
+        const url = URL.createObjectURL(file);
+        img.onload = () => {
+          URL.revokeObjectURL(url);
+          if (img.width <= maxDim && img.height <= maxDim) {
+            resolve(file);
+            return;
+          }
+          const scale = Math.min(maxDim / img.width, maxDim / img.height);
+          const canvas = document.createElement("canvas");
+          canvas.width = Math.round(img.width * scale);
+          canvas.height = Math.round(img.height * scale);
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          canvas.toBlob((blob) => {
+            resolve(blob ? new File([blob], file.name, { type: "image/jpeg" }) : file);
+          }, "image/jpeg", 0.9);
+        };
+        img.onerror = () => resolve(file);
+        img.src = url;
+      });
+    }
 
-      qr.scanFile(file, true).then(decodedText => {
+    document.getElementById("imageInput").addEventListener("change", async function () {
+      const rawFile = this.files[0];
+      if (!rawFile) return;
+
+      await stopQRScanner();
+      const optimizedFile = await resizeImageForQR(rawFile);
+
+      if (!html5QrCode) {
+        html5QrCode = new Html5Qrcode("qr-scanner");
+      }
+
+      html5QrCode.scanFile(optimizedFile, true).then(decodedText => {
         qrDetected = true;
         scannedResultEl.value = decodedText;
         showToast("QR extras din imagine!", "image");
@@ -2061,20 +2485,26 @@
       }).catch(() => {
         showToast("Nu s-a detectat niciun cod QR în imagine!", "warning");
       });
+      this.value = "";
     });
 
-    // === GENERARE LINKURI EXCLUSIV PENTRU PROXYIUM & DIRECT 4G/5G ===
-    function generateLinks(silent = false) {
+    // === GENERARE LINKURI CU SUPORT PENTRU ORE NATURALE & AUTOPILOT ===
+    function generateLinks(silent = false, resetJitter = false) {
       const link = scannedResultEl.value.trim();
       const date = selectedDateEl.value;
       const startTime = startTimeEl.value;
       const endTime = endTimeEl.value;
       const count = parseInt(linkCountEl.value);
       const hideUsed = document.getElementById("hideUsedToggle").checked;
+      const useNaturalJitter = document.getElementById("naturalJitterToggle").checked;
 
       if (!link || !date || !startTime || !endTime || !count) {
         if (!silent) showToast("Completează toate câmpurile!", "warning");
         return;
+      }
+
+      if (resetJitter) {
+        jitterCache = {};
       }
 
       let data;
@@ -2082,7 +2512,7 @@
         data = parseLinkData(link);
         if (isNaN(data.TI)) throw new Error("Invalid link");
       } catch {
-        if (!silent) showToast("Linkul introdus nu este un link KFC valid!", "error");
+        if (!silent) showToast("Introdu un link KFC valid sau un număr TI!", "error");
         return;
       }
 
@@ -2098,7 +2528,7 @@
         if (!silent) showToast("Ora de sfârșit nu poate fi înaintea celei de început!", "warning");
         return;
       }
-      if (end > now) {
+      if (end.getTime() > now.getTime() + 60000) {
         if (!silent) showToast("Ora de sfârșit nu poate fi în viitor!", "warning");
         return;
       }
@@ -2109,7 +2539,28 @@
       const availableIPs = getAvailableProxyIPsForStore(storeCode);
       const allPoolIPs = getProxyPool();
 
-      const diff = (end - start) / count;
+      const totalSpanMs = Math.max(0, end.getTime() - start.getTime());
+      const stepMs = count > 1 ? totalSpanMs / (count - 1) : 0;
+
+      // Construim timpii ordonați cronologic (cu variație naturală dacă e bifat)
+      const timestamps = [];
+      for (let i = 0; i < count; i++) {
+        const ti = data.TI - (count - i - 1);
+        const baseMs = start.getTime() + stepMs * i;
+        let finalMs = baseMs;
+
+        if (useNaturalJitter && count > 2 && i > 0 && i < count - 1) {
+          const cacheKey = `${storeCode}_${ti}_${date}_${startTime}_${endTime}_${count}`;
+          if (jitterCache[cacheKey] === undefined) {
+            const maxOffset = Math.min(stepMs * 0.38, 3 * 60 * 1000);
+            jitterCache[cacheKey] = (Math.random() * 2 - 1) * maxOffset;
+          }
+          finalMs = Math.min(end.getTime(), Math.max(start.getTime(), baseMs + jitterCache[cacheKey]));
+        }
+        timestamps.push(finalMs);
+      }
+      timestamps.sort((a, b) => a - b);
+
       let linksHTML = "";
       let visibleCount = 0;
 
@@ -2122,7 +2573,7 @@
         const assignedIP = availableIPs[visibleCount % Math.max(1, availableIPs.length)] || allPoolIPs[i % Math.max(1, allPoolIPs.length)] || "185.16.38.103";
         visibleCount++;
 
-        const time = new Date(start.getTime() + diff * i);
+        const time = new Date(timestamps[i]);
         const dd = String(time.getDate()).padStart(2, "0");
         const mm = String(time.getMonth() + 1).padStart(2, "0");
         const yyyy = time.getFullYear();
@@ -2139,7 +2590,6 @@
         let primaryActionHTML = "";
 
         if (currentLaunchMode === "autoproxy") {
-          // MOD 1 (AUTO-PROXYIUM): Buton mare Roșu pentru lansare Proxyium + Buton pentru IP Proxyium Direct și schimbare IP!
           displayedUrl = decodeURIComponent(originalLink);
           primaryActionHTML = `
             <div class="auto-proxy-row">
@@ -2159,7 +2609,6 @@
             </div>
           `;
         } else if (currentLaunchMode === "direct4g") {
-          // MOD 2 (DIRECT 4G/5G)
           displayedUrl = decodeURIComponent(originalLink);
           primaryActionHTML = `
             <div class="auto-proxy-row">
@@ -2170,7 +2619,6 @@
             </div>
           `;
         } else {
-          // MOD 3 (IP PROXYIUM DIRECT)
           displayedUrl = proxyDirectUrl;
           primaryActionHTML = `
             <div class="auto-proxy-row">
@@ -2205,7 +2653,9 @@
                 <span class="time-badge">🕒 ${hh}:${mi}</span>
                 <span class="ip-badge">🌐 <span class="ip-text">${assignedIP}</span></span>
               </div>
-              <span class="status-used-tag">✓ FOLOSIT</span>
+              <span class="status-used-tag" onclick="unmarkTIUsed(${ti}, '${storeCode}', event)" title="Apasă pentru a debifa (Undo)">
+                ✓ FOLOSIT ↩
+              </span>
             </div>
 
             <a class="link-url" href="${currentLaunchMode === 'verifiedip' ? proxyDirectUrl : originalLink}" target="_blank" rel="noopener" onclick="onNativeLinkClick(this, ${currentLaunchMode === 'verifiedip'})">${displayedUrl}</a>
@@ -2213,7 +2663,6 @@
             <div class="link-actions">
               ${primaryActionHTML}
 
-              <!-- Rândul de jos: Acțiuni rapide (Direct / Proxyium / Copie) -->
               <div class="action-row-3">
                 <a class="action-btn" href="${originalLink}" target="_blank" rel="noopener" onclick="onNativeLinkClick(this, false)">
                   <span class="material-symbols-outlined">open_in_new</span> Direct
@@ -2236,8 +2685,67 @@
       document.getElementById("resultsTitleText").innerText = `Linkuri ${storeCode}`;
       document.getElementById("resultsStats").innerText = `${visibleCount} din ${count} afișate`;
 
+      updateAutopilotBarUI();
+
       if (!silent) {
         showToast(`S-au generat ${visibleCount} linkuri pentru ${storeCode}!`, "bolt");
+      }
+    }
+
+    // === BARA AUTOPILOT (1-CLICK PE URMĂTORUL BON NEFOLOSIT) ===
+    function updateAutopilotBarUI() {
+      const bar = document.getElementById("autopilotBar");
+      const allCards = Array.from(document.querySelectorAll(".link-box"));
+      if (allCards.length === 0) {
+        bar.classList.remove("visible");
+        return;
+      }
+
+      const unusedCards = allCards.filter(c => !c.classList.contains("used") && c.style.display !== "none");
+      bar.classList.add("visible");
+
+      const titleEl = document.getElementById("autopilotNextTitle");
+      const subEl = document.getElementById("autopilotNextSub");
+
+      if (unusedCards.length === 0) {
+        titleEl.innerText = "🎉 Toate bonurile din listă sunt completate!";
+        subEl.innerText = "Generează o listă nouă sau scanează alt bon.";
+      } else {
+        const nextCard = unusedCards[0];
+        const nextTi = nextCard.dataset.ti;
+        const nextIp = nextCard.dataset.ip;
+        titleEl.innerText = `🚀 Următorul: TI ${nextTi} (${unusedCards.length} rămase)`;
+        subEl.innerText = currentLaunchMode === "direct4g"
+          ? `Se va deschide Direct 4G/5G`
+          : `IP asignat: ${nextIp} • 1-Click Launch`;
+      }
+    }
+
+    function launchNextAvailableLink() {
+      const unusedCards = Array.from(document.querySelectorAll(".link-box")).filter(
+        c => !c.classList.contains("used") && c.style.display !== "none"
+      );
+      if (unusedCards.length === 0) {
+        showToast("Nu mai sunt bonuri nefolosite în lista curentă!", "celebration");
+        return;
+      }
+
+      const card = unusedCards[0];
+      const ti = parseInt(card.dataset.ti);
+      const storeCode = card.dataset.s || activeStore;
+      const origLink = card.dataset.orig;
+      const proxyLink = card.dataset.proxy;
+
+      card.scrollIntoView({ behavior: "smooth", block: "center" });
+
+      if (currentLaunchMode === "autoproxy") {
+        launchViaProxyium(origLink, ti, storeCode, card);
+      } else if (currentLaunchMode === "direct4g") {
+        onNativeLinkClick(card, false);
+        window.open(origLink, "_blank", "noopener");
+      } else {
+        onNativeLinkClick(card, true);
+        window.open(proxyLink, "_blank", "noopener");
       }
     }
 
@@ -2260,10 +2768,10 @@
         } else {
           card.classList.add("used");
         }
+        updateAutopilotBarUI();
       }, 150);
     }
 
-    // Lansează EXCLUSIV Proxyium.com și copiază automat linkul în clipboard
     function launchViaProxyium(origLink, ti, storeCode, btnEl) {
       const decodedLink = decodeURIComponent(origLink);
       navigator.clipboard.writeText(decodedLink).catch(() => {});
@@ -2277,6 +2785,7 @@
           card.classList.add("used");
         }
       }
+      updateAutopilotBarUI();
 
       showToast(`TI ${ti} copiat! Lipește-l în Proxyium.`, "language");
       window.open("https://www.proxyium.com", "_blank");
@@ -2299,6 +2808,7 @@
         } else {
           card.classList.add("used");
         }
+        updateAutopilotBarUI();
         showToast(`Linkul TI ${ti} a fost copiat!`, "content_copy");
       });
     }
@@ -2344,6 +2854,7 @@
         linkAnchor.innerText = newProxyUrl;
       }
 
+      updateAutopilotBarUI();
       showToast(banOldIP ? `IP ${oldIP} scos! Înlocuit cu ${nextIP}` : `IP Proxyium schimbat în ${nextIP}`, "sync");
     }
 
@@ -2360,16 +2871,21 @@
         const bucket = getUsedTIBucket();
         bucket[activeStore] = [];
         localStorage.setItem("usedTIByStore", JSON.stringify(bucket));
+        if (window.syncUsedTIToCloud) {
+          window.syncUsedTIToCloud(activeStore, []);
+        }
         document.getElementById("links").innerHTML = "";
         document.getElementById("resultsHeader").classList.remove("visible");
+        document.getElementById("autopilotBar").classList.remove("visible");
         updateUsedCounterUI();
         closeDeleteModal();
-        showToast(`Istoricul TI pentru ${activeStore} a fost șters!`, "delete_forever");
+        showToast(`Istoricul TI pentru ${activeStore} a fost șters peste tot!`, "delete_forever");
         return;
       }
 
       document.getElementById("links").innerHTML = "";
       document.getElementById("resultsHeader").classList.remove("visible");
+      document.getElementById("autopilotBar").classList.remove("visible");
       closeDeleteModal();
       showToast("Lista afișată a fost curățată!", "check");
     }
@@ -2377,10 +2893,10 @@
     restoreAppState();
   </script>
 
-  <!-- Script Firebase: Autentificare + Prezență Live + Sincronizare IP-uri Proxyium -->
+  <!-- Script Firebase: Autentificare + Prezență Live + Sincronizare Live TI & IP-uri Proxyium -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
-    import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
+    import { getAuth, signInWithPopup, signInWithRedirect, getRedirectResult, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
     import { getFirestore, doc, setDoc, getDoc, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
 
     const firebaseConfig = {
@@ -2399,13 +2915,23 @@
 
     let presenceInterval = null;
     let unsubscribeUsers = null;
+    let unsubscribePool = null;
+    let unsubscribeStoreListeners = [];
     let currentUserUid = null;
+
+    // Verificăm rezultatul redirect-ului pe mobil
+    getRedirectResult(auth).catch(() => {});
 
     window.loginWithGoogle = async () => {
       try {
         await signInWithPopup(auth, provider);
       } catch (error) {
-        console.error("Login error:", error);
+        if (error?.code === "auth/popup-blocked" || error?.code === "auth/cancelled-popup-request" || error?.code === "auth/operation-not-supported-in-this-environment") {
+          showToast("Se redirecționează către Google Login...", "login");
+          await signInWithRedirect(auth, provider);
+        } else {
+          showToast("Eroare autentificare: " + (error?.message || "Încearcă din nou"), "error");
+        }
       }
     };
 
@@ -2500,11 +3026,23 @@
       });
     }
 
+    // === CLOUD SYNC FUNCTIONS (IP-URI + TI FOLOSITE + DEAD IPS) ===
     window.syncStoreProxyToCloud = async (storeCode, ip, timestamp) => {
       try {
         const ref = doc(db, "settings", `proxyTracker_${storeCode}`);
         await setDoc(ref, {
           usage: { [ip]: timestamp }
+        }, { merge: true });
+      } catch {}
+    };
+
+    window.syncUsedTIToCloud = async (storeCode, usedArray) => {
+      try {
+        const ref = doc(db, "settings", `proxyTracker_${storeCode}`);
+        // Păstrăm ultimele 500 de TI-uri ca documentul să rămână rapid
+        const trimmed = Array.from(new Set(usedArray)).slice(-500);
+        await setDoc(ref, {
+          usedTI: trimmed
         }, { merge: true });
       } catch {}
     };
@@ -2516,34 +3054,96 @@
       } catch {}
     };
 
-    window.clearCloudStoreProxyUsage = async (storeCode) => {
+    window.syncDeadIPsToCloud = async (deadArray) => {
       try {
-        const ref = doc(db, "settings", `proxyTracker_${storeCode}`);
-        await setDoc(ref, { usage: {} });
+        const ref = doc(db, "settings", "proxyiumCustomPool");
+        await setDoc(ref, { dead: deadArray }, { merge: true });
       } catch {}
     };
 
-    async function loadCloudProxiesForAllStores() {
+    window.clearCloudStoreProxyUsage = async (storeCode) => {
       try {
-        const poolSnap = await getDoc(doc(db, "settings", "proxyiumCustomPool"));
-        if (poolSnap.exists() && Array.isArray(poolSnap.data().pool)) {
+        const ref = doc(db, "settings", `proxyTracker_${storeCode}`);
+        await setDoc(ref, { usage: {} }, { merge: true });
+      } catch {}
+    };
+
+    // === ASCULTARE ÎN TIMP REAL (onSnapshot) PENTRU BANCĂ IP ȘI BONURI TI PE TOATE RESTAURANTELE ===
+    function startRealtimeCloudSync() {
+      if (unsubscribePool) unsubscribePool();
+      unsubscribeStoreListeners.forEach(unsub => unsub());
+      unsubscribeStoreListeners = [];
+
+      // 1. Listener în timp real pe Banca de IP-uri Proxyium
+      unsubscribePool = onSnapshot(doc(db, "settings", "proxyiumCustomPool"), (snap) => {
+        if (!snap.exists()) return;
+        const data = snap.data();
+        if (Array.isArray(data.pool)) {
           const localPool = JSON.parse(localStorage.getItem("kfcProxyiumPool") || "[]");
-          const merged = Array.from(new Set([...localPool, ...poolSnap.data().pool]));
+          const merged = Array.from(new Set([...localPool, ...data.pool]));
           localStorage.setItem("kfcProxyiumPool", JSON.stringify(merged));
         }
-
-        const localAll = JSON.parse(localStorage.getItem("kfcProxyUsageByStore") || "{}");
-        for (const st of ["373K1", "373K2", "373K3", "373K4"]) {
-          const snap = await getDoc(doc(db, "settings", `proxyTracker_${st}`));
-          if (snap.exists() && snap.data().usage) {
-            localAll[st] = { ...(localAll[st] || {}), ...snap.data().usage };
-          }
+        if (Array.isArray(data.dead)) {
+          localStorage.setItem("kfcDeadProxyiumIPs", JSON.stringify(data.dead));
         }
-        localStorage.setItem("kfcProxyUsageByStore", JSON.stringify(localAll));
-
         if (window.updateProxyStatsUI) window.updateProxyStatsUI();
-        if (window.generateLinks) window.generateLinks(true);
-      } catch {}
+        if (window.renderVerifiedIpChips) window.renderVerifiedIpChips();
+      });
+
+      // 2. Listener în timp real pe fiecare restaurant (IP-uri folosite + Bonuri TI folosite de colegi)
+      const initialSyncDone = {};
+      ["373K1", "373K2", "373K3", "373K4"].forEach(st => {
+        const unsub = onSnapshot(doc(db, "settings", `proxyTracker_${st}`), (snap) => {
+          if (!snap.exists()) return;
+          const data = snap.data();
+
+          // Sincronizare IP-uri folosite
+          if (data.usage) {
+            const localAll = JSON.parse(localStorage.getItem("kfcProxyUsageByStore") || "{}");
+            localAll[st] = data.usage;
+            localStorage.setItem("kfcProxyUsageByStore", JSON.stringify(localAll));
+          }
+
+          // Sincronizare Bonuri TI folosite
+          if (Array.isArray(data.usedTI)) {
+            const bucket = JSON.parse(localStorage.getItem("usedTIByStore") || "{}");
+            const cloudTI = data.usedTI.map(Number).filter(n => !isNaN(n));
+
+            if (!initialSyncDone[st]) {
+              initialSyncDone[st] = true;
+              const localTI = (bucket[st] || []).map(Number).filter(n => !isNaN(n));
+              const mergedTI = Array.from(new Set([...localTI, ...cloudTI]));
+              bucket[st] = mergedTI;
+              if (mergedTI.length > cloudTI.length && window.syncUsedTIToCloud) {
+                window.syncUsedTIToCloud(st, mergedTI);
+              }
+            } else {
+              bucket[st] = cloudTI;
+            }
+
+            localStorage.setItem("usedTIByStore", JSON.stringify(bucket));
+            const activeUsedSet = bucket[st] || [];
+
+            // Actualizăm instantaneu cardurile deja afișate pe ecran fără să stricăm scroll-ul
+            const hideUsed = document.getElementById("hideUsedToggle")?.checked;
+            document.querySelectorAll(`.link-box[data-s="${st}"]`).forEach(card => {
+              const cardTi = parseInt(card.dataset.ti);
+              if (activeUsedSet.includes(cardTi)) {
+                card.classList.add("used");
+                if (hideUsed) card.style.display = "none";
+              } else {
+                card.classList.remove("used");
+                card.style.display = "";
+              }
+            });
+          }
+
+          if (window.updateUsedCounterUI) window.updateUsedCounterUI();
+          if (window.updateProxyStatsUI) window.updateProxyStatsUI();
+          if (window.updateAutopilotBarUI) window.updateAutopilotBarUI();
+        });
+        unsubscribeStoreListeners.push(unsub);
+      });
     }
 
     onAuthStateChanged(auth, async (user) => {
@@ -2551,6 +3151,8 @@
         currentUserUid = null;
         if (presenceInterval) clearInterval(presenceInterval);
         if (unsubscribeUsers) unsubscribeUsers();
+        if (unsubscribePool) unsubscribePool();
+        unsubscribeStoreListeners.forEach(unsub => unsub());
 
         nicknamePill.classList.remove("visible");
         protectedContent.style.display = "none";
@@ -2589,7 +3191,7 @@
       presenceInterval = setInterval(() => setMyPresence(true), 30000);
 
       startListeningPresence();
-      loadCloudProxiesForAllStores();
+      startRealtimeCloudSync();
 
       nicknameDiv.innerHTML = `<strong>${user.displayName}</strong>`;
       nicknamePill.classList.add("visible");
