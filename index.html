@@ -10,6 +10,25 @@
   <meta name="apple-mobile-web-app-title" content="KFC Feedback Pro">
   <link rel="icon" href="https://kfclistenscx.qualtrics.com/CP/Graphic.php?IM=IM_dbC1Qsmkf9X2Bmu">
   <link rel="apple-touch-icon" href="https://kfclistenscx.qualtrics.com/CP/Graphic.php?IM=IM_dbC1Qsmkf9X2Bmu">
+  <!-- PWA: aplicație instalabilă direct dintr-un singur fișier Index.html -->
+  <link rel="manifest" href='data:application/manifest+json,{"name":"KFC Feedback Pro","short_name":"KFC Pro","start_url":".","display":"standalone","background_color":"#F7F5F0","theme_color":"#E4002B","icons":[{"src":"https://kfclistenscx.qualtrics.com/CP/Graphic.php?IM=IM_dbC1Qsmkf9X2Bmu","sizes":"192x192","type":"image/png"}]}'>
+  <meta name="mobile-web-app-capable" content="yes">
+  <!-- Aplicăm tema (Auto / Întunecat / Luminos) înainte de randare ca să nu clipească ecranul -->
+  <script>
+    (function () {
+      try {
+        var pref = localStorage.getItem("kfcThemePref");
+        if (!pref) {
+          var legacy = localStorage.getItem("kfcDarkTheme");
+          pref = legacy === "1" ? "dark" : (legacy === "0" ? "light" : "auto");
+        }
+        var dark = pref === "dark" || (pref === "auto" && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+        if (dark) document.documentElement.classList.add("pre-dark");
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://firestore.googleapis.com" crossorigin>
   
   <!-- Fonturi KFC Rebrand 2026: Kentucky Fried Serif & Sans + Material Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -37,7 +56,8 @@
       --radius-sm: 8px;
     }
 
-    body.dark-theme {
+    body.dark-theme,
+    html.pre-dark body {
       --kfc-black: #F3F4F6;
       --kfc-dark: #18181B;
       --kfc-cream: #121215;
@@ -71,6 +91,205 @@
     body.dark-theme .toast {
       background: #23232B;
       color: #FFFFFF;
+    }
+
+    /* === SKELETON LOADING (cât se încarcă Firebase / autentificarea) === */
+    #appSkeleton {
+      max-width: 680px;
+      width: 100%;
+      margin: 14px auto 60px auto;
+      padding: 0 12px;
+    }
+
+    .sk-block {
+      background: linear-gradient(90deg, var(--kfc-border) 0%, var(--kfc-white) 50%, var(--kfc-border) 100%);
+      background-size: 200% 100%;
+      animation: skShimmer 1.2s ease-in-out infinite;
+      border-radius: var(--radius-lg);
+      margin-bottom: 14px;
+    }
+
+    @keyframes skShimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* === AVATARE GOOGLE === */
+    .avatar-img {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      background: var(--kfc-red);
+    }
+
+    .avatar-fallback {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--kfc-red);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 900;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .colleague-avatar img {
+      width: 100%;
+      height: 100%;
+      border-radius: 12px;
+      object-fit: cover;
+    }
+
+    /* === CHAT: „SCRIE...”, MESAJ FIXAT, BUTON FIXARE === */
+    .chat-typing-line {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--kfc-gray);
+      padding: 0 12px 4px 12px;
+      background: var(--kfc-cream);
+      min-height: 0;
+      flex-shrink: 0;
+    }
+
+    .chat-typing-line:empty {
+      display: none;
+    }
+
+    .chat-pinned-bar {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 7px 12px;
+      background: var(--kfc-red-soft);
+      border-bottom: 1px solid var(--kfc-border);
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--kfc-black);
+      flex-shrink: 0;
+    }
+
+    .chat-pinned-bar.visible {
+      display: flex;
+    }
+
+    .chat-pinned-bar button {
+      background: none;
+      border: none;
+      color: var(--kfc-red);
+      font-weight: 900;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .chat-msg-actions {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+
+    .chat-mini-btn {
+      background: none;
+      border: none;
+      padding: 0 2px;
+      cursor: pointer;
+      font-size: 11px;
+      opacity: 0.55;
+      color: inherit;
+    }
+
+    .chat-mini-btn:hover {
+      opacity: 1;
+    }
+
+    /* === GRAFIC STATISTICI 7 ZILE === */
+    .stats-chart {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+      align-items: end;
+      height: 110px;
+      padding-top: 6px;
+    }
+
+    .stats-bar-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 3px;
+      height: 100%;
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--kfc-gray);
+    }
+
+    .stats-bar {
+      width: 100%;
+      max-width: 30px;
+      min-height: 3px;
+      border-radius: 6px 6px 3px 3px;
+      background: var(--kfc-red);
+      transition: height 0.4s ease;
+    }
+
+    .stats-bar.today {
+      background: #15803d;
+    }
+
+    .stats-summary {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11.5px;
+      font-weight: 800;
+      margin-top: 8px;
+    }
+
+    /* === ANIMAȚII FINE === */
+    .link-box {
+      animation: cardIn 0.22s ease both;
+    }
+
+    @keyframes cardIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    button, .mode-btn, .preset-btn, .opt-action-btn {
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+
+    .offline-banner {
+      display: none;
+      position: fixed;
+      top: 66px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1500;
+      background: #111;
+      color: #fff;
+      font-size: 11.5px;
+      font-weight: 800;
+      padding: 6px 12px;
+      border-radius: 999px;
+      box-shadow: var(--shadow-md);
+    }
+
+    .offline-banner.visible {
+      display: block;
     }
 
     * {
@@ -1404,14 +1623,6 @@
       box-shadow: 0 4px 12px rgba(228, 0, 43, 0.22);
     }
 
-    .icon-btn.dark {
-      background-color: var(--kfc-black);
-    }
-
-    .icon-btn.danger {
-      background-color: #2b2b2b;
-    }
-
     .material-symbols-outlined {
       font-size: 21px;
       line-height: 1;
@@ -1514,39 +1725,7 @@
       flex-shrink: 0;
     }
 
-    /* === PANOU BANCĂ DE IP-URI PROXYIUM + AUTO-FILL === */
-    .proxy-bank-bar {
-      margin-top: 16px;
-      padding: 12px;
-      background: var(--kfc-cream);
-      border-radius: 12px;
-      border: 1.5px solid var(--kfc-border);
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .proxy-bank-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-
-    .proxy-store-indicator {
-      font-family: 'Montserrat', sans-serif;
-      font-style: italic;
-      font-weight: 900;
-      font-size: 12px;
-      color: var(--kfc-black);
-      text-transform: uppercase;
-    }
-
-    .proxy-store-indicator span {
-      color: var(--kfc-red);
-    }
-
+    /* === BANCĂ DE IP-URI PROXYIUM (în fereastra Opțiuni) === */
     .proxy-bank-info {
       display: flex;
       align-items: center;
@@ -1572,11 +1751,6 @@
     .proxy-stat-pill.cooldown {
       background: rgba(228, 0, 43, 0.1);
       color: var(--kfc-red);
-    }
-
-    .proxy-stat-pill.cloud-sync {
-      background: rgba(17, 17, 17, 0.08);
-      color: var(--kfc-black);
     }
 
     .manage-proxy-btn {
@@ -2188,6 +2362,9 @@
   <!-- Dungile KFC sus -->
   <div class="kfc-stripes"></div>
 
+  <!-- Banner când telefonul nu are internet -->
+  <div class="offline-banner" id="offlineBanner">📴 Fără internet — modificările se sincronizează automat când revine conexiunea</div>
+
   <!-- Header Fixed Permanent -->
   <header id="pageHeader">
     <div class="brand-wrap">
@@ -2231,6 +2408,13 @@
   </header>
 
   <!-- Ecran Autentificare -->
+  <!-- SKELETON LOADING: vizibil până răspunde Firebase Auth -->
+  <div id="appSkeleton" aria-hidden="true">
+    <div class="sk-block" style="height:96px;"></div>
+    <div class="sk-block" style="height:360px;"></div>
+    <div class="sk-block" style="height:70px;"></div>
+  </div>
+
   <div id="login-screen" style="display:none;">
     <div class="login-hero-logo">KFC</div>
     <h2>Acces Intern</h2>
@@ -2429,7 +2613,7 @@
         </div>
       </div>
       <div class="chat-header-actions">
-        <button type="button" class="chat-head-btn" onclick="clearTeamChatHistory()" title="Șterge istoricul conversației">
+        <button type="button" class="chat-head-btn" id="chatClearBtn" style="display:none;" onclick="clearTeamChatHistory()" title="Șterge istoricul conversației (doar Admin)">
           <span class="material-symbols-outlined" style="font-size:17px;">delete_sweep</span>
         </button>
         <button type="button" class="chat-head-btn" onclick="toggleTeamChat()" title="Închide Chat">
@@ -2438,9 +2622,18 @@
       </div>
     </div>
 
+    <!-- MESAJ FIXAT (PIN) -->
+    <div class="chat-pinned-bar" id="chatPinnedBar">
+      <span id="chatPinnedText">📌</span>
+      <button type="button" onclick="unpinChatMessage()" title="Scoate mesajul fixat">✕</button>
+    </div>
+
     <div class="chat-messages" id="chatMessagesBox">
       <div class="chat-empty">Niciun mesaj încă. Salută-ți colegii! 👋</div>
     </div>
+
+    <!-- INDICATOR „SCRIE...” -->
+    <div class="chat-typing-line" id="chatTypingLine"></div>
 
     <!-- MESAJE RAPIDE CU 1 CLICK + TRIMITE BONUL ÎN CHAT -->
     <div class="chat-quick-bar">
@@ -2556,6 +2749,16 @@
         <div class="leader-list" id="colleagueLeaderboardUI"></div>
       </div>
 
+      <!-- 1b. STATISTICILE MELE PE ULTIMELE 7 ZILE -->
+      <div class="options-section">
+        <div class="options-section-title">
+          <span>📈 Statisticile Mele (7 zile)</span>
+          <span style="font-size:10.5px;color:var(--kfc-gray);font-style:normal;">Bonuri completate</span>
+        </div>
+        <div class="stats-chart" id="myStatsChartUI"></div>
+        <div class="stats-summary" id="myStatsSummaryUI"></div>
+      </div>
+
       <!-- 2. BANCĂ IP-URI PROXYIUM & VERIFICARE VITEZĂ -->
       <div class="options-section">
         <div class="options-section-title">
@@ -2596,12 +2799,20 @@
         </div>
         <div class="options-grid-2">
           <button type="button" class="opt-action-btn" onclick="toggleDarkTheme()">
-            <span class="material-symbols-outlined" id="themeToggleIcon">dark_mode</span>
-            <span id="themeToggleLabel">Mod Întunecat</span>
+            <span class="material-symbols-outlined" id="themeToggleIcon">brightness_auto</span>
+            <span id="themeToggleLabel">Temă: Auto</span>
           </button>
           <button type="button" class="opt-action-btn" onclick="toggleSoundAndHaptic()">
             <span class="material-symbols-outlined" id="soundToggleIcon">volume_up</span>
             <span id="soundToggleLabel">Sunet: Pornit</span>
+          </button>
+          <button type="button" class="opt-action-btn" onclick="toggleChatNotifications()">
+            <span class="material-symbols-outlined" id="notifToggleIcon">notifications_off</span>
+            <span id="notifToggleLabel">Notificări: Oprite</span>
+          </button>
+          <button type="button" class="opt-action-btn" id="installAppBtn" onclick="installPwaApp()">
+            <span class="material-symbols-outlined">install_mobile</span>
+            <span>Instalează Aplicația</span>
           </button>
           <button type="button" class="opt-action-btn" onclick="copyAutoFillBookmarklet()">
             <span class="material-symbols-outlined">magic_button</span>
@@ -2726,27 +2937,189 @@
       showToast(nextMuted ? "Sunetul și vibrațiile au fost oprite!" : "Sunetul și vibrațiile sunt active!", nextMuted ? "volume_off" : "volume_up");
     }
 
-    function updateDarkThemeUI() {
-      const isDark = document.body.classList.contains("dark-theme");
+    function getThemePref() {
+      const pref = localStorage.getItem("kfcThemePref");
+      if (pref === "dark" || pref === "light" || pref === "auto") return pref;
+      const legacy = localStorage.getItem("kfcDarkTheme");
+      return legacy === "1" ? "dark" : (legacy === "0" ? "light" : "auto");
+    }
+
+    function applyThemeFromPref() {
+      const pref = getThemePref();
+      const sysDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const shouldBeDark = pref === "dark" || (pref === "auto" && sysDark);
+      document.documentElement.classList.remove("pre-dark");
+      document.body.classList.toggle("dark-theme", shouldBeDark);
+
       const icon = document.getElementById("themeToggleIcon");
       const lbl = document.getElementById("themeToggleLabel");
-      if (icon) icon.innerText = isDark ? "light_mode" : "dark_mode";
-      if (lbl) lbl.innerText = isDark ? "Mod Luminos" : "Mod Întunecat";
+      if (icon && lbl) {
+        if (pref === "auto") {
+          icon.innerText = "brightness_auto";
+          lbl.innerText = "Temă: Auto";
+        } else if (pref === "dark") {
+          icon.innerText = "dark_mode";
+          lbl.innerText = "Mod Întunecat";
+        } else {
+          icon.innerText = "light_mode";
+          lbl.innerText = "Mod Luminos";
+        }
+      }
     }
 
     function toggleDarkTheme() {
-      const isDark = document.body.classList.toggle("dark-theme");
-      localStorage.setItem("kfcDarkTheme", isDark ? "1" : "0");
-      updateDarkThemeUI();
+      const cur = getThemePref();
+      const next = cur === "auto" ? "dark" : (cur === "dark" ? "light" : "auto");
+      localStorage.setItem("kfcThemePref", next);
+      localStorage.setItem("kfcDarkTheme", next === "dark" ? "1" : "0");
+      applyThemeFromPref();
       triggerHaptic(20);
+      const msg = next === "auto" ? "Temă automată (după telefon)!" : (next === "dark" ? "Mod Întunecat activat!" : "Mod Luminos activat!");
+      showToast(msg, "contrast");
+    }
+
+    if (window.matchMedia) {
+      try {
+        window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
+          if (getThemePref() === "auto") applyThemeFromPref();
+        });
+      } catch {}
+    }
+
+    // === NOTIFICĂRI BROWSER PENTRU MESAJE CHAT ===
+    function isChatNotifEnabled() {
+      return localStorage.getItem("kfcChatNotif") === "1" && ("Notification" in window) && Notification.permission === "granted";
+    }
+
+    function updateChatNotifUI() {
+      const enabled = isChatNotifEnabled();
+      const icon = document.getElementById("notifToggleIcon");
+      const lbl = document.getElementById("notifToggleLabel");
+      if (icon) icon.innerText = enabled ? "notifications_active" : "notifications_off";
+      if (lbl) lbl.innerText = enabled ? "Notificări: Pornite" : "Notificări: Oprite";
+    }
+
+    async function toggleChatNotifications() {
+      if (!("Notification" in window)) {
+        showToast("Acest browser nu suportă notificări native!", "warning");
+        return;
+      }
+      if (isChatNotifEnabled()) {
+        localStorage.setItem("kfcChatNotif", "0");
+        updateChatNotifUI();
+        showToast("Notificările pentru chat au fost oprite.", "notifications_off");
+        return;
+      }
+      const perm = await Notification.requestPermission();
+      if (perm === "granted") {
+        localStorage.setItem("kfcChatNotif", "1");
+        updateChatNotifUI();
+        triggerHaptic(25);
+        showToast("Notificările pentru chat sunt active!", "notifications_active");
+      } else {
+        localStorage.setItem("kfcChatNotif", "0");
+        updateChatNotifUI();
+        showToast("Permisiunea pentru notificări a fost refuzată în browser.", "warning");
+      }
+    }
+
+    function sendBrowserChatNotification(author, text) {
+      if (!isChatNotifEnabled() || document.visibilityState === "visible") return;
+      try {
+        new Notification(`💬 ${author} (KFC Chat)`, {
+          body: text,
+          icon: "https://kfclistenscx.qualtrics.com/CP/Graphic.php?IM=IM_dbC1Qsmkf9X2Bmu",
+          tag: "kfc-team-chat"
+        });
+      } catch {}
+    }
+
+    // === PWA INSTALL & OFFLINE BANNER ===
+    let deferredPwaPrompt = null;
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredPwaPrompt = e;
+    });
+
+    async function installPwaApp() {
+      triggerHaptic(25);
+      if (deferredPwaPrompt) {
+        deferredPwaPrompt.prompt();
+        await deferredPwaPrompt.userChoice.catch(() => {});
+        deferredPwaPrompt = null;
+      } else {
+        showToast("Pe telefon: apasă pe meniul browserului (⋮ sau Share) -> „Add to Home Screen / Adaugă la ecranul de pornire”!", "install_mobile");
+      }
+    }
+
+    function updateOfflineBanner() {
+      const b = document.getElementById("offlineBanner");
+      if (b) b.classList.toggle("visible", !navigator.onLine);
+    }
+    window.addEventListener("offline", updateOfflineBanner);
+    window.addEventListener("online", updateOfflineBanner);
+
+    // === GRAFIC STATISTICI PERSONALE PE ULTIMELE 7 ZILE ===
+    function getLocalDailyCountsMap() {
+      return JSON.parse(localStorage.getItem("kfcMyDailyCounts") || "{}");
+    }
+
+    function recordLocalDailyIncrement(delta = 1) {
+      const todayStr = getLocalDateISO(new Date());
+      const map = getLocalDailyCountsMap();
+      map[todayStr] = Math.max(0, (map[todayStr] || 0) + delta);
+      localStorage.setItem("kfcMyDailyCounts", JSON.stringify(map));
+    }
+
+    function renderMy7DayStatsUI(cloudDailyMap = {}) {
+      const chartEl = document.getElementById("myStatsChartUI");
+      const sumEl = document.getElementById("myStatsSummaryUI");
+      if (!chartEl || !sumEl) return;
+
+      const localMap = getLocalDailyCountsMap();
+      const days = [];
+      const dayNames = ["Dum", "Lun", "Mar", "Mie", "Joi", "Vin", "Sâm"];
+      let total7 = 0;
+      let maxVal = 1;
+
+      for (let i = 6; i >= 0; i--) {
+        const d = new Date();
+        d.setDate(d.getDate() - i);
+        const iso = getLocalDateISO(d);
+        const val = Math.max(localMap[iso] || 0, cloudDailyMap[iso] || 0);
+        total7 += val;
+        if (val > maxVal) maxVal = val;
+        days.push({
+          iso,
+          label: i === 0 ? "Azi" : dayNames[d.getDay()],
+          val,
+          isToday: i === 0
+        });
+      }
+
+      chartEl.innerHTML = days.map(item => {
+        const pct = Math.max(6, Math.round((item.val / maxVal) * 76));
+        return `
+          <div class="stats-bar-col">
+            <span style="color:var(--kfc-black);">${item.val}</span>
+            <div class="stats-bar ${item.isToday ? 'today' : ''}" style="height:${pct}px;"></div>
+            <span>${item.label}</span>
+          </div>
+        `;
+      }).join("");
+
+      const todayVal = days[days.length - 1]?.val || 0;
+      sumEl.innerHTML = `
+        <span>🟢 Azi: <strong style="color:#15803d;">${todayVal} bonuri</strong></span>
+        <span>📊 Ultimele 7 zile: <strong style="color:var(--kfc-red);">${total7} bonuri</strong></span>
+      `;
     }
 
     function initDarkTheme() {
-      if (localStorage.getItem("kfcDarkTheme") === "1") {
-        document.body.classList.add("dark-theme");
-      }
-      updateDarkThemeUI();
+      applyThemeFromPref();
       updateSoundToggleUI();
+      updateChatNotifUI();
+      updateOfflineBanner();
     }
     initDarkTheme();
 
@@ -2757,6 +3130,7 @@
       updateProxyStatsUI();
       renderVerifiedIpChips();
       renderMyLocalReceiptHistory();
+      renderMy7DayStatsUI(window.getMyCloudDailyCounts ? window.getMyCloudDailyCounts() : {});
       if (window.renderLeaderboardStatsUI) window.renderLeaderboardStatsUI();
       document.getElementById("moreOptionsModal").style.display = "block";
     }
@@ -3211,7 +3585,10 @@
         bucket[storeCode].push(numTi);
         localStorage.setItem("usedTIByStore", JSON.stringify(bucket));
         updateUsedCounterUI();
-        if (window.syncUsedTIToCloud) {
+        recordLocalDailyIncrement(1);
+        if (window.addUsedTIToCloud) {
+          window.addUsedTIToCloud(storeCode, numTi);
+        } else if (window.syncUsedTIToCloud) {
           window.syncUsedTIToCloud(storeCode, bucket[storeCode]);
         }
         if (window.incrementMyCompletedCount) {
@@ -3229,8 +3606,11 @@
       bucket[storeCode] = bucket[storeCode].filter(item => item !== numTi);
       localStorage.setItem("usedTIByStore", JSON.stringify(bucket));
       updateUsedCounterUI();
+      recordLocalDailyIncrement(-1);
 
-      if (window.syncUsedTIToCloud) {
+      if (window.removeUsedTIFromCloud) {
+        window.removeUsedTIFromCloud(storeCode, numTi);
+      } else if (window.syncUsedTIToCloud) {
         window.syncUsedTIToCloud(storeCode, bucket[storeCode]);
       }
 
@@ -3973,11 +4353,11 @@
     setTimeout(() => pingAllVerifiedIPs(true), 1200);
   </script>
 
-  <!-- Script Firebase: Autentificare + Prezență Live + Sincronizare Live TI & IP-uri Proxyium -->
+  <!-- Script Firebase: Autentificare + Prezență Live + Sincronizare Atomică TI, Contoare, Avatare & Chat -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
     import { getAuth, signInWithPopup, signInWithRedirect, getRedirectResult, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
-    import { getFirestore, doc, setDoc, getDoc, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
+    import { getFirestore, doc, setDoc, getDoc, collection, onSnapshot, arrayUnion, arrayRemove, increment } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyDMO3a9eUai1bjx7K7dHsBP9FWST7uPFwI",
@@ -4000,11 +4380,14 @@
     let unsubscribeStoreListeners = [];
     let currentUserUid = null;
     let currentUserName = "Coleg";
+    let currentUserPhoto = "";
     let chatMessagesCache = [];
     let unreadChatCount = 0;
     let initialChatLoaded = false;
     let allUsersCache = {};
     let selectedColleagueUid = null;
+    let lastTypingSentMs = 0;
+    let typingClearTimeout = null;
 
     function escapeChatHtml(str) {
       return String(str || "")
@@ -4012,6 +4395,15 @@
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;");
+    }
+
+    function renderUserAvatarHTML(u) {
+      const initial = ((u?.name || "C").trim().charAt(0) || "C").toUpperCase();
+      if (u?.photoURL) {
+        const safeUrl = escapeChatHtml(u.photoURL);
+        return `<img class="avatar-img" src="${safeUrl}" alt="" referrerpolicy="no-referrer" onerror="this.outerHTML='<span class=\\'avatar-fallback\\'>${initial}</span>'">`;
+      }
+      return `<span class="avatar-fallback">${initial}</span>`;
     }
 
     function formatChatTime(ts) {
@@ -4045,19 +4437,75 @@
       input.focus();
     };
 
+    // Indicator "Scrie..." în timp real (throttled la 2.5 secunde)
+    const chatInputEl = document.getElementById("chatInputText");
+    if (chatInputEl) {
+      chatInputEl.addEventListener("input", () => {
+        if (!currentUserUid) return;
+        const now = Date.now();
+        if (now - lastTypingSentMs < 2500) return;
+        lastTypingSentMs = now;
+        const ref = doc(db, "settings", "teamChat");
+        setDoc(ref, {
+          typing: {
+            [currentUserUid]: { name: currentUserName, ts: now }
+          }
+        }, { merge: true }).catch(() => {});
+      });
+    }
+
     async function pushChatMessageObject(newMsg) {
-      const updated = [...chatMessagesCache, newMsg].slice(-60);
+      const enrichedMsg = {
+        ...newMsg,
+        photoURL: currentUserPhoto || ""
+      };
+      const updated = [...chatMessagesCache, enrichedMsg].slice(-60);
       chatMessagesCache = updated;
       renderTeamChatMessages(updated);
       triggerHaptic(20);
 
       try {
         const ref = doc(db, "settings", "teamChat");
-        await setDoc(ref, { messages: updated }, { merge: true });
+        // Scriere atomică cu arrayUnion ca mesajele simultane ale colegilor să nu se suprascrie
+        await setDoc(ref, {
+          messages: arrayUnion(enrichedMsg),
+          typing: { [currentUserUid]: { name: currentUserName, ts: 0 } }
+        }, { merge: true });
+
+        // Dacă lista din cloud a depășit 65 mesaje, o păstrăm pe ultimele 60
+        if (updated.length >= 60) {
+          setDoc(ref, { messages: updated.slice(-60) }, { merge: true }).catch(() => {});
+        }
       } catch {
         showToast("Nu s-a putut trimite mesajul!", "error");
       }
     }
+
+    window.pinChatMessage = async (encodedText, authorName) => {
+      if (!currentUserUid) return;
+      try {
+        const text = decodeURIComponent(encodedText);
+        const ref = doc(db, "settings", "teamChat");
+        await setDoc(ref, {
+          pinned: {
+            text: text.slice(0, 160),
+            name: authorName || "Coleg",
+            ts: Date.now()
+          }
+        }, { merge: true });
+        triggerHaptic(25);
+        showToast("Mesajul a fost fixat sus în chat! 📌", "push_pin");
+      } catch {}
+    };
+
+    window.unpinChatMessage = async () => {
+      if (!currentUserUid) return;
+      try {
+        const ref = doc(db, "settings", "teamChat");
+        await setDoc(ref, { pinned: null }, { merge: true });
+        triggerHaptic(20);
+      } catch {}
+    };
 
     window.sendTeamChatMessage = async (e) => {
       if (e) e.preventDefault();
@@ -4135,7 +4583,7 @@
         chatMessagesCache = [];
         renderTeamChatMessages([]);
         const ref = doc(db, "settings", "teamChat");
-        await setDoc(ref, { messages: [] });
+        await setDoc(ref, { messages: [], pinned: null }, { merge: true });
         showToast("Istoricul chat-ului a fost șters!", "delete_sweep");
       } catch {}
     };
@@ -4153,6 +4601,8 @@
         const isMine = m.uid === currentUserUid;
         const authorLabel = isMine ? "Tu" : escapeChatHtml(m.name || "Coleg");
         const storeTag = m.store ? ` • ${escapeChatHtml(m.store)}` : "";
+        const safePinText = encodeURIComponent(m.text || "");
+        const safeAuthor = escapeChatHtml(m.name || "Coleg");
         let receiptCardHTML = "";
         if (m.receiptLink && m.receiptTI) {
           const safeEncoded = encodeURIComponent(m.receiptLink);
@@ -4169,7 +4619,7 @@
           <div class="chat-msg ${isMine ? 'mine' : 'other'}">
             <div class="chat-msg-meta">
               <span class="chat-msg-author">${authorLabel}${storeTag}</span>
-              <span>${formatChatTime(m.ts)}</span>
+              <span>${formatChatTime(m.ts)} <span style="cursor:pointer;opacity:0.65;margin-left:4px;" onclick="pinChatMessage('${safePinText}', '${safeAuthor}')" title="Fixează mesajul sus">📌</span></span>
             </div>
             <div class="chat-msg-text">${escapeChatHtml(m.text)}</div>
             ${receiptCardHTML}
@@ -4184,11 +4634,47 @@
       if (unsubscribeChat) unsubscribeChat();
       initialChatLoaded = false;
 
+      const clearBtn = document.getElementById("chatClearBtn");
+      if (clearBtn) clearBtn.style.display = "flex";
+
       unsubscribeChat = onSnapshot(doc(db, "settings", "teamChat"), (snap) => {
+        const data = snap.exists() ? snap.data() : {};
         const prevLastId = chatMessagesCache.length > 0 ? chatMessagesCache[chatMessagesCache.length - 1].id : null;
-        const list = (snap.exists() && Array.isArray(snap.data().messages)) ? snap.data().messages : [];
+        const list = Array.isArray(data.messages) ? data.messages : [];
         chatMessagesCache = list;
         renderTeamChatMessages(list);
+
+        // Afișare mesaj fixat (Pinned)
+        const pinnedBar = document.getElementById("chatPinnedBar");
+        const pinnedText = document.getElementById("chatPinnedText");
+        if (pinnedBar && pinnedText) {
+          if (data.pinned && data.pinned.text) {
+            pinnedText.innerText = `${data.pinned.name || 'Anunț'}: ${data.pinned.text}`;
+            pinnedBar.classList.add("visible");
+          } else {
+            pinnedBar.classList.remove("visible");
+          }
+        }
+
+        // Afișare indicator "Scrie..."
+        const typingLine = document.getElementById("chatTypingLine");
+        if (typingLine) {
+          const typingMap = data.typing || {};
+          const now = Date.now();
+          const activeTypers = Object.entries(typingMap)
+            .filter(([uid, info]) => uid !== currentUserUid && info && (now - (info.ts || 0) < 4500))
+            .map(([, info]) => info.name || "Un coleg");
+
+          if (activeTypers.length > 0) {
+            typingLine.innerText = `✍️ ${activeTypers.join(", ")} scrie...`;
+            if (typingClearTimeout) clearTimeout(typingClearTimeout);
+            typingClearTimeout = setTimeout(() => {
+              if (typingLine) typingLine.innerText = "";
+            }, 4600);
+          } else {
+            typingLine.innerText = "";
+          }
+        }
 
         if (initialChatLoaded && list.length > 0) {
           const newest = list[list.length - 1];
@@ -4203,6 +4689,9 @@
             playSoftPing();
             triggerHaptic(40);
             showToast(`💬 ${newest.name || 'Coleg'}: ${newest.text.slice(0, 40)}`, "chat");
+            if (typeof sendBrowserChatNotification === "function") {
+              sendBrowserChatNotification(newest.name || "Coleg", newest.text);
+            }
           }
         }
         initialChatLoaded = true;
@@ -4253,6 +4742,7 @@
         const userRef = doc(db, "users", currentUserUid);
         await setDoc(userRef, {
           online: isOnline,
+          photoURL: currentUserPhoto || "",
           lastSeenMs: Date.now(),
           activeStore: typeof activeStore !== "undefined" ? activeStore : "373K1"
         }, { merge: true });
@@ -4275,24 +4765,31 @@
       } catch {}
     };
 
-    // Incrementăm contorul de bonuri lucrate Azi & Total pentru colegul curent
+    // Incrementăm atomic contorul de bonuri lucrate Azi, Total & Graficul pe 7 Zile pentru colegul curent
     window.incrementMyCompletedCount = async (storeCode) => {
       if (!currentUserUid) return;
       try {
         const todayStr = getLocalDateISO(new Date());
         const me = allUsersCache[currentUserUid] || {};
-        const prevToday = me.todayDate === todayStr ? (me.todayCount || 0) : 0;
-        const prevTotal = me.totalCount || 0;
+        const isSameDay = me.todayDate === todayStr;
 
         const userRef = doc(db, "users", currentUserUid);
         await setDoc(userRef, {
           activeStore: storeCode || "373K1",
           todayDate: todayStr,
-          todayCount: prevToday + 1,
-          totalCount: prevTotal + 1,
+          todayCount: isSameDay ? increment(1) : 1,
+          totalCount: increment(1),
+          dailyCounts: {
+            [todayStr]: increment(1)
+          },
           lastSeenMs: Date.now()
         }, { merge: true });
       } catch {}
+    };
+
+    window.getMyCloudDailyCounts = () => {
+      if (!currentUserUid || !allUsersCache[currentUserUid]) return {};
+      return allUsersCache[currentUserUid].dailyCounts || {};
     };
 
     // === FEREASTRĂ PROFIL COLEG + COPIERE ULTIMUL BON SCANAT (FĂRĂ BUTON DE BLOCARE) ===
@@ -4305,8 +4802,12 @@
       document.getElementById("presenceDropdown")?.classList.remove("open");
       document.getElementById("moreOptionsModal").style.display = "none";
 
-      const initials = (u.name || "C").trim().charAt(0).toUpperCase();
-      document.getElementById("colleagueAvatar").innerText = initials;
+      const avatarEl = document.getElementById("colleagueAvatar");
+      if (u.photoURL) {
+        avatarEl.innerHTML = `<img src="${escapeChatHtml(u.photoURL)}" alt="" style="width:100%;height:100%;border-radius:50%;object-fit:cover;" referrerpolicy="no-referrer">`;
+      } else {
+        avatarEl.innerText = (u.name || "C").trim().charAt(0).toUpperCase();
+      }
       document.getElementById("colleagueModalName").innerText = u.name + (u.uid === currentUserUid ? " (Tu)" : "");
       document.getElementById("colleagueModalStatus").innerText = u.isReallyOnline
         ? `🟢 Online acum • ${u.email || ''}`
@@ -4394,7 +4895,7 @@
       leaderBox.innerHTML = colleagues.map((u, idx) => {
         const medal = medals[idx] || `#${idx + 1}`;
         return `<div class="leader-row" onclick="openColleagueProfile('${u.uid}')">
-          <span>${medal} ${escapeChatHtml(u.name)}${u.uid === currentUserUid ? ' (Tu)' : ''}</span>
+          <span style="display:inline-flex;align-items:center;gap:6px;">${medal} ${renderUserAvatarHTML(u)} ${escapeChatHtml(u.name)}${u.uid === currentUserUid ? ' (Tu)' : ''}</span>
           <span style="color:var(--kfc-red);">${u.activeToday} azi • ${u.totalCount || u.activeToday} total</span>
         </div>`;
       }).join("");
@@ -4419,6 +4920,7 @@
             uid: docSnap.id,
             name: d.name || d.email || "Utilizator",
             email: d.email || "",
+            photoURL: d.photoURL || "",
             blocked: !!d.blocked,
             lastMs: lastMs,
             isReallyOnline: isReallyOnline,
@@ -4426,6 +4928,7 @@
             todayDate: d.todayDate || "",
             todayCount: d.todayCount || 0,
             totalCount: d.totalCount || 0,
+            dailyCounts: d.dailyCounts || {},
             lastReceiptLink: d.lastReceiptLink || "",
             lastReceiptStore: d.lastReceiptStore || "",
             lastReceiptTI: d.lastReceiptTI || "",
@@ -4457,6 +4960,7 @@
             <div class="presence-item" onclick="openColleagueProfile('${u.uid}')" title="Apasă pentru detalii coleg și ultimul bon scanat">
               <div class="presence-user-left">
                 <span class="status-dot online"></span>
+                ${renderUserAvatarHTML(u)}
                 <span class="name">${escapeChatHtml(u.name)}${u.uid === currentUserUid ? ' (Tu)' : ''}${receiptHint}</span>
               </div>
               <span class="presence-time live">ONLINE ›</span>
@@ -4471,6 +4975,7 @@
             <div class="presence-item" onclick="openColleagueProfile('${u.uid}')" title="Apasă pentru detalii coleg și ultimul bon scanat">
               <div class="presence-user-left">
                 <span class="status-dot offline"></span>
+                ${renderUserAvatarHTML(u)}
                 <span class="name">${escapeChatHtml(u.name)}${receiptHint}</span>
               </div>
               <span class="presence-time">${formatLastSeen(u.lastMs)} ›</span>
@@ -4480,18 +4985,37 @@
         document.getElementById("offlineUsersList").innerHTML = offlineHTML || `<div style="font-size:12px;color:#888;">Niciun coleg offline</div>`;
 
         if (window.renderLeaderboardStatsUI) window.renderLeaderboardStatsUI();
+        if (window.renderMy7DayStatsUI) window.renderMy7DayStatsUI();
         if (selectedColleagueUid && document.getElementById("colleagueProfileModal")?.style.display === "block") {
           window.openColleagueProfile(selectedColleagueUid);
         }
       });
     }
 
-    // === CLOUD SYNC FUNCTIONS (IP-URI + TI FOLOSITE + DEAD IPS) ===
+    // === CLOUD SYNC FUNCTIONS ATOMICE (IP-URI + TI FOLOSITE + DEAD IPS) ===
     window.syncStoreProxyToCloud = async (storeCode, ip, timestamp) => {
       try {
         const ref = doc(db, "settings", `proxyTracker_${storeCode}`);
         await setDoc(ref, {
           usage: { [ip]: timestamp }
+        }, { merge: true });
+      } catch {}
+    };
+
+    window.addUsedTIToCloud = async (storeCode, tiNumber) => {
+      try {
+        const ref = doc(db, "settings", `proxyTracker_${storeCode}`);
+        await setDoc(ref, {
+          usedTI: arrayUnion(Number(tiNumber))
+        }, { merge: true });
+      } catch {}
+    };
+
+    window.removeUsedTIFromCloud = async (storeCode, tiNumber) => {
+      try {
+        const ref = doc(db, "settings", `proxyTracker_${storeCode}`);
+        await setDoc(ref, {
+          usedTI: arrayRemove(Number(tiNumber))
         }, { merge: true });
       } catch {}
     };
@@ -4607,6 +5131,9 @@
     }
 
     onAuthStateChanged(auth, async (user) => {
+      const skel = document.getElementById("appSkeleton");
+      if (skel) skel.style.display = "none";
+
       if (!user) {
         currentUserUid = null;
         if (presenceInterval) clearInterval(presenceInterval);
@@ -4628,6 +5155,7 @@
 
       currentUserUid = user.uid;
       currentUserName = user.displayName || user.email || "Coleg";
+      currentUserPhoto = user.photoURL || "";
       const userRef = doc(db, "users", user.uid);
       const snap = await getDoc(userRef);
 
@@ -4635,6 +5163,7 @@
         await setDoc(userRef, {
           name: user.displayName,
           email: user.email,
+          photoURL: user.photoURL || "",
           blocked: false,
           online: true,
           lastSeenMs: Date.now(),
