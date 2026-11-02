@@ -1,0 +1,324 @@
+rules_version = '2';
+
+// ===============================================================
+// Firestore Security Rules — project "kfc-malldova-link"
+// ===============================================================
+//
+// Assumed Data Model
+// ---------------------------------------------------------------
+//
+// Collection: users            Document ID: Firebase Auth uid
+//   - name: string|null (<=100)            - Google display name
+//   - email: string|null (<=254)           - must match auth token email when set/changed
+//   - photoURL: string|null (<=2048)
+//   - online: bool
+//   - lastSeenMs: number
+//   - activeStore: string (one of 373K1..373K4)
+//   - lastReceiptLink: string (<=2048)
+//   - lastReceiptStore: string (<=20)
+//   - lastReceiptTI: number|null
+//   - lastReceiptDate: string (<=40)
+//   - lastReceiptScannedAt: number
+//   - todayDate: string (<=20)   (legacy)
+//   - todayCount: number (legacy)
+//   - totalCount: int (FieldValue.increment(1) only)
+//   - dailyCounts: map "YYYY-MM-DD" -> number (<=1000 keys, 1 key per write)
+//   - createdAt: timestamp (immutable once set)
+//   - blocked: bool  (ADMIN ONLY — owner can never change it)
+//   - role: string "admin" or absent (set MANUALLY in the console only)
+//   All fields optional (presence writes use setDoc merge and may create
+//   the doc with only a few fields).
+//
+// settings/proxyiumCustomPool
+//   - pool: list<string> (<=5000), dead: list<string> (<=5000)
+//
+// settings/proxyTracker_373K1..373K4
+//   - usage: map ip -> number (<=5000 keys), usedTI: list<number> (<=1000)
+//
+// settings/chatMeta
+//   - pinned: null | {text: string 1..300, name: string <=100,
+//                     uid: string <=128, ts: number}
+//
+// settings/chatTyping
+//   - <uid>: {name: string <=100, ts: number}  (each user writes only own key)
+//
+// settings/teamChat — legacy, fully denied.
+//
+// Collection: chatMessages     Document ID: auto
+//   - uid: string (== auth.uid, required)
+//   - name: string (<=100, required)
+//   - store: string (<=20, required)
+//   - text: string (1..300, required)
+//   - ts: number (ms epoch, required, within ±1h of server time)
+//   - photoURL: string|null (<=2048, optional)
+//   - receiptLink: string (<=2048, optional)
+//   - receiptStore: string (<=20, optional)
+//   - receiptTI: number (optional)
+//   Immutable (no updates). Delete: author or admin.
+//
+// "Blocked" = users/{auth.uid}.blocked == true. Blocked users can only
+// read their own user document.
+// "Admin"   = users/{auth.uid}.role == "admin" (and not blocked).
+//
+// ===============================================================
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // =============================================================
+    // Helper Functions
+    // =============================================================
+
+    // Signed in with Google (the only provider used by the app).
+    function isSignedIn() {
+      return request.auth != null
+        && request.auth.token.firebase.sign_in_provider == 'google.com';
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function myUserPath() {
+      return /databases/$(database)/documents/users/$(request.auth.uid);
+    }
+
+    // Caller's own user doc data ({} when it doesn't exist yet).
+    // exists() + get() on the same path count as a single document read.
+    function myUserData() {
+      return exists(myUserPath()) ? get(myUserPath()).data : {};
+    }
+
+    function isBlocked() {
+      return myUserData().get('blocked', false) == true;
+    }
+
+    // Signed-in and not blocked.
+    function isActive() {
+      return isSignedIn() && !isBlocked();
+    }
+
+    function isAdmin() {
+      return isActive() && myUserData().get('role', '') == 'admin';
+    }
+
+    function stores() {
+      return ['373K1', '373K2', '373K3', '373K4'];
+    }
+
+    function changedKeys() {
+      return request.resource.data.diff(resource.data).affectedKeys();
+    }
+
+    function isStr(v, maxLen) {
+      return v is string && v.size() <= maxLen;
+    }
+
+    function isOptStr(data, field, maxLen) {
+      return !(field in data) || isStr(data[field], maxLen);
+    }
+
+    function isOptNullableStr(data, field, maxLen) {
+      return !(field in data) || data[field] == null || isStr(data[field], maxLen);
+    }
+
+    function isOptNum(data, field) {
+      return !(field in data) || data[field] is number;
+    }
+
+    function isOptBool(data, field) {
+      return !(field in data) || data[field] is bool;
+    }
+
+    // =============================================================
+    // Domain Validators
+    // =============================================================
+
+    // Full-document schema check for users/{uid} (used on create AND update).
+    function isValidUser(data) {
+      return data.keys().hasOnly([
+               'name', 'email', 'photoURL', 'online', 'lastSeenMs', 'activeStore',
+               'lastReceiptLink', 'lastReceiptStore', 'lastReceiptTI',
+               'lastReceiptDate', 'lastReceiptScannedAt', 'todayDate',
+               'todayCount', 'totalCount', 'dailyCounts', 'createdAt',
+               'blocked', 'role'])
+        && isOptNullableStr(data, 'name', 100)
+        && isOptNullableStr(data, 'email', 254)
+        && isOptNullableStr(data, 'photoURL', 2048)
+        && isOptBool(data, 'online')
+        && isOptNum(data, 'lastSeenMs')
+        && (!('activeStore' in data) || data.activeStore in stores())
+        && isOptStr(data, 'lastReceiptLink', 2048)
+        && isOptStr(data, 'lastReceiptStore', 20)
+        && (!('lastReceiptTI' in data) || data.lastReceiptTI == null || data.lastReceiptTI is number)
+        && isOptStr(data, 'lastReceiptDate', 40)
+        && isOptNum(data, 'lastReceiptScannedAt')
+        && isOptStr(data, 'todayDate', 20)
+        && (!('todayCount' in data) || (data.todayCount is number && data.todayCount >= 0 && data.todayCount <= 100000))
+        && (!('totalCount' in data) || (data.totalCount is int && data.totalCount >= 0))
+        && (!('dailyCounts' in data) || (data.dailyCounts is map && data.dailyCounts.size() <= 1000))
+        && (!('createdAt' in data) || data.createdAt is timestamp)
+        && isOptBool(data, 'blocked')
+        && (!('role' in data) || data.role == 'admin');
+    }
+
+    // Create own profile: no role, not blocked, counters start at 0/1.
+    function isValidUserCreate(data) {
+      return isValidUser(data)
+        && !('role' in data)
+        && data.get('blocked', false) == false
+        && (!('email' in data) || data.email == null || data.email == request.auth.token.email)
+        && data.get('totalCount', 0) <= 1
+        && (!('dailyCounts' in data) || data.dailyCounts.values().hasOnly([0, 1]));
+    }
+
+    // Owner self-update: cannot touch blocked/role, createdAt is immutable once
+    // set, email can only become the token email, counters only +1.
+    function isValidOwnUserUpdate() {
+      let d = request.resource.data;
+      let changed = changedKeys();
+      return isValidUser(d)
+        && !changed.hasAny(['blocked', 'role'])
+        && (!changed.hasAny(['createdAt']) || !('createdAt' in resource.data))
+        && (!changed.hasAny(['email']) || d.email == request.auth.token.email)
+        && (!changed.hasAny(['totalCount'])
+              || d.totalCount == resource.data.get('totalCount', 0) + 1)
+        && (!changed.hasAny(['dailyCounts'])
+              || d.dailyCounts.diff(resource.data.get('dailyCounts', {})).affectedKeys().size() <= 1);
+    }
+
+    function isValidProxyPool(data) {
+      return data.keys().hasOnly(['pool', 'dead'])
+        && (!('pool' in data) || (data.pool is list && data.pool.size() <= 5000))
+        && (!('dead' in data) || (data.dead is list && data.dead.size() <= 5000));
+    }
+
+    function isValidProxyTracker(data) {
+      return data.keys().hasOnly(['usage', 'usedTI'])
+        && (!('usage' in data) || (data.usage is map && data.usage.size() <= 5000))
+        && (!('usedTI' in data) || (data.usedTI is list && data.usedTI.size() <= 1000));
+    }
+
+    function isValidPinned(p) {
+      return p == null
+        || (p is map
+            && p.keys().hasAll(['text'])
+            && p.keys().hasOnly(['text', 'name', 'uid', 'ts'])
+            && p.text is string && p.text.size() >= 1 && p.text.size() <= 300
+            && isOptStr(p, 'name', 100)
+            && isOptStr(p, 'uid', 128)
+            && isOptNum(p, 'ts'));
+    }
+
+    function isValidChatMeta(data) {
+      return data.keys().hasOnly(['pinned'])
+        && (!('pinned' in data) || isValidPinned(data.pinned));
+    }
+
+    // Typing doc: caller may only add/change/remove the key == own uid.
+    function isValidTypingWrite() {
+      let before = resource == null ? {} : resource.data;
+      let after = request.resource.data;
+      let mine = after.get(request.auth.uid, null);
+      return after.diff(before).affectedKeys().hasOnly([request.auth.uid])
+        && after.size() <= 500
+        && (mine == null
+            || (mine is map
+                && mine.keys().hasOnly(['name', 'ts'])
+                && isOptStr(mine, 'name', 100)
+                && isOptNum(mine, 'ts')));
+    }
+
+    function isValidChatMessage(data) {
+      return data.keys().hasAll(['uid', 'name', 'store', 'text', 'ts'])
+        && data.keys().hasOnly(['uid', 'name', 'photoURL', 'store', 'text', 'ts',
+                                'receiptLink', 'receiptStore', 'receiptTI'])
+        && data.uid == request.auth.uid
+        && isStr(data.name, 100)
+        && isStr(data.store, 20)
+        && data.text is string && data.text.size() >= 1 && data.text.size() <= 300
+        && data.ts is number
+        && data.ts > request.time.toMillis() - 3600000
+        && data.ts < request.time.toMillis() + 3600000
+        && isOptNullableStr(data, 'photoURL', 2048)
+        && isOptStr(data, 'receiptLink', 2048)
+        && isOptStr(data, 'receiptStore', 20)
+        && isOptNum(data, 'receiptTI');
+    }
+
+    // =============================================================
+    // users/{userId}
+    // =============================================================
+    match /users/{userId} {
+      // Own doc is always readable (block detection on login);
+      // everyone else's only if caller is not blocked.
+      allow read: if isOwner(userId) || isActive();
+
+      // Create only your own doc, never with role / blocked=true.
+      allow create: if isOwner(userId)
+        && isValidUserCreate(request.resource.data);
+
+      // Owner (not blocked) updates own profile; admin may flip ONLY `blocked`
+      // on OTHER users' docs.
+      allow update: if (isOwner(userId)
+                          && resource.data.get('blocked', false) != true
+                          && isValidOwnUserUpdate())
+                    || (isAdmin()
+                          && request.auth.uid != userId
+                          && changedKeys().hasOnly(['blocked'])
+                          && request.resource.data.blocked is bool);
+
+      // Nobody deletes user docs (deleting would also erase a block).
+      allow delete: if false;
+    }
+
+    // =============================================================
+    // settings/*
+    // =============================================================
+    match /settings/proxyiumCustomPool {
+      allow read: if isActive();
+      allow create, update: if isActive() && isValidProxyPool(request.resource.data);
+      allow delete: if false;
+    }
+
+    match /settings/{trackerId} {
+      allow read: if isActive()
+        && trackerId in ['proxyTracker_373K1', 'proxyTracker_373K2',
+                         'proxyTracker_373K3', 'proxyTracker_373K4'];
+      allow create, update: if isActive()
+        && trackerId in ['proxyTracker_373K1', 'proxyTracker_373K2',
+                         'proxyTracker_373K3', 'proxyTracker_373K4']
+        && isValidProxyTracker(request.resource.data);
+      allow delete: if false;
+    }
+
+    match /settings/chatMeta {
+      allow read: if isActive();
+      allow create, update: if isActive() && isValidChatMeta(request.resource.data);
+      allow delete: if false;
+    }
+
+    match /settings/chatTyping {
+      allow read: if isActive();
+      allow create, update: if isActive() && isValidTypingWrite();
+      allow delete: if false;
+    }
+
+    // settings/teamChat (legacy) and any other settings doc: no rule
+    // matches -> denied by default.
+
+    // =============================================================
+    // chatMessages/{msgId}
+    // =============================================================
+    match /chatMessages/{msgId} {
+      // Supports orderBy('ts','desc').limit(60).
+      allow read: if isActive();
+      allow create: if isActive() && isValidChatMessage(request.resource.data);
+      allow update: if false;
+      allow delete: if isActive()
+        && (resource.data.uid == request.auth.uid || isAdmin());
+    }
+
+    // Everything else is denied by default (no matching rule).
+  }
+}
