@@ -835,28 +835,24 @@
       line-height: 1.35;
     }
 
-    /* === MINI-CHAT COLEGII LOGAȚI (FLOATING + PANEL) === */
+    /* === MINI-CHAT COLEGII LOGAȚI (FLOATING ICON + PANEL) === */
     .chat-fab {
       display: none;
       position: fixed;
       bottom: 20px;
       right: 16px;
       z-index: 9500;
+      width: 52px;
       height: 52px;
-      padding: 0 18px;
-      border-radius: 999px;
+      padding: 0;
+      border-radius: 50%;
       background: var(--kfc-red);
       color: var(--kfc-white);
-      border: 2px solid var(--kfc-white);
+      border: 2.5px solid var(--kfc-white);
       box-shadow: 0 8px 24px rgba(228, 0, 43, 0.38);
-      font-family: 'Montserrat', sans-serif;
-      font-style: italic;
-      font-weight: 900;
-      font-size: 13px;
-      text-transform: uppercase;
       cursor: pointer;
       align-items: center;
-      gap: 8px;
+      justify-content: center;
       transition: transform 0.18s ease, background 0.18s ease;
     }
 
@@ -865,20 +861,24 @@
     }
 
     .chat-fab:active {
-      transform: scale(0.95);
+      transform: scale(0.93);
     }
 
     .chat-unread-badge {
       display: none;
+      position: absolute;
+      top: -5px;
+      right: -5px;
       background: var(--kfc-black);
       color: var(--kfc-white);
+      border: 2px solid var(--kfc-white);
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-style: normal;
       font-weight: 800;
       font-size: 11px;
-      min-width: 20px;
-      height: 20px;
-      padding: 0 6px;
+      min-width: 22px;
+      height: 22px;
+      padding: 0 5px;
       border-radius: 999px;
       align-items: center;
       justify-content: center;
@@ -887,6 +887,206 @@
     .chat-unread-badge.active {
       display: inline-flex;
       animation: pulseGreen 1.5s infinite;
+    }
+
+    .chat-quick-bar {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 10px;
+      background: var(--kfc-cream);
+      border-top: 1px solid var(--kfc-border);
+      overflow-x: auto;
+      flex-shrink: 0;
+      scrollbar-width: none;
+    }
+
+    .chat-quick-bar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .quick-msg-pill {
+      background: var(--kfc-white);
+      color: var(--kfc-black);
+      border: 1px solid var(--kfc-border);
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 5px 10px;
+      white-space: nowrap;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: all 0.14s ease;
+    }
+
+    .quick-msg-pill:hover,
+    .quick-msg-pill:active {
+      border-color: var(--kfc-red);
+      color: var(--kfc-red);
+      background: var(--kfc-red-soft);
+    }
+
+    .quick-msg-pill.share-receipt {
+      background: var(--kfc-black);
+      color: var(--kfc-white);
+      border-color: var(--kfc-black);
+    }
+
+    .chat-receipt-card {
+      margin-top: 5px;
+      padding: 7px 9px;
+      border-radius: 9px;
+      background: rgba(0, 0, 0, 0.12);
+      border: 1px dashed rgba(255, 255, 255, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      cursor: pointer;
+      font-size: 11.5px;
+      font-weight: 800;
+    }
+
+    .chat-msg.other .chat-receipt-card {
+      background: var(--kfc-cream);
+      border-color: var(--kfc-red);
+      color: var(--kfc-black);
+    }
+
+    /* === MODAL MAI MULTE OPȚIUNI (SETĂRI, CLASAMENT, BANCĂ IP, ISTORIC, IEȘIRE) === */
+    #moreOptionsModal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9998;
+    }
+
+    .options-modal-box {
+      position: relative;
+      background: var(--kfc-white);
+      color: var(--kfc-black);
+      max-width: 480px;
+      width: calc(100% - 20px);
+      max-height: 86vh;
+      margin: 6vh auto;
+      padding: 18px 16px;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      border-top: 6px solid var(--kfc-red);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      overflow-y: auto;
+      animation: toastIn 0.18s ease forwards;
+    }
+
+    .options-modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 10px;
+      border-bottom: 1.5px solid var(--kfc-border);
+      position: sticky;
+      top: -18px;
+      background: var(--kfc-white);
+      z-index: 5;
+      margin-top: -4px;
+      padding-top: 4px;
+    }
+
+    .options-modal-head h3 {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      font-style: italic;
+      font-weight: 900;
+      font-size: 16.5px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .options-section {
+      background: var(--kfc-cream);
+      border: 1.5px solid var(--kfc-border);
+      border-radius: 13px;
+      padding: 12px;
+    }
+
+    .options-section-title {
+      font-family: 'Montserrat', sans-serif;
+      font-style: italic;
+      font-weight: 900;
+      font-size: 12.5px;
+      text-transform: uppercase;
+      margin: 0 0 8px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      color: var(--kfc-black);
+    }
+
+    .options-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .opt-action-btn {
+      padding: 11px 10px;
+      border-radius: 10px;
+      border: 1.5px solid var(--kfc-border);
+      background: var(--kfc-white);
+      color: var(--kfc-black);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+
+    .opt-action-btn:hover {
+      border-color: var(--kfc-red);
+      color: var(--kfc-red);
+    }
+
+    .opt-action-btn.logout-full {
+      width: 100%;
+      background: var(--kfc-red);
+      color: #fff;
+      border-color: var(--kfc-red);
+      font-family: 'Montserrat', sans-serif;
+      font-style: italic;
+      font-weight: 900;
+      text-transform: uppercase;
+      font-size: 13px;
+      padding: 12px;
+    }
+
+    .my-history-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      max-height: 150px;
+      overflow-y: auto;
+    }
+
+    .my-history-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      background: var(--kfc-white);
+      border: 1px solid var(--kfc-border);
+      border-radius: 9px;
+      padding: 7px 10px;
+      font-size: 11.5px;
+      font-weight: 700;
     }
 
     .chat-panel {
@@ -2021,14 +2221,11 @@
         <div class="presence-hint-note">👆 Apasă pe un coleg pentru profil & ultimul bon scanat</div>
       </div>
 
-      <button id="themeToggleBtn" class="auth-btn" onclick="toggleDarkTheme()" title="Comută Mod Întunecat / Luminos">
-        <span class="material-symbols-outlined" id="themeToggleIcon">dark_mode</span>
-      </button>
       <button id="loginBtn" class="auth-btn" title="Autentificare cu Google">
         <span class="material-symbols-outlined">login</span>
       </button>
-      <button id="logoutBtn" class="auth-btn" style="display:none;" title="Deconectare">
-        <span class="material-symbols-outlined">logout</span>
+      <button id="moreOptionsBtn" class="auth-btn" style="display:none;" onclick="openMoreOptionsModal()" title="Setări & Mai Multe Opțiuni">
+        <span class="material-symbols-outlined">settings</span>
       </button>
     </div>
   </header>
@@ -2145,10 +2342,6 @@
           <div class="generate-row">
             <input type="number" id="linkCount" value="10" min="1" max="250">
 
-            <button class="icon-btn danger" onclick="clearUsedLinks()" title="Șterge / Resetează">
-              <span class="material-symbols-outlined">delete</span>
-            </button>
-
             <button class="generate-cta" onclick="generateLinks(false, true)">
               <span>Generează</span>
               <span class="material-symbols-outlined">bolt</span>
@@ -2161,60 +2354,6 @@
             <button type="button" class="preset-btn" onclick="setQuickCount(50)">50</button>
             <button type="button" class="preset-btn" onclick="setQuickCount(100)">100</button>
             <button type="button" class="preset-btn" onclick="setQuickCount(150)">150</button>
-          </div>
-        </div>
-
-        <!-- BANCĂ IP-URI PROXYIUM & SCRIPT AUTO-FILL -->
-        <div class="proxy-bank-bar">
-          <div class="proxy-bank-top">
-            <span class="proxy-store-indicator">Restaurant Activ: <span id="proxyStoreLabel">373K1</span></span>
-            <div style="display:flex;gap:6px;flex-wrap:wrap;">
-              <button type="button" class="manage-proxy-btn" onclick="pingAllVerifiedIPs()" id="pingBtn">
-                <span class="material-symbols-outlined" style="font-size:15px;">network_check</span>
-                Verifică IP-uri
-              </button>
-              <button type="button" class="manage-proxy-btn" onclick="toggleProxyDrawer()">
-                <span class="material-symbols-outlined" style="font-size:15px;">dns</span>
-                Bancă IP
-              </button>
-              <button type="button" class="manage-proxy-btn" onclick="toggleLeaderboardDrawer()">
-                <span class="material-symbols-outlined" style="font-size:15px;">emoji_events</span>
-                Clasament
-              </button>
-              <button type="button" class="manage-proxy-btn red-accent" onclick="toggleAutoFillDrawer()">
-                <span class="material-symbols-outlined" style="font-size:15px;">magic_button</span>
-                Auto-Fill Sondaj
-              </button>
-            </div>
-          </div>
-          <div class="proxy-bank-info">
-            <span class="proxy-stat-pill available" id="availProxiesBadge">🟢 0 IP Proxyium Libere</span>
-            <span class="proxy-stat-pill cooldown" id="usedProxiesBadge">⏳ 0 Folosite recent</span>
-          </div>
-        </div>
-
-        <!-- SERTAR BANCĂ IP-URI PROXYIUM -->
-        <div class="proxy-manager-drawer" id="proxyDrawer">
-          <h4>➕ Bancă IP-uri Proxyium (<span id="drawerStoreName">373K1</span>)</h4>
-          <p>IP-urile de mai jos sunt sincronizate în Cloud cu toți colegii. Poți apăsa pe <strong>✕</strong> lângă un IP pentru a-l dezactiva/reactiva, sau lipește orice link deschis în Proxyium ca să-i extragem automat IP-ul:</p>
-          <div class="verified-ip-chips" id="verifiedIpListUI"></div>
-          <textarea id="bulkProxyInput" placeholder="Lipește aici orice link deschis în Proxyium (ex: https://185.16.38.103/jfe/...)"></textarea>
-          <div class="proxy-drawer-actions">
-            <button class="btn-danger" onclick="addBulkProxies()">Adaugă IP Proxyium</button>
-            <button class="btn-secondary" onclick="resetProxyCooldowns()">Resetează IP-urile Folosite</button>
-            <button class="btn-secondary" onclick="toggleProxyDrawer()">Închide</button>
-          </div>
-        </div>
-
-        <!-- SERTAR CLASAMENT & STATISTICI ZILNICE -->
-        <div class="proxy-manager-drawer" id="leaderboardDrawer">
-          <h4>🏆 Clasament & Statistici Live</h4>
-          <p>Situația bonurilor (TI) înregistrate pe fiecare restaurant și clasamentul colegilor de azi:</p>
-          <div class="leaderboard-grid" id="storeStatsGridUI"></div>
-          <h4 style="margin-top:10px;">🥇 Top Colegi Azi (Apasă pe coleg pt. detalii)</h4>
-          <div class="leader-list" id="colleagueLeaderboardUI"></div>
-          <div class="proxy-drawer-actions">
-            <button class="btn-secondary" onclick="toggleLeaderboardDrawer()">Închide</button>
           </div>
         </div>
 
@@ -2241,7 +2380,13 @@
               <span>🎲 Ore naturale (variație aleatorie ±1–3 min)</span>
             </label>
           </div>
-          <span id="usedCountInfo">0 TI folosite</span>
+          <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+            <span id="usedCountInfo">0 TI folosite</span>
+            <button type="button" class="manage-proxy-btn red-accent" onclick="toggleAutoFillDrawer()" title="Script Auto-Fill Sondaj">
+              <span class="material-symbols-outlined" style="font-size:14px;">magic_button</span>
+              Auto-Fill
+            </button>
+          </div>
         </div>
 
       </div>
@@ -2268,10 +2413,9 @@
     </main>
   </div>
 
-  <!-- MINI-CHAT COLEGII LOGAȚI (FLOATING BUTTON + CHAT WINDOW) -->
-  <button type="button" class="chat-fab" id="chatFabBtn" onclick="toggleTeamChat()">
-    <span class="material-symbols-outlined">chat</span>
-    <span>Chat Colegi</span>
+  <!-- MINI-CHAT COLEGII LOGAȚI (DOAR ICONIȚĂ MICĂ ROTUNDĂ + FEREASTRĂ CHAT) -->
+  <button type="button" class="chat-fab" id="chatFabBtn" onclick="toggleTeamChat()" title="Chat Colegi">
+    <span class="material-symbols-outlined" style="font-size:24px;">chat</span>
     <span class="chat-unread-badge" id="chatUnreadBadge">0</span>
   </button>
 
@@ -2298,6 +2442,14 @@
       <div class="chat-empty">Niciun mesaj încă. Salută-ți colegii! 👋</div>
     </div>
 
+    <!-- MESAJE RAPIDE CU 1 CLICK + TRIMITE BONUL ÎN CHAT -->
+    <div class="chat-quick-bar">
+      <button type="button" class="quick-msg-pill share-receipt" onclick="sendCurrentReceiptToChat()">🧾 Trimite Bonul</button>
+      <button type="button" class="quick-msg-pill" onclick="sendQuickChatMsg('📸 Aveți un bon liber?')">📸 Bon liber?</button>
+      <button type="button" class="quick-msg-pill" onclick="sendQuickChatMsg('✅ Gata, am terminat bonul!')">✅ Am terminat!</button>
+      <button type="button" class="quick-msg-pill" onclick="sendQuickChatMsg('⚠️ Proxyium merge greu, treceți pe 4G!')">⚠️ Treceți pe 4G</button>
+    </div>
+
     <div class="chat-emoji-bar">
       <button type="button" class="emoji-btn" onclick="insertChatEmoji('👍')">👍</button>
       <button type="button" class="emoji-btn" onclick="insertChatEmoji('🔥')">🔥</button>
@@ -2321,7 +2473,7 @@
     </form>
   </div>
 
-  <!-- MODAL INFORMAȚII COLEG & COPIERE ULTIMUL BON SCANAT -->
+  <!-- MODAL INFORMAȚII COLEG & COPIERE ULTIMUL BON SCANAT (FĂRĂ BUTON DE BLOCARE) -->
   <div id="colleagueProfileModal">
     <div class="modal-backdrop" onclick="closeColleagueProfileModal()"></div>
     <div class="colleague-modal-box">
@@ -2374,11 +2526,99 @@
       </div>
 
       <div class="modal-actions">
-        <button type="button" class="btn-secondary" id="colleagueBlockToggleBtn" style="display:none;" onclick="toggleBlockSelectedColleague()">
-          Blochează Accesul
-        </button>
         <button type="button" class="btn-secondary" onclick="closeColleagueProfileModal()">Închide</button>
       </div>
+    </div>
+  </div>
+
+  <!-- MODAL MAI MULTE OPȚIUNI / SETĂRI (CLASAMENT, BANCĂ IP, ISTORIC BONURI, MOD ÎNTUNECAT, SUNET, IEȘIRE) -->
+  <div id="moreOptionsModal">
+    <div class="modal-backdrop" onclick="closeMoreOptionsModal()"></div>
+    <div class="options-modal-box">
+      <div class="options-modal-head">
+        <h3>
+          <span class="material-symbols-outlined" style="color:#E4002B;">tune</span>
+          <span>Mai Multe Opțiuni</span>
+        </h3>
+        <button type="button" class="auth-btn" onclick="closeMoreOptionsModal()" title="Închide">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+
+      <!-- 1. ÎN PRIMUL RÂND: CLASAMENT & STATISTICI AZI -->
+      <div class="options-section">
+        <div class="options-section-title">
+          <span>🏆 1. Clasament & Statistici Azi</span>
+          <span style="font-size:10.5px;color:var(--kfc-red);font-style:normal;">Live Cloud</span>
+        </div>
+        <div class="leaderboard-grid" id="storeStatsGridUI"></div>
+        <div style="font-size:11px;font-weight:800;margin:6px 0 5px 0;color:var(--kfc-gray);">🥇 Top Colegi Azi (Apasă pe coleg pt. profil):</div>
+        <div class="leader-list" id="colleagueLeaderboardUI"></div>
+      </div>
+
+      <!-- 2. BANCĂ IP-URI PROXYIUM & VERIFICARE VITEZĂ -->
+      <div class="options-section">
+        <div class="options-section-title">
+          <span>🌐 2. Bancă IP-uri Proxyium (<span id="proxyStoreLabel">373K1</span>)</span>
+          <button type="button" class="manage-proxy-btn" onclick="pingAllVerifiedIPs()" id="pingBtn">
+            <span class="material-symbols-outlined" style="font-size:14px;">network_check</span>
+            Verifică IP-uri
+          </button>
+        </div>
+        <span id="drawerStoreName" style="display:none;">373K1</span>
+        <div class="proxy-bank-info" style="margin-bottom:8px;">
+          <span class="proxy-stat-pill available" id="availProxiesBadge">🟢 0 IP Proxyium Libere</span>
+          <span class="proxy-stat-pill cooldown" id="usedProxiesBadge">⏳ 0 Folosite recent</span>
+        </div>
+        <div class="verified-ip-chips" id="verifiedIpListUI"></div>
+        <textarea id="bulkProxyInput" style="height:64px;margin-top:4px;" placeholder="Lipește aici orice link deschis în Proxyium (ex: https://185.16.38.103/jfe/...)"></textarea>
+        <div class="proxy-drawer-actions">
+          <button class="btn-danger" onclick="addBulkProxies()">➕ Adaugă IP Proxyium</button>
+          <button class="btn-secondary" onclick="resetProxyCooldowns()">↺ Resetează IP-urile Folosite</button>
+        </div>
+      </div>
+
+      <!-- 3. ISTORICUL MEU DE BONURI SCANATE -->
+      <div class="options-section">
+        <div class="options-section-title">
+          <span>📜 3. Istoricul Meu (Ultimele Bonuri)</span>
+          <span style="font-size:10.5px;color:var(--kfc-gray);font-style:normal;">Pe acest telefon</span>
+        </div>
+        <div class="my-history-list" id="myLocalReceiptHistoryUI">
+          <div style="font-size:11.5px;color:#888;">Niciun bon scanat recent.</div>
+        </div>
+      </div>
+
+      <!-- 4. SETĂRI INTERFAȚĂ (MOD ÎNTUNECAT, SUNET & CURĂȚARE) -->
+      <div class="options-section">
+        <div class="options-section-title">
+          <span>⚙️ 4. Preferințe & Unelte</span>
+        </div>
+        <div class="options-grid-2">
+          <button type="button" class="opt-action-btn" onclick="toggleDarkTheme()">
+            <span class="material-symbols-outlined" id="themeToggleIcon">dark_mode</span>
+            <span id="themeToggleLabel">Mod Întunecat</span>
+          </button>
+          <button type="button" class="opt-action-btn" onclick="toggleSoundAndHaptic()">
+            <span class="material-symbols-outlined" id="soundToggleIcon">volume_up</span>
+            <span id="soundToggleLabel">Sunet: Pornit</span>
+          </button>
+          <button type="button" class="opt-action-btn" onclick="copyAutoFillBookmarklet()">
+            <span class="material-symbols-outlined">magic_button</span>
+            <span>Copiază Script</span>
+          </button>
+          <button type="button" class="opt-action-btn" onclick="closeMoreOptionsModal(); clearUsedLinks();">
+            <span class="material-symbols-outlined">cleaning_services</span>
+            <span>Curăță Lista TI</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 5. IEȘIRE DIN CONT -->
+      <button id="logoutBtn" type="button" class="opt-action-btn logout-full">
+        <span class="material-symbols-outlined">logout</span>
+        <span>Ieșire din Cont (Deconectare)</span>
+      </button>
     </div>
   </div>
 
@@ -2404,6 +2644,7 @@
     let dateFromLink = false;
     let html5QrCode = null;
     let isScannerRunning = false;
+    let qrScannerAutoStopTimer = null;
     let activeStore = "373K1";
     let currentLaunchMode = "autoproxy"; // 'autoproxy' | 'direct4g' | 'verifiedip'
     let liveIpStatus = {};
@@ -2435,13 +2676,19 @@
 
     document.getElementById("autoFillScriptBox").value = QUALTRICS_AUTOFILL_SCRIPT;
 
+    function isSoundMuted() {
+      return localStorage.getItem("kfcSoundMuted") === "1";
+    }
+
     function triggerHaptic(ms = 25) {
+      if (isSoundMuted()) return;
       try {
         if (navigator.vibrate) navigator.vibrate(ms);
       } catch {}
     }
 
     function playSoftPing() {
+      if (isSoundMuted()) return;
       try {
         const AudioCtx = window.AudioContext || window.webkitAudioContext;
         if (!AudioCtx) return;
@@ -2460,22 +2707,113 @@
       } catch {}
     }
 
+    function updateSoundToggleUI() {
+      const muted = isSoundMuted();
+      const icon = document.getElementById("soundToggleIcon");
+      const lbl = document.getElementById("soundToggleLabel");
+      if (icon) icon.innerText = muted ? "volume_off" : "volume_up";
+      if (lbl) lbl.innerText = muted ? "Sunet: Oprit" : "Sunet: Pornit";
+    }
+
+    function toggleSoundAndHaptic() {
+      const nextMuted = !isSoundMuted();
+      localStorage.setItem("kfcSoundMuted", nextMuted ? "1" : "0");
+      updateSoundToggleUI();
+      if (!nextMuted) {
+        triggerHaptic(25);
+        playSoftPing();
+      }
+      showToast(nextMuted ? "Sunetul și vibrațiile au fost oprite!" : "Sunetul și vibrațiile sunt active!", nextMuted ? "volume_off" : "volume_up");
+    }
+
+    function updateDarkThemeUI() {
+      const isDark = document.body.classList.contains("dark-theme");
+      const icon = document.getElementById("themeToggleIcon");
+      const lbl = document.getElementById("themeToggleLabel");
+      if (icon) icon.innerText = isDark ? "light_mode" : "dark_mode";
+      if (lbl) lbl.innerText = isDark ? "Mod Luminos" : "Mod Întunecat";
+    }
+
     function toggleDarkTheme() {
       const isDark = document.body.classList.toggle("dark-theme");
       localStorage.setItem("kfcDarkTheme", isDark ? "1" : "0");
-      const icon = document.getElementById("themeToggleIcon");
-      if (icon) icon.innerText = isDark ? "light_mode" : "dark_mode";
+      updateDarkThemeUI();
       triggerHaptic(20);
     }
 
     function initDarkTheme() {
       if (localStorage.getItem("kfcDarkTheme") === "1") {
         document.body.classList.add("dark-theme");
-        const icon = document.getElementById("themeToggleIcon");
-        if (icon) icon.innerText = "light_mode";
       }
+      updateDarkThemeUI();
+      updateSoundToggleUI();
     }
     initDarkTheme();
+
+    // === MODAL MAI MULTE OPȚIUNI (SETĂRI, CLASAMENT, BANCĂ IP, ISTORIC BONURI) ===
+    function openMoreOptionsModal() {
+      triggerHaptic(20);
+      document.getElementById("presenceDropdown")?.classList.remove("open");
+      updateProxyStatsUI();
+      renderVerifiedIpChips();
+      renderMyLocalReceiptHistory();
+      if (window.renderLeaderboardStatsUI) window.renderLeaderboardStatsUI();
+      document.getElementById("moreOptionsModal").style.display = "block";
+    }
+
+    function closeMoreOptionsModal() {
+      document.getElementById("moreOptionsModal").style.display = "none";
+    }
+
+    // === ISTORIC LOCAL BONURI SCANATE (ULTIMELE 8 BONURI PE ACEST TELEFON) ===
+    function getMyLocalReceiptHistory() {
+      return JSON.parse(localStorage.getItem("kfcMyScannedReceiptsHistory") || "[]");
+    }
+
+    function saveToMyLocalReceiptHistory(cleanLink, d) {
+      if (!cleanLink || !d || isNaN(d.TI)) return;
+      let list = getMyLocalReceiptHistory();
+      list = list.filter(item => !(item.S === d.S && item.TI === d.TI));
+      list.unshift({
+        link: cleanLink,
+        S: d.S,
+        TI: d.TI,
+        dateTime: d.dateTime || "",
+        savedAt: Date.now()
+      });
+      list = list.slice(0, 8);
+      localStorage.setItem("kfcMyScannedReceiptsHistory", JSON.stringify(list));
+      renderMyLocalReceiptHistory();
+    }
+
+    function renderMyLocalReceiptHistory() {
+      const box = document.getElementById("myLocalReceiptHistoryUI");
+      if (!box) return;
+      const list = getMyLocalReceiptHistory();
+      if (list.length === 0) {
+        box.innerHTML = `<div style="font-size:11.5px;color:#888;">Niciun bon scanat recent pe acest dispozitiv.</div>`;
+        return;
+      }
+      box.innerHTML = list.map((item, idx) => `
+        <div class="my-history-item">
+          <span>📍 <strong style="color:var(--kfc-red);">${item.S}</strong> • TI ${item.TI} <span style="color:var(--kfc-gray);font-weight:600;">(${item.dateTime || '—'})</span></span>
+          <button type="button" class="manage-proxy-btn red-accent" onclick="loadReceiptFromMyHistory(${idx})">
+            <span class="material-symbols-outlined" style="font-size:14px;">bolt</span>
+            Încarcă
+          </button>
+        </div>
+      `).join("");
+    }
+
+    function loadReceiptFromMyHistory(idx) {
+      const list = getMyLocalReceiptHistory();
+      const item = list[idx];
+      if (!item || !item.link) return;
+      scannedResultEl.value = item.link;
+      autofillDateTimeFromLink(item.link);
+      closeMoreOptionsModal();
+      showToast(`Bonul ${item.S} (TI ${item.TI}) a fost reîncărcat!`, "history");
+    }
 
     // === VERIFICATOR LIVE IP 4G/5G (PENTRU MOD AVION) ===
     async function checkMobile4GIP(showFeedback = false) {
@@ -2769,27 +3107,12 @@
       }
     }
 
-    function toggleProxyDrawer() {
-      document.getElementById("autoFillDrawer").classList.remove("open");
-      document.getElementById("leaderboardDrawer")?.classList.remove("open");
-      renderVerifiedIpChips();
-      document.getElementById("proxyDrawer").classList.toggle("open");
-    }
-
     function toggleAutoFillDrawer() {
-      document.getElementById("proxyDrawer").classList.remove("open");
-      document.getElementById("leaderboardDrawer")?.classList.remove("open");
-      document.getElementById("autoFillDrawer").classList.toggle("open");
-    }
-
-    function toggleLeaderboardDrawer() {
-      document.getElementById("proxyDrawer").classList.remove("open");
-      document.getElementById("autoFillDrawer").classList.remove("open");
-      if (window.renderLeaderboardStatsUI) window.renderLeaderboardStatsUI();
-      document.getElementById("leaderboardDrawer")?.classList.toggle("open");
+      document.getElementById("autoFillDrawer")?.classList.toggle("open");
     }
 
     function copyAutoFillBookmarklet() {
+      triggerHaptic(25);
       navigator.clipboard.writeText(QUALTRICS_AUTOFILL_SCRIPT).then(() => {
         showToast("Script Auto-Fill copiat! Lipește-l în pagina sondajului.", "magic_button");
       }).catch(() => {
@@ -3011,6 +3334,28 @@
       };
     }
 
+    function getReceiptFreshnessChip(dateTimeStr) {
+      if (!dateTimeStr) return "";
+      try {
+        const [datePart] = dateTimeStr.split(" ");
+        const [dd, mm, yyyy] = (datePart || "").split("/").map(Number);
+        if (!dd || !mm || !yyyy) return "";
+        const receiptMidnight = new Date(yyyy, mm - 1, dd).getTime();
+        const now = new Date();
+        const todayMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+        const diffDays = Math.round((todayMidnight - receiptMidnight) / (24 * 60 * 60 * 1000));
+        if (diffDays <= 0) {
+          return `<span class="meta-chip" style="background:#15803d;">🟢 Bon de Azi</span>`;
+        } else if (diffDays === 1) {
+          return `<span class="meta-chip" style="background:#ca8a04;">🟡 Bon de Ieri</span>`;
+        } else {
+          return `<span class="meta-chip" style="background:#dc2626;">🔴 Bon vechi (${diffDays} zile)</span>`;
+        }
+      } catch {
+        return "";
+      }
+    }
+
     function updateReceiptBadge(link) {
       const metaBox = document.getElementById("receiptMeta");
       try {
@@ -3026,17 +3371,21 @@
 
         setActiveStoreAuto(d.S);
 
+        const cleanOrig = `https://customer.kfc-listens.com/jfe/form/SV_7WmLtfIDJuM3Vn8?S=${d.S}&D=${encodeURIComponent(d.dateTime)}&TI=${d.TI}&Q_Language=${d.lang}`;
+        saveToMyLocalReceiptHistory(cleanOrig, d);
+
         // Salvăm silențios în profilul tău ultimul bon scanat (vizibil când un coleg apasă pe numele tău în listă)
         if (window.syncMyLastScannedReceipt) {
-          const cleanOrig = `https://customer.kfc-listens.com/jfe/form/SV_7WmLtfIDJuM3Vn8?S=${d.S}&D=${encodeURIComponent(d.dateTime)}&TI=${d.TI}&Q_Language=${d.lang}`;
           window.syncMyLastScannedReceipt(cleanOrig, d);
         }
+
+        const freshnessChip = getReceiptFreshnessChip(d.dateTime);
 
         metaBox.innerHTML = `
           <span class="meta-chip">📍 Restaurant: <strong>${d.S}</strong></span>
           <span class="meta-chip">🧾 TI Bază: <strong>${d.TI}</strong></span>
           <span class="meta-chip">🕒 Bon: <strong>${d.dateTime}</strong></span>
-          <span class="meta-chip">🌐 Limbă: <strong>${d.lang}</strong></span>
+          ${freshnessChip}
         `;
         metaBox.classList.add("active");
         return true;
@@ -3110,10 +3459,18 @@
       }
     }
 
-    // === SCANNER QR OPTIMIZAT (FĂRĂ INSTANȚE DUBLE + RESIZE IMAGINE MARE) ===
+    // === SCANNER QR OPTIMIZAT (FĂRĂ INSTANȚE DUBLE + RESIZE IMAGINE MARE + AUTO-STOP 60S) ===
     async function startQRScanner() {
       const wrap = document.getElementById("qr-scanner-wrap");
       wrap.style.display = "block";
+
+      if (qrScannerAutoStopTimer) clearTimeout(qrScannerAutoStopTimer);
+      qrScannerAutoStopTimer = setTimeout(() => {
+        if (isScannerRunning) {
+          stopQRScanner();
+          showToast("🔋 Camera QR oprită automat (60s inactivitate) pentru economisirea bateriei.", "battery_saver");
+        }
+      }, 60000);
 
       if (isScannerRunning && html5QrCode) {
         return;
@@ -3131,11 +3488,16 @@
         );
       } catch (err) {
         isScannerRunning = false;
+        if (qrScannerAutoStopTimer) clearTimeout(qrScannerAutoStopTimer);
         showToast("Eroare cameră: " + err, "error");
       }
     }
 
     async function stopQRScanner() {
+      if (qrScannerAutoStopTimer) {
+        clearTimeout(qrScannerAutoStopTimer);
+        qrScannerAutoStopTimer = null;
+      }
       const wrap = document.getElementById("qr-scanner-wrap");
       if (html5QrCode && isScannerRunning) {
         try {
@@ -3683,6 +4045,20 @@
       input.focus();
     };
 
+    async function pushChatMessageObject(newMsg) {
+      const updated = [...chatMessagesCache, newMsg].slice(-60);
+      chatMessagesCache = updated;
+      renderTeamChatMessages(updated);
+      triggerHaptic(20);
+
+      try {
+        const ref = doc(db, "settings", "teamChat");
+        await setDoc(ref, { messages: updated }, { merge: true });
+      } catch {
+        showToast("Nu s-a putut trimite mesajul!", "error");
+      }
+    }
+
     window.sendTeamChatMessage = async (e) => {
       if (e) e.preventDefault();
       if (!currentUserUid) return;
@@ -3692,25 +4068,65 @@
       if (!text) return;
 
       input.value = "";
-      const newMsg = {
+      await pushChatMessageObject({
         id: `${Date.now()}_${Math.random().toString(36).slice(2, 7)}`,
         uid: currentUserUid,
         name: currentUserName,
         store: typeof activeStore !== "undefined" ? activeStore : "KFC",
         text: text.slice(0, 300),
         ts: Date.now()
-      };
+      });
+    };
 
-      const updated = [...chatMessagesCache, newMsg].slice(-60);
-      chatMessagesCache = updated;
-      renderTeamChatMessages(updated);
+    window.sendQuickChatMsg = async (quickText) => {
+      if (!currentUserUid || !quickText) return;
+      await pushChatMessageObject({
+        id: `${Date.now()}_${Math.random().toString(36).slice(2, 7)}`,
+        uid: currentUserUid,
+        name: currentUserName,
+        store: typeof activeStore !== "undefined" ? activeStore : "KFC",
+        text: quickText,
+        ts: Date.now()
+      });
+    };
 
-      try {
-        const ref = doc(db, "settings", "teamChat");
-        await setDoc(ref, { messages: updated }, { merge: true });
-      } catch {
-        showToast("Nu s-a putut trimite mesajul!", "error");
+    window.sendCurrentReceiptToChat = async () => {
+      if (!currentUserUid) return;
+      const rawLink = (scannedResultEl.value || "").trim();
+      if (!rawLink) {
+        showToast("Scanează sau lipește întâi un bon în generator!", "warning");
+        return;
       }
+      try {
+        const d = parseLinkData(rawLink);
+        if (isNaN(d.TI)) throw new Error("Invalid TI");
+        const cleanOrig = `https://customer.kfc-listens.com/jfe/form/SV_7WmLtfIDJuM3Vn8?S=${d.S}&D=${encodeURIComponent(d.dateTime)}&TI=${d.TI}&Q_Language=${d.lang}`;
+        await pushChatMessageObject({
+          id: `${Date.now()}_${Math.random().toString(36).slice(2, 7)}`,
+          uid: currentUserUid,
+          name: currentUserName,
+          store: d.S,
+          text: `🧾 Am trimis bonul ${d.S} (TI ${d.TI} • ${d.dateTime || 'azi'})`,
+          receiptLink: cleanOrig,
+          receiptStore: d.S,
+          receiptTI: d.TI,
+          ts: Date.now()
+        });
+        showToast(`Bonul ${d.S} (TI ${d.TI}) a fost trimis în chat!`, "receipt_long");
+      } catch {
+        showToast("Bonul din generator nu este valid!", "warning");
+      }
+    };
+
+    window.loadChatReceiptIntoGenerator = (encodedLink, store, ti) => {
+      try {
+        const link = decodeURIComponent(encodedLink);
+        triggerHaptic(30);
+        scannedResultEl.value = link;
+        autofillDateTimeFromLink(link);
+        document.getElementById("teamChatPanel")?.classList.remove("open");
+        showToast(`Bonul ${store} (TI ${ti}) din chat a fost pus în generator!`, "bolt");
+      } catch {}
     };
 
     window.clearTeamChatHistory = async () => {
@@ -3737,6 +4153,18 @@
         const isMine = m.uid === currentUserUid;
         const authorLabel = isMine ? "Tu" : escapeChatHtml(m.name || "Coleg");
         const storeTag = m.store ? ` • ${escapeChatHtml(m.store)}` : "";
+        let receiptCardHTML = "";
+        if (m.receiptLink && m.receiptTI) {
+          const safeEncoded = encodeURIComponent(m.receiptLink);
+          const rStore = escapeChatHtml(m.receiptStore || m.store || "KFC");
+          const rTI = escapeChatHtml(m.receiptTI);
+          receiptCardHTML = `
+            <div class="chat-receipt-card" onclick="loadChatReceiptIntoGenerator('${safeEncoded}', '${rStore}', '${rTI}')">
+              <span>🧾 ${rStore} • TI ${rTI}</span>
+              <span>⚡ Încarcă</span>
+            </div>
+          `;
+        }
         return `
           <div class="chat-msg ${isMine ? 'mine' : 'other'}">
             <div class="chat-msg-meta">
@@ -3744,6 +4172,7 @@
               <span>${formatChatTime(m.ts)}</span>
             </div>
             <div class="chat-msg-text">${escapeChatHtml(m.text)}</div>
+            ${receiptCardHTML}
           </div>
         `;
       }).join("");
@@ -3798,6 +4227,7 @@
 
     const loginBtn = document.getElementById("loginBtn");
     const logoutBtn = document.getElementById("logoutBtn");
+    const moreOptionsBtn = document.getElementById("moreOptionsBtn");
     const nicknameDiv = document.getElementById("nickname");
     const nicknamePill = document.getElementById("nicknamePill");
     const protectedContent = document.getElementById("protected-content");
@@ -3865,7 +4295,7 @@
       } catch {}
     };
 
-    // === FEREASTRĂ PROFIL COLEG + COPIERE ULTIMUL BON SCANAT ===
+    // === FEREASTRĂ PROFIL COLEG + COPIERE ULTIMUL BON SCANAT (FĂRĂ BUTON DE BLOCARE) ===
     window.openColleagueProfile = (uid) => {
       const u = allUsersCache[uid];
       if (!u) return;
@@ -3873,6 +4303,7 @@
       triggerHaptic(20);
 
       document.getElementById("presenceDropdown")?.classList.remove("open");
+      document.getElementById("moreOptionsModal").style.display = "none";
 
       const initials = (u.name || "C").trim().charAt(0).toUpperCase();
       document.getElementById("colleagueAvatar").innerText = initials;
@@ -3905,17 +4336,6 @@
         actionsUI.style.display = "none";
       }
 
-      const blockBtn = document.getElementById("colleagueBlockToggleBtn");
-      if (blockBtn) {
-        if (uid !== currentUserUid) {
-          blockBtn.style.display = "inline-block";
-          blockBtn.innerText = u.blocked ? "🔓 Deblochează Colegul" : "🚫 Blochează Accesul";
-          blockBtn.style.color = u.blocked ? "#16a34a" : "#E4002B";
-        } else {
-          blockBtn.style.display = "none";
-        }
-      }
-
       document.getElementById("colleagueProfileModal").style.display = "block";
     };
 
@@ -3942,21 +4362,6 @@
         showToast(`Bonul lui ${u.name} (${u.lastReceiptStore} • TI ${u.lastReceiptTI}) a fost încărcat!`, "bolt");
       } else {
         showToast(`Bonul lui ${u.name} (TI ${u.lastReceiptTI}) a fost copiat!`, "content_copy");
-      }
-    };
-
-    window.toggleBlockSelectedColleague = async () => {
-      if (!selectedColleagueUid || selectedColleagueUid === currentUserUid) return;
-      const u = allUsersCache[selectedColleagueUid];
-      if (!u) return;
-
-      const newBlockedState = !u.blocked;
-      try {
-        await setDoc(doc(db, "users", selectedColleagueUid), { blocked: newBlockedState }, { merge: true });
-        showToast(newBlockedState ? `Accesul lui ${u.name} a fost blocat!` : `${u.name} a fost deblocat!`, "security");
-        window.closeColleagueProfileModal();
-      } catch {
-        showToast("Eroare la modificarea accesului!", "error");
       }
     };
 
@@ -4212,10 +4617,11 @@
 
         document.getElementById("chatFabBtn")?.classList.remove("visible");
         document.getElementById("teamChatPanel")?.classList.remove("open");
+        document.getElementById("moreOptionsModal").style.display = "none";
         nicknamePill.classList.remove("visible");
         protectedContent.style.display = "none";
         loginScreen.style.display = "block";
-        logoutBtn.style.display = "none";
+        moreOptionsBtn.style.display = "none";
         loginBtn.style.display = "inline-flex";
         return;
       }
@@ -4239,7 +4645,7 @@
         await signOut(auth);
         protectedContent.style.display = "none";
         loginScreen.style.display = "block";
-        logoutBtn.style.display = "none";
+        moreOptionsBtn.style.display = "none";
         loginBtn.style.display = "inline-flex";
         return;
       } else {
@@ -4259,7 +4665,7 @@
       loginScreen.style.display = "none";
       protectedContent.style.display = "block";
       loginBtn.style.display = "none";
-      logoutBtn.style.display = "inline-flex";
+      moreOptionsBtn.style.display = "inline-flex";
     });
 
     window.addEventListener("beforeunload", () => {
@@ -4273,12 +4679,13 @@
     });
 
     logoutBtn.onclick = async () => {
+      document.getElementById("moreOptionsModal").style.display = "none";
       await setMyPresence(false);
       await signOut(auth);
       nicknamePill.classList.remove("visible");
       protectedContent.style.display = "none";
       loginScreen.style.display = "block";
-      logoutBtn.style.display = "none";
+      moreOptionsBtn.style.display = "none";
       loginBtn.style.display = "inline-flex";
     };
   </script>
